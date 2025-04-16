@@ -81,52 +81,156 @@
               </div>
             </div>
           </section>
+          <section>
+            <h1>Stack of protocols</h1>
+            <pre class="mermaid" style="text-align: center;">
+              graph TB
+  
+              HTML-->HTTP
+              CSS-->HTTP
+              JS-->HTTP
+              HTTP -->TLS
+              TLS -->TCP
+              TCP -->IP
+  
+              style HTML fill:#42a5f5,stroke:#FFF,stroke-width:2
+              style CSS  fill:#42a5f5,stroke:#FFF,stroke-width:2
+              style JS   fill:#42a5f5,stroke:#FFF,stroke-width:2
+              style HTTP fill:#42a5f5,stroke:#FFF,stroke-width:2
+              style TLS  fill:#42a5f5,stroke:#FFF,stroke-width:2
+              style TCP  fill:#42a5f5,stroke:#FFF,stroke-width:2
+              style IP   fill:#42a5f5,stroke:#FFF,stroke-width:2
+            </pre>
+          </section>
         </section>
 
         <section>
           <h1>Uniform Resource Locator (URL)</h1>
           <p>A URL is a string of characters that specifies where a resource can be found on the web.</p>
-          <p><span class="highlight-red">https://</span><span class="highlight-green">example.com</span> <span class="highlight-blue">81</span><span class="highlight-purple">/a/b/c</span>?<span class="highlight-cyan">user=Alice&year=2025</span><span class="highlight-magenta">#fragment</span></p>
+          <p><span class="highlight-red">https://</span><span class="highlight-green">example.com</span>:<span class="highlight-blue">81</span><span class="highlight-cyan">/a/b/c</span>?<span class="highlight-orange">user=Alice&year=2025</span><span class="highlight-magenta">#fragment</span></p>
           <ul>
             <li><span class="highlight-red">https://</span> is the scheme</li>
             <li><span class="highlight-green">example.com</span> is the host</li>
             <li><span class="highlight-blue">81</span> is the port</li>
-            <li><span class="highlight-purple">/a/b/c</span> is the path</li>
-            <li><span class="highlight-orange">user=Alice</span> is the query</li>
-            <li><span class="highlight-cyan">year=2025</span> is the query</li>
+            <li><span class="highlight-cyan">/a/b/c</span> is the path</li>
+            <li><span class="highlight-orange">user=Alice&year=2025</span> is the query</li>
             <li><span class="highlight-magenta">fragment</span> is the fragment</li>
           </ul>
-        </section>
-
-        <section>
-          <h1>Stack of protocols</h1>
-          <pre class="mermaid" style="text-align: center;">
-            graph TB
-
-            HTML-->HTTP
-            CSS-->HTTP
-            JS-->HTTP
-            HTTP -->TLS
-            TLS -->TCP
-            TCP -->IP
-
-            style HTML fill:#42a5f5,stroke:#FFF,stroke-width:2
-            style CSS  fill:#42a5f5,stroke:#FFF,stroke-width:2
-            style JS   fill:#42a5f5,stroke:#FFF,stroke-width:2
-            style HTTP fill:#42a5f5,stroke:#FFF,stroke-width:2
-            style TLS  fill:#42a5f5,stroke:#FFF,stroke-width:2
-            style TCP  fill:#42a5f5,stroke:#FFF,stroke-width:2
-            style IP   fill:#42a5f5,stroke:#FFF,stroke-width:2
-          </pre>
         </section>
         
 
         <section>
-          <h1>Different visions for the web</h1>
-          <ul>
-            <li>Simple document viewer?</li>
-            <li>Powerful application platform?</li>
-          </ul>
+          <section>
+            <h1>Different visions for the web</h1>
+            <ul>
+              <li>Simple document viewer?</li>
+              <li>Powerful application platform?</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Simple document viewer</h1>
+            <ul>
+              <li>Static HTML pages</li>
+              <li>Hyperlinks and text documents</li>
+              <li>Read-only content</li>
+              <li>Example: <a href="https://wikipedia.org" target="_blank">Wikipedia</a></li>
+            </ul>
+          </section>
+          <section>
+            <h1>Powerful application platform</h1>
+            <ul>
+              <li>Rich UIs and interactivity</li>
+              <li>Client-side logic with JavaScript</li>
+              <li>Web APIs, SPAs, real-time data</li>
+              <li>Examples:
+                <ul>
+                  <li><a href="https://figma.com" target="_blank">Figma</a></li>
+                  <li><a href="https://docs.google.com" target="_blank">Google Docs</a></li>
+                  <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
+                  <li><a href="https://www.photopea.com" target="_blank">Photopea</a></li>
+                  <li><a href="https://0hh1.com" target="_blank">0hh1</a></li>
+                  <li><a href="https://classic.minecraft.net" target="_blank">Classic Minecraft</a></li>
+                  <li><a href="https://soundtrap.com" target="_blank">Soundtrap</a></li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Static vs Dynamic Websites</h1>
+            <p>Two different ways of delivering content on the web</p>
+          </section>
+          <section>
+            <h1>📰 Static Website</h1>
+            <ul>
+              <li>Built with HTML, CSS, and maybe some JavaScript</li>
+              <li>Each page is a separate file on the server</li>
+              <li>No server-side logic or database</li>
+              <li>Fast, secure, and easy to host</li>
+            </ul>
+            <p><strong>Examples:</strong> Documentation, blogs, portfolios</p>
+          </section>
+          <section>
+            <h2>⚙️ Dynamic Website</h2>
+            <ul>
+              <li>Content is generated on the fly (server-side or client-side)</li>
+              <li>Often connected to a database</li>
+              <li>Personalized content and user interactions</li>
+              <li>Can scale and change content dynamically</li>
+            </ul>
+            <p><strong>Examples:</strong> Gmail, Facebook, E-commerce platforms</p>
+          </section>
+          <section>
+            <h1>Static vs Dynamic</h1>
+            <div style="display: flex; justify-content: center; gap: 1em;">
+              <div>
+                <h2>📰 Static</h2>
+                <ul>
+                  <li>Pre-built HTML</li>
+                  <li>Same content for everyone</li>
+                  <li>No backend code</li>
+                </ul>
+              </div>
+              <div>
+                <h2>⚙️ Dynamic</h2>
+                <ul>
+                  <li>Generated by server or client</li>
+                  <li>Different for each user</li>
+                  <li>Connected to databases, APIs</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Real-World Examples</h1>
+            <div style="display: flex; justify-content: center; gap: 1em;">
+              <div>
+                <h2>📰 Static</h2>
+                <ul>
+                  <li><a href="https://www.getbootstrap.com" target="_blank">Bootstrap Docs</a></li>
+                  <li><a href="https://www.gatsbyjs.com" target="_blank">Gatsby Sites</a></li>
+                  <li>Personal portfolios</li>
+                </ul>
+              </div>
+              <div>
+                <h2>⚙️ Dynamic</h2>
+                <ul>
+                  <li><a href="https://gmail.com" target="_blank">Gmail</a></li>
+                  <li><a href="https://amazon.com" target="_blank">Amazon</a></li>
+                  <li><a href="https://airbnb.com" target="_blank">Airbnb</a></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>When to Use Each?</h1>
+            <ul>
+              <li><strong>Use Static</strong> for fast-loading, simple sites (docs, blogs)</li>
+              <li><strong>Use Dynamic</strong> for interactive, personalized, data-driven apps</li>
+            </ul>
+          </section>
         </section>
 
         <section>
