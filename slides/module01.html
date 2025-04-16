@@ -12,12 +12,137 @@
         <section>
           <h1>Module 01</h1>
           <h2>Introduction to Web Development</h2>
-          <p><img src="https://www.uloyola.es/templates/v6/images/isologo_loyola_principal.svg" width="200px" style="background-color: white; padding: 10px;"></p>
         </section>
 
         <section>
-          <h1>Introduction to Web Development</h1>
-          <p>Brief introduction to the web and web development</p>
+          <section>
+            <h1>What happens when you type a URL in your browser?</h1>
+          </section>
+          <section>
+            <img class="r-stretch" src="type-url-browser.jpeg" alt="What happens when you type a URL in your browser?">
+            <div class="r-stack">
+              <p class="fragment fade-in-then-out">The process involves the browser, your computer's operating system, your internet service provider, the server where you host the site, and the services running on that server.</p>
+              <div class="fragment fade-in-then-out">
+                <p>You type https://somewebsite.com/page in your browser and press enter:</p>
+                <ul>
+                  <li>https:// is a scheme that tells the browser to connect to the server using TLS. 
+                  <li>somewebsite.com is the site's domain name, and it points to a specific IP address of a server.</li>
+                  <li>/page is a path to the resource you need.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <ul>
+                  <li>The browser needs to figure out which server on the Internet to connect to.</li>
+                  <li>It must look for the IP address of the server hosting the website using the domain you typed to accomplish that.</li>
+                </ul>
+                <div class="mermaid">
+                  <pre>
+                    %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+                    graph LR
+                      Client -->|somewebsite.com| DNS
+                      DNS -->|171.67.215.200| Client
+                  </pre>
+                </div>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <ul>
+                  <li>TCP is used throughout the public Internet routing infrastructure to route packets from a client browser request through the router, the Internet service provider, through an Internet exchange to switch ISPs or networks, and finally to find the server with the IP address to connect to.</li>
+                  <li>Many websites employ a CDN to cache static and dynamic material closer to the browser.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <ul>
+                  <li>Now that the browser is connected to the server, it complies with the HTTP(s) protocol's requirements for communication. </li>
+                  <li>The browser sends an HTTP request to the server to request the page's contents. </li>
+                  <li>The server can determine what the client wants to do using the information in the request line.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <div class="mermaid">
+                  <pre>
+                    %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+                    graph LR
+                      Client -->|GET /page/ HTTP/1.1| Server
+                      Server -->|200 OK| Client
+                  </pre>
+                </div>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <ul>
+                  <li>The server accepts the request and determines how to handle it depending on the data in the request line, headers, and body. </li>
+                  <li>The server receives the material at this URL for the GET /page/ HTTP/1.1 requests, builds the response, and then delivers it back to the client with an HTTP status code.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in">
+                <ul>
+                  <li>After receiving the server's response, the browser examines the response headers for instructions on how to render the resource.</li>
+                  <li>The Content-Type header informs the browser that an HTML resource was received in the response body.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <h1>Uniform Resource Locator (URL)</h1>
+          <p>A URL is a string of characters that specifies where a resource can be found on the web.</p>
+          <p><span class="highlight-red">https://</span><span class="highlight-green">example.com</span> <span class="highlight-blue">81</span><span class="highlight-purple">/a/b/c</span>?<span class="highlight-cyan">user=Alice&year=2025</span><span class="highlight-magenta">#fragment</span></p>
+          <ul>
+            <li><span class="highlight-red">https://</span> is the scheme</li>
+            <li><span class="highlight-green">example.com</span> is the host</li>
+            <li><span class="highlight-blue">81</span> is the port</li>
+            <li><span class="highlight-purple">/a/b/c</span> is the path</li>
+            <li><span class="highlight-orange">user=Alice</span> is the query</li>
+            <li><span class="highlight-cyan">year=2025</span> is the query</li>
+            <li><span class="highlight-magenta">fragment</span> is the fragment</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Stack of protocols</h1>
+          <pre class="mermaid" style="text-align: center;">
+            graph TB
+
+            HTML-->HTTP
+            CSS-->HTTP
+            JS-->HTTP
+            HTTP -->TLS
+            TLS -->TCP
+            TCP -->IP
+
+            style HTML fill:#42a5f5,stroke:#FFF,stroke-width:2
+            style CSS  fill:#42a5f5,stroke:#FFF,stroke-width:2
+            style JS   fill:#42a5f5,stroke:#FFF,stroke-width:2
+            style HTTP fill:#42a5f5,stroke:#FFF,stroke-width:2
+            style TLS  fill:#42a5f5,stroke:#FFF,stroke-width:2
+            style TCP  fill:#42a5f5,stroke:#FFF,stroke-width:2
+            style IP   fill:#42a5f5,stroke:#FFF,stroke-width:2
+          </pre>
+        </section>
+        
+
+        <section>
+          <h1>Different visions for the web</h1>
+          <ul>
+            <li>Simple document viewer?</li>
+            <li>Powerful application platform?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Key Web Development Technologies</h1>
+        </section>
+
+        <section>
+          <h1>Development Environment</h1>
+        </section>
+
+        <section>
+          <h1>Git and Github</h1>
+        </section>
+
+        <section>
+          <h1>Exercise 01</h1>
         </section>
       </div>
     </div>

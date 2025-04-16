@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "reveal.js": "^5.2.1",
+    "reveal.js-mermaid-plugin": "^11.4.1",
     "vite": "^6.3.0"
   }
 }

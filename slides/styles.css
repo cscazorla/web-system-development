@@ -14,4 +14,30 @@
   --r-main-font-size: 1.75em;
 }
 
+.highlight-red {
+  color: red;
+}
 
+.highlight-green {
+  color: green;
+}
+
+.highlight-blue {
+  color: blue;
+}
+
+.highlight-purple {
+  color: purple;
+}
+
+.highlight-orange {
+  color: orange;
+}
+
+.highlight-cyan {
+  color: cyan;
+}
+
+.highlight-magenta {
+  color: magenta;
+}
