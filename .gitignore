@@ -1,0 +1,21 @@
+# Node.js
+node_modules/
+dist/
+build/
+
+# Env files
+.env
+.env.*
+
+# Docker
+docker-compose.override.yml
+*.local.yml
+
+# Reveal.js build artifacts
+slides/node_modules/
+slides/dist/
+slides/plugin/notes-server/
+
+# OS files
+.DS_Store
+Thumbs.db

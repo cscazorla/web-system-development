@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web System Development</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Web System Development</h1>
+          <p><img src="https://www.uloyola.es/templates/v6/images/isologo_loyola_principal.svg" width="200px" style="background-color: white; padding: 10px;"></p>
+          <p>Carlos Sánchez Cazorla</p>
+          <p><a href="mailto:cjsanchez@uloyola.es">cjsanchez@uloyola.es</a></p>
+        </section>
+
+        <section>
+          <h1>🚀 Course Outline</h1>
+          <ul>
+            <li><a href="module01.html">Module 1: Intro to Web Development</a></li>
+            <li><a href="module02.html">Module 2: Frontend Development</a></li>
+            <li><a href="module03.html">Module 3: Backend Development</a></li>
+            <li><a href="module04.html">Module 4: Moving to Production</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Instructor</h1>
+          <ul>
+            <li>Carlos Sánchez Cazorla (<a href="mailto:cjsanchez@uloyola.es">cjsanchez@uloyola.es</a>)</li>
+            <li>PhD Telecommunications Engineer</li>
+            <li>MBA EOI Business School</li>
+            <li>VP of Engineering at <a href="https://www.moguplatform.com">Mogu</a></li>
+            <li><a href="https://github.com/cscazorla">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/cscazorla">LinkedIn</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Course Learning Outcomes</h1>
+          <ul>
+            <li>Design a responsive web application using a web framework and modern front-end technologies.</li>
+            <li>Implement data storage, transfer, and retrieval of digital media using databases, file storage, and streaming.</li>
+            <li>Describe key web system components and their interactions, including the web server, database, analytics, and front-end.</li>
+            <li>Apply best practices in web development.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Assessment and Grading</h1>
+          <ul>
+            <li>Module assignments: 40% (10% each)</li>
+            <li>Final project: 60%</li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h1>Final Project</h1>
+            <ul>
+              <li>Build a fully functional full-stack web application using the technologies covered in the course. </li>
+              <li>The project should allow user authentication, CRUD operations, API communication, and deployment with CI/CD.</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Requirements</h1>
+            <ul>
+              <li>Frontend: Use Next.js with TypeScript. Implement user authentication (JWT). Create a dashboard with CRUD operations. Fetch & display data from the backend API.</li>
+              <li>Backend: Set up web server. Implement PostgreSQL database. Provide RESTful API endpoints for CRUD operations. Secure routes with authentication. Implement unit & integration tests.</li>
+              <li>Deployment & DevOps: Containerize the backend using Docker. Deploy the backend and the frontend. Set up CI/CD with GitHub Actions. Configure monitoring.</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Deliverables</h1>
+            <ul>
+              <li>Github repository with the code of the project.</li>
+              <li>Live deployed version</li>
+              <li>API Documentation (Swagget/Postman)</li>
+              <li>CI/CD pipeline using GitHub Actions</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <pre>
+            <code data-trim data-noescape>
+            (def lazy-fib
+              (concat
+              [0 1]
+              ((fn rfib [a b]
+                (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h2 class="r-fit-text">BIG</h2>
+          <h2 class="r-fit-text">CAN BE USED FOR MULTIPLE HEADLINES</h2>
+          <h2 class="r-fit-text">CAN BE USED FOR MULTIPLE HEADLINES</h2>
+        </section>
+
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
