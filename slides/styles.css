@@ -1,27 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
-  --r-heading-font: 'Roboto', sans-serif;
-  --r-main-font: 'Roboto', sans-serif;
-  --r-heading-color: #00a5e0;
-  --r-heading1-size: 2.5em;
-  --r-heading2-size: 1em;
-  --r-heading3-size: 1.5em;
-  --r-heading4-size: 1.25em;
-  --r-heading-text-transform: none;
-  --r-heading-margin: 0 0 .5em 0;
+  --color-main: #FFF;
+  --color-heading: #FFC800;
+  --color-dark: #023047;
+  --color-links: #3DA5D9;
+  --color-accent: #00C49A;
 
+  --r-background-color: var(--color-dark);
+
+  --r-link-color: var(--color-links);
+
+  --r-main-font: 'Inter', sans-serif;
+  --r-main-color: var(--color-main);
   --r-main-font-size: 1.5em;
+  
+  --r-heading-font: 'Inter', sans-serif;
+  --r-heading-color: var(--color-heading);
+  --r-heading1-size: 2.5em;
+  --r-heading2-size: 1.5em;
+  --r-heading3-size: 1em;
+  --r-heading4-size: 0.75em;
+  --r-heading5-size: 0.5em;
+  --r-heading6-size: 0.25em;
+  --r-heading-margin: 0 0 1em 0;
+  --r-heading-text-transform: none;
 }
 
 .reveal strong {
-  color: #6A8E7F; /* Pink accent */
+  color: var(--color-accent);
 }
 
-.reveal h2 {
-  text-transform: uppercase;
-  color: #FFF;
+.reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  color: var(--color-main);
+}
+
+.reveal p {
+  text-align: left;
+  margin: 0 0 1em 0;
 }
 
 .reveal em {

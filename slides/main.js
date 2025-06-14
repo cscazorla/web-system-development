@@ -1,5 +1,5 @@
 import 'reveal.js/dist/reveal.css'
-import 'reveal.js/dist/theme/night.css'
+import 'reveal.js/dist/theme/black.css'
 import './styles.css'
 
 import Reveal from 'reveal.js'
@@ -10,7 +10,7 @@ import RevealMermaid from 'reveal.js-mermaid-plugin'
 const deck = new Reveal()
 deck.initialize({ 
   center: true,
-  margin: 0.01,
+  margin: 0.05,
   controlsLayout: 'bottom-right',
   plugins: [Highlight, RevealMermaid],
   hash: true, 

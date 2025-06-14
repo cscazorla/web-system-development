@@ -10,8 +10,8 @@
     <div class="reveal">
       <div class="slides">
         <section>
-          <h1>Module 01</h1>
-          <h2>Introduction to Web Development</h2>
+          <h1>Web System Development</h1>
+          <h2>Module 01: Introduction to Web Development</h2>
         </section>
 
         <section>
@@ -19,15 +19,24 @@
             <h1>What happens when you type a URL in your browser?</h1>
           </section>
           <section>
-            <img class="r-stretch" src="type-url-browser.jpeg" alt="What happens when you type a URL in your browser?">
+            <img width="80%" src="type-url-browser.jpeg" alt="What happens when you type a URL in your browser?">
             <div class="r-stack">
-              <p class="fragment fade-in-then-out">The process involves the browser, your computer's operating system, your internet service provider, the server where you host the site, and the services running on that server.</p>
               <div class="fragment fade-in-then-out">
-                <p>You type https://somewebsite.com/page in your browser and press enter:</p>
+                <p>The process involves:</p>
                 <ul>
-                  <li>https:// is a scheme that tells the browser to connect to the server using TLS. 
-                  <li>somewebsite.com is the site's domain name, and it points to a specific IP address of a server.</li>
-                  <li>/page is a path to the resource you need.</li>
+                  <li>the browser,</li>
+                  <li>your computer's operating system,</li>
+                  <li>your internet service provider,</li>
+                  <li>the server where you host the site,</li>
+                  <li>and the services running on that server.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <p>You type <strong>https://somewebsite.com/page</strong> in your browser and press enter:</p>
+                <ul>
+                  <li><strong>https://</strong> is a scheme that tells the browser to connect to the server using <em>TLS</em>. 
+                  <li><strong>somewebsite.com</strong> is the site's domain name, and it points to a specific IP address of a server.</li>
+                  <li><strong>/page</strong> is a path to the resource you need.</li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
@@ -73,40 +82,75 @@
                   <li>The server receives the material at this URL for the <strong>GET /page/ HTTP/1.1</strong> requests, builds the response, and then delivers it back to the client with an HTTP status code.</li>
                 </ul>
               </div>
-              <div class="fragment fade-in">
+              <div class="fragment fade-in-then-out">
                 <ul>
                   <li>After receiving the server's response, the browser examines the response headers for instructions on how to render the resource.</li>
                   <li>The <em>Content-Type header</em> informs the browser that an HTML resource was received in the response body.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <p>Once the browser receives the HTTP response from the server — which typically includes <strong>HTML</strong>, <strong>CSS</strong>, and maybe <strong>JavaScript</strong> — it begins the rendering process to display the page.</p>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <p>Parse the HTML</p>
+                <ul>
+                  <li>The browser reads the HTML top to bottom.</li>
+                  <li>It constructs a tree structure called the <strong>DOM</strong> (Document Object Model) — a representation of all elements and their relationships (like nested <em>div</em>, <em>h1</em>,  etc.).</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <p>Load and apply CSS</p>
+                <ul>
+                  <li><strong>CSS</strong> styles are parsed and applied to the elements in the DOM.</li>
+                  <li>The result is a second tree called the <strong>CSSOM</strong> (CSS Object Model).</li>
+                  <li>The browser combines the DOM and CSSOM into a <strong>Render</strong> Tree that maps what to draw on screen.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <p>Layout phase</p>
+                <ul>
+                  <li>The browser calculates the position and size of each element in the Render Tree.</li>
+                  <li>It considers margins, padding, width, height, fonts, etc.</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <p>Painting</p>
+                <ul>
+                  <li>Once layout is complete, the browser translates each element’s box into actual pixels on the screen.</li>
+                  <li>It "paints" backgrounds, text, borders, shadows, images, etc.</li>
                 </ul>
               </div>
             </div>
           </section>
           <section>
             <h1>Stack of protocols</h1>
-            <pre class="mermaid" style="text-align: center;">
-              graph TB
-  
-              HTML-->HTTP
-              CSS-->HTTP
-              JS-->HTTP
-              HTTP -->TLS
-              TLS -->TCP
-              TCP -->IP
-  
-              style HTML fill:#42a5f5,stroke:#FFF,stroke-width:2
-              style CSS  fill:#42a5f5,stroke:#FFF,stroke-width:2
-              style JS   fill:#42a5f5,stroke:#FFF,stroke-width:2
-              style HTTP fill:#42a5f5,stroke:#FFF,stroke-width:2
-              style TLS  fill:#42a5f5,stroke:#FFF,stroke-width:2
-              style TCP  fill:#42a5f5,stroke:#FFF,stroke-width:2
-              style IP   fill:#42a5f5,stroke:#FFF,stroke-width:2
-            </pre>
+            <div class="mermaid">
+              <pre style="text-align: center;">
+                %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
+                graph TB
+    
+                HTML-->HTTP
+                CSS-->HTTP
+                JS-->HTTP
+                HTTP -->TLS
+                TLS -->TCP
+                TCP -->IP
+    
+                style HTML fill:#42a5f5,stroke:#FFF,stroke-width:2
+                style CSS  fill:#42a5f5,stroke:#FFF,stroke-width:2
+                style JS   fill:#42a5f5,stroke:#FFF,stroke-width:2
+                style HTTP fill:#42a5f5,stroke:#FFF,stroke-width:2
+                style TLS  fill:#42a5f5,stroke:#FFF,stroke-width:2
+                style TCP  fill:#42a5f5,stroke:#FFF,stroke-width:2
+                style IP   fill:#42a5f5,stroke:#FFF,stroke-width:2
+              </pre>
+            </div>
           </section>
         </section>
 
         <section>
           <h1>Uniform Resource Locator (URL)</h1>
-          <p>A URL is a string of characters that specifies where a resource can be found on the web.</p>
+          <p>A <strong>URL</strong> is a string of characters that specifies where a resource can be found on the web.</p>
           <p><span class="highlight-red">https://</span><span class="highlight-green">example.com</span>:<span class="highlight-blue">81</span><span class="highlight-cyan">/a/b/c</span>?<span class="highlight-orange">user=Alice&year=2025</span><span class="highlight-magenta">#fragment</span></p>
           <ul>
             <li><span class="highlight-red">https://</span> is the scheme</li>
@@ -122,10 +166,14 @@
         <section>
           <section>
             <h1>Different visions for the web</h1>
-            <ul>
-              <li>Simple document viewer?</li>
-              <li>Powerful application platform?</li>
-            </ul>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+              <div>
+                <h3>Simple document viewer?</h3>
+              </div>
+              <div>
+                <h3>Powerful application platform?</h3>
+              </div>
+            </div>
           </section>
           <section>
             <h1>Simple document viewer</h1>
@@ -160,7 +208,7 @@
         <section>
           <section>
             <h1>Static vs Dynamic Websites</h1>
-            <p>Two different ways of delivering content on the web</p>
+            <h2>Two different ways of delivering content on the web</h2>
           </section>
           <section>
             <h1>📰 Static Website</h1>
@@ -169,8 +217,8 @@
               <li>Each page is a separate file on the server</li>
               <li>No server-side logic or database</li>
               <li>Fast, secure, and easy to host</li>
+              <li><strong>Examples:</strong> Documentation, blogs, portfolios</li>
             </ul>
-            <p><strong>Examples:</strong> Documentation, blogs, portfolios</p>
           </section>
           <section>
             <h2>⚙️ Dynamic Website</h2>
@@ -179,8 +227,8 @@
               <li>Often connected to a database</li>
               <li>Personalized content and user interactions</li>
               <li>Can scale and change content dynamically</li>
+              <li><strong>Examples:</strong> Gmail, Facebook, E-commerce platforms</li>
             </ul>
-            <p><strong>Examples:</strong> Gmail, Facebook, E-commerce platforms</p>
           </section>
           <section>
             <h1>Static vs Dynamic</h1>
