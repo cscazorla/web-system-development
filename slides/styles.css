@@ -23,7 +23,7 @@
   --r-heading4-size: 0.75em;
   --r-heading5-size: 0.5em;
   --r-heading6-size: 0.25em;
-  --r-heading-margin: 0 0 1em 0;
+  --r-heading-margin: 0 0 0.5em 0;
   --r-heading-text-transform: none;
 }
 
@@ -43,6 +43,10 @@
 .reveal em {
   font-style: italic;
   font-weight: 200;
+}
+
+.reveal pre {
+  width: 100%;
 }
 
 .highlight-red {

@@ -122,32 +122,21 @@
               </div>
             </div>
           </section>
-          <section>
-            <h1>Stack of protocols</h1>
-            <div class="mermaid">
-              <pre style="text-align: center;">
-                %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
-                graph TB
-    
-                HTML-->HTTP
-                CSS-->HTTP
-                JS-->HTTP
-                HTTP -->TLS
-                TLS -->TCP
-                TCP -->IP
-    
-                style HTML fill:#42a5f5,stroke:#FFF,stroke-width:2
-                style CSS  fill:#42a5f5,stroke:#FFF,stroke-width:2
-                style JS   fill:#42a5f5,stroke:#FFF,stroke-width:2
-                style HTTP fill:#42a5f5,stroke:#FFF,stroke-width:2
-                style TLS  fill:#42a5f5,stroke:#FFF,stroke-width:2
-                style TCP  fill:#42a5f5,stroke:#FFF,stroke-width:2
-                style IP   fill:#42a5f5,stroke:#FFF,stroke-width:2
-              </pre>
-            </div>
-          </section>
         </section>
-
+        <section>
+          <h1>Overview of HTTP</h1>
+          <img width="60%" src="https://mdn.github.io/shared-assets/images/diagrams/http/overview/fetching-a-page.svg" alt="Overview of HTTP">
+          <ul>
+            <li>HTTP is the protocol used to transfer data over the web.</li>
+            <li>It is a <strong>stateless</strong> protocol, meaning that the server does not remember anything about the client.</li>
+            <li>It is a <strong>request-response</strong> protocol, meaning that the client sends a request to the server and the server sends a response back.</li>
+          </ul>
+        </section>
+        <section>
+          <h1>Stack of protocols</h1>
+          <img width="60%" src="https://mdn.github.io/shared-assets/images/diagrams/http/overview/http-layers.svg" alt="Stack of protocols">
+          <p><strong>HTTP</strong> is an application layer protocol that is sent over <strong>TCP</strong>, or over a <strong>TLS-encrypted</strong> TCP connection, though any reliable transport protocol could theoretically be used. Due to its extensibility, it is used to not only fetch hypertext documents, but also images and videos or to post content to servers, like with HTML form results. HTTP can also be used to fetch parts of documents to update Web pages on demand.</p>
+        </section>
         <section>
           <h1>Uniform Resource Locator (URL)</h1>
           <p>A <strong>URL</strong> is a string of characters that specifies where a resource can be found on the web.</p>
@@ -161,7 +150,36 @@
             <li><span class="highlight-magenta">fragment</span> is the fragment</li>
           </ul>
         </section>
-        
+        <section>
+          <h1>HTTP Messages</h1>
+          <div style="display: flex; justify-content: space-around; gap: 0em;">
+            <div>
+              <h2>Request</h2>
+              <pre>
+                <code data-trim data-noescape>
+                  GET / HTTP/1.1
+                  Host: developer.mozilla.org
+                  Accept-Language: fr
+                </code>               
+              </pre>
+            </div>
+            <div>
+              <h2>Response</h2>
+              <pre><code data-trim data-noescape>
+                  HTTP/1.1 200 OK
+                  Date: Sat, 09 Oct 2010 14:28:02 GMT
+                  Server: Apache
+                  Last-Modified: Tue, 01 Dec 2009 20:18:22 GMT
+                  ETag: "51142bc1-7449-479b075b2891b"
+                  Accept-Ranges: bytes
+                  Content-Length: 29769
+                  Content-Type: text/html
+
+                  &lt;!doctype html&gt;… (here come the 29769 bytes of the requested web page)
+              </code></pre>
+            </div>
+          </div>
+        </section>
 
         <section>
           <section>
