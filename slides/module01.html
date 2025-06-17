@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,7 +19,11 @@
             <h1>What happens when you type a URL in your browser?</h1>
           </section>
           <section>
-            <img width="80%" src="type-url-browser.jpeg" alt="What happens when you type a URL in your browser?">
+            <img
+              width="80%"
+              src="type-url-browser.jpeg"
+              alt="What happens when you type a URL in your browser?"
+            />
             <div class="r-stack">
               <div class="fragment fade-in-then-out">
                 <p>The process involves:</p>
@@ -32,38 +36,76 @@
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
-                <p>You type <strong>https://somewebsite.com/page</strong> in your browser and press enter:</p>
+                <p>
+                  You type
+                  <strong>https://somewebsite.com/page</strong>
+                  in your browser and press enter:
+                </p>
                 <ul>
-                  <li><strong>https://</strong> is a scheme that tells the browser to connect to the server using <em>TLS</em>. 
-                  <li><strong>somewebsite.com</strong> is the site's domain name, and it points to a specific IP address of a server.</li>
-                  <li><strong>/page</strong> is a path to the resource you need.</li>
+                  <li>
+                    <strong>https://</strong>
+                    is a scheme that tells the browser to connect to the server using
+                    <em>TLS</em>
+                    .
+                  </li>
+                  <li>
+                    <strong>somewebsite.com</strong>
+                    is the site's domain name, and it points to a specific IP address of a server.
+                  </li>
+                  <li>
+                    <strong>/page</strong>
+                    is a path to the resource you need.
+                  </li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
                 <ul>
-                  <li>The browser needs to figure out which server on the Internet to connect to.</li>
-                  <li>It must look for the IP address of the server hosting the website using the domain you typed to accomplish that.</li>
+                  <li>
+                    The browser needs to figure out which server on the Internet to connect to.
+                  </li>
+                  <li>
+                    It must look for the IP address of the server hosting the website using the
+                    domain you typed to accomplish that.
+                  </li>
                 </ul>
                 <div class="mermaid">
                   <pre>
                     %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
                     graph LR
-                      Client -->|somewebsite.com| DNS
-                      DNS -->|171.67.215.200| Client
+                      Client --&gt;|somewebsite.com| DNS
+                      DNS --&gt;|171.67.215.200| Client
                   </pre>
                 </div>
               </div>
               <div class="fragment fade-in-then-out">
                 <ul>
-                  <li><strong>TCP</strong> is used throughout the public Internet routing infrastructure to route packets from a client browser request through the router, the Internet service provider, through an Internet exchange to switch ISPs or networks, and finally to find the server with the IP address to connect to.</li>
-                  <li>Many websites employ a <strong>CDN</strong> to cache static and dynamic material closer to the browser.</li>
+                  <li>
+                    <strong>TCP</strong>
+                    is used throughout the public Internet routing infrastructure to route packets
+                    from a client browser request through the router, the Internet service provider,
+                    through an Internet exchange to switch ISPs or networks, and finally to find the
+                    server with the IP address to connect to.
+                  </li>
+                  <li>
+                    Many websites employ a
+                    <strong>CDN</strong>
+                    to cache static and dynamic material closer to the browser.
+                  </li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
                 <ul>
-                  <li>Now that the browser is connected to the server, it complies with the HTTP(s) protocol's requirements for communication. </li>
-                  <li>The browser sends an HTTP request to the server to request the page's contents. </li>
-                  <li>The server can determine what the client wants to do using the information in the request line.</li>
+                  <li>
+                    Now that the browser is connected to the server, it complies with the HTTP(s)
+                    protocol's requirements for communication.
+                  </li>
+                  <li>
+                    The browser sends an HTTP request to the server to request the page's contents.
+                  </li>
+                  <li>
+                    The server can determine what the client wants to do using the information in
+                    the request line.
+                  </li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
@@ -71,52 +113,101 @@
                   <pre>
                     %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true }}}%%
                     graph LR
-                      Client -->|GET /page/ HTTP/1.1| Server
-                      Server -->|200 OK| Client
+                      Client --&gt;|GET /page/ HTTP/1.1| Server
+                      Server --&gt;|200 OK| Client
                   </pre>
                 </div>
               </div>
               <div class="fragment fade-in-then-out">
                 <ul>
-                  <li>The server accepts the request and determines how to handle it depending on the data in the request line, headers, and body. </li>
-                  <li>The server receives the material at this URL for the <strong>GET /page/ HTTP/1.1</strong> requests, builds the response, and then delivers it back to the client with an HTTP status code.</li>
+                  <li>
+                    The server accepts the request and determines how to handle it depending on the
+                    data in the request line, headers, and body.
+                  </li>
+                  <li>
+                    The server receives the material at this URL for the
+                    <strong>GET /page/ HTTP/1.1</strong>
+                    requests, builds the response, and then delivers it back to the client with an
+                    HTTP status code.
+                  </li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
                 <ul>
-                  <li>After receiving the server's response, the browser examines the response headers for instructions on how to render the resource.</li>
-                  <li>The <em>Content-Type header</em> informs the browser that an HTML resource was received in the response body.</li>
+                  <li>
+                    After receiving the server's response, the browser examines the response headers
+                    for instructions on how to render the resource.
+                  </li>
+                  <li>
+                    The
+                    <em>Content-Type header</em>
+                    informs the browser that an HTML resource was received in the response body.
+                  </li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
-                <p>Once the browser receives the HTTP response from the server — which typically includes <strong>HTML</strong>, <strong>CSS</strong>, and maybe <strong>JavaScript</strong> — it begins the rendering process to display the page.</p>
+                <p>
+                  Once the browser receives the HTTP response from the server — which typically
+                  includes
+                  <strong>HTML</strong>
+                  ,
+                  <strong>CSS</strong>
+                  , and maybe
+                  <strong>JavaScript</strong>
+                  — it begins the rendering process to display the page.
+                </p>
               </div>
               <div class="fragment fade-in-then-out">
                 <p>Parse the HTML</p>
                 <ul>
                   <li>The browser reads the HTML top to bottom.</li>
-                  <li>It constructs a tree structure called the <strong>DOM</strong> (Document Object Model) — a representation of all elements and their relationships (like nested <em>div</em>, <em>h1</em>,  etc.).</li>
+                  <li>
+                    It constructs a tree structure called the
+                    <strong>DOM</strong>
+                    (Document Object Model) — a representation of all elements and their
+                    relationships (like nested
+                    <em>div</em>
+                    ,
+                    <em>h1</em>
+                    , etc.).
+                  </li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
                 <p>Load and apply CSS</p>
                 <ul>
-                  <li><strong>CSS</strong> styles are parsed and applied to the elements in the DOM.</li>
-                  <li>The result is a second tree called the <strong>CSSOM</strong> (CSS Object Model).</li>
-                  <li>The browser combines the DOM and CSSOM into a <strong>Render</strong> Tree that maps what to draw on screen.</li>
+                  <li>
+                    <strong>CSS</strong>
+                    styles are parsed and applied to the elements in the DOM.
+                  </li>
+                  <li>
+                    The result is a second tree called the
+                    <strong>CSSOM</strong>
+                    (CSS Object Model).
+                  </li>
+                  <li>
+                    The browser combines the DOM and CSSOM into a
+                    <strong>Render</strong>
+                    Tree that maps what to draw on screen.
+                  </li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
                 <p>Layout phase</p>
                 <ul>
-                  <li>The browser calculates the position and size of each element in the Render Tree.</li>
+                  <li>
+                    The browser calculates the position and size of each element in the Render Tree.
+                  </li>
                   <li>It considers margins, padding, width, height, fonts, etc.</li>
                 </ul>
               </div>
               <div class="fragment fade-in-then-out">
                 <p>Painting</p>
                 <ul>
-                  <li>Once layout is complete, the browser translates each element’s box into actual pixels on the screen.</li>
+                  <li>
+                    Once layout is complete, the browser translates each element's box into actual
+                    pixels on the screen.
+                  </li>
                   <li>It "paints" backgrounds, text, borders, shadows, images, etc.</li>
                 </ul>
               </div>
@@ -125,34 +216,92 @@
         </section>
         <section>
           <h1>Overview of HTTP</h1>
-          <img width="60%" src="https://mdn.github.io/shared-assets/images/diagrams/http/overview/fetching-a-page.svg" alt="Overview of HTTP">
+          <img
+            width="60%"
+            src="https://mdn.github.io/shared-assets/images/diagrams/http/overview/fetching-a-page.svg"
+            alt="Overview of HTTP"
+          />
           <ul>
             <li>HTTP is the protocol used to transfer data over the web.</li>
-            <li>It is a <strong>stateless</strong> protocol, meaning that the server does not remember anything about the client.</li>
-            <li>It is a <strong>request-response</strong> protocol, meaning that the client sends a request to the server and the server sends a response back.</li>
+            <li>
+              It is a
+              <strong>stateless</strong>
+              protocol, meaning that the server does not remember anything about the client.
+            </li>
+            <li>
+              It is a
+              <strong>request-response</strong>
+              protocol, meaning that the client sends a request to the server and the server sends a
+              response back.
+            </li>
           </ul>
         </section>
         <section>
           <h1>Stack of protocols</h1>
-          <img width="60%" src="https://mdn.github.io/shared-assets/images/diagrams/http/overview/http-layers.svg" alt="Stack of protocols">
-          <p><strong>HTTP</strong> is an application layer protocol that is sent over <strong>TCP</strong>, or over a <strong>TLS-encrypted</strong> TCP connection, though any reliable transport protocol could theoretically be used. Due to its extensibility, it is used to not only fetch hypertext documents, but also images and videos or to post content to servers, like with HTML form results. HTTP can also be used to fetch parts of documents to update Web pages on demand.</p>
+          <img
+            width="60%"
+            src="https://mdn.github.io/shared-assets/images/diagrams/http/overview/http-layers.svg"
+            alt="Stack of protocols"
+          />
+          <p>
+            <strong>HTTP</strong>
+            is an application layer protocol that is sent over
+            <strong>TCP</strong>
+            , or over a
+            <strong>TLS-encrypted</strong>
+            TCP connection, though any reliable transport protocol could theoretically be used. Due
+            to its extensibility, it is used to not only fetch hypertext documents, but also images
+            and videos or to post content to servers, like with HTML form results. HTTP can also be
+            used to fetch parts of documents to update Web pages on demand.
+          </p>
         </section>
         <section>
           <h1>Uniform Resource Locator (URL)</h1>
-          <p>A <strong>URL</strong> is a string of characters that specifies where a resource can be found on the web.</p>
-          <p><span class="highlight-red">https://</span><span class="highlight-green">example.com</span>:<span class="highlight-blue">81</span><span class="highlight-cyan">/a/b/c</span>?<span class="highlight-orange">user=Alice&year=2025</span><span class="highlight-magenta">#fragment</span></p>
+          <p>
+            A
+            <strong>URL</strong>
+            is a string of characters that specifies where a resource can be found on the web.
+          </p>
+          <p>
+            <span class="highlight-red">https://</span>
+            <span class="highlight-green">example.com</span>
+            :
+            <span class="highlight-blue">81</span>
+            <span class="highlight-cyan">/a/b/c</span>
+            ?
+            <span class="highlight-orange">user=Alice&year=2025</span>
+            <span class="highlight-magenta">#fragment</span>
+          </p>
           <ul>
-            <li><span class="highlight-red">https://</span> is the scheme</li>
-            <li><span class="highlight-green">example.com</span> is the host</li>
-            <li><span class="highlight-blue">81</span> is the port</li>
-            <li><span class="highlight-cyan">/a/b/c</span> is the path</li>
-            <li><span class="highlight-orange">user=Alice&year=2025</span> is the query</li>
-            <li><span class="highlight-magenta">fragment</span> is the fragment</li>
+            <li>
+              <span class="highlight-red">https://</span>
+              is the scheme
+            </li>
+            <li>
+              <span class="highlight-green">example.com</span>
+              is the host
+            </li>
+            <li>
+              <span class="highlight-blue">81</span>
+              is the port
+            </li>
+            <li>
+              <span class="highlight-cyan">/a/b/c</span>
+              is the path
+            </li>
+            <li>
+              <span class="highlight-orange">user=Alice&year=2025</span>
+              is the query
+            </li>
+            <li>
+              <span class="highlight-magenta">fragment</span>
+              is the fragment
+            </li>
           </ul>
         </section>
         <section>
           <h1>HTTP Messages</h1>
-          <div style="display: flex; justify-content: space-around; gap: 0em;">
+          <div style="display: flex; justify-content: space-around; gap: 0em">
             <div>
               <h2>Request</h2>
               <pre>
@@ -184,7 +333,7 @@
         <section>
           <section>
             <h1>Different visions for the web</h1>
-            <div style="display: flex; justify-content: space-around; align-items: center;">
+            <div style="display: flex; justify-content: space-around; align-items: center">
               <div>
                 <h3>Simple document viewer?</h3>
               </div>
@@ -199,7 +348,10 @@
               <li>Static HTML pages</li>
               <li>Hyperlinks and text documents</li>
               <li>Read-only content</li>
-              <li>Example: <a href="https://wikipedia.org" target="_blank">Wikipedia</a></li>
+              <li>
+                Example:
+                <a href="https://wikipedia.org" target="_blank">Wikipedia</a>
+              </li>
             </ul>
           </section>
           <section>
@@ -208,14 +360,17 @@
               <li>Rich UIs and interactivity</li>
               <li>Client-side logic with JavaScript</li>
               <li>Web APIs, SPAs, real-time data</li>
-              <li>Examples:
+              <li>
+                Examples:
                 <ul>
                   <li><a href="https://figma.com" target="_blank">Figma</a></li>
                   <li><a href="https://docs.google.com" target="_blank">Google Docs</a></li>
                   <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
                   <li><a href="https://www.photopea.com" target="_blank">Photopea</a></li>
                   <li><a href="https://0hh1.com" target="_blank">0hh1</a></li>
-                  <li><a href="https://classic.minecraft.net" target="_blank">Classic Minecraft</a></li>
+                  <li>
+                    <a href="https://classic.minecraft.net" target="_blank">Classic Minecraft</a>
+                  </li>
                   <li><a href="https://soundtrap.com" target="_blank">Soundtrap</a></li>
                 </ul>
               </li>
@@ -235,7 +390,10 @@
               <li>Each page is a separate file on the server</li>
               <li>No server-side logic or database</li>
               <li>Fast, secure, and easy to host</li>
-              <li><strong>Examples:</strong> Documentation, blogs, portfolios</li>
+              <li>
+                <strong>Examples:</strong>
+                Documentation, blogs, portfolios
+              </li>
             </ul>
           </section>
           <section>
@@ -245,12 +403,15 @@
               <li>Often connected to a database</li>
               <li>Personalized content and user interactions</li>
               <li>Can scale and change content dynamically</li>
-              <li><strong>Examples:</strong> Gmail, Facebook, E-commerce platforms</li>
+              <li>
+                <strong>Examples:</strong>
+                Gmail, Facebook, E-commerce platforms
+              </li>
             </ul>
           </section>
           <section>
             <h1>Static vs Dynamic</h1>
-            <div style="display: flex; justify-content: center; gap: 1em;">
+            <div style="display: flex; justify-content: center; gap: 1em">
               <div>
                 <h2>📰 Static</h2>
                 <ul>
@@ -271,13 +432,15 @@
           </section>
           <section>
             <h1>Real-World Examples</h1>
-            <div style="display: flex; justify-content: center; gap: 5em;">
+            <div style="display: flex; justify-content: center; gap: 5em">
               <div>
                 <h2>📰 Static</h2>
                 <ul>
                   <li><a href="https://www.getbootstrap.com" target="_blank">Bootstrap Docs</a></li>
                   <li><a href="https://www.gatsbyjs.com" target="_blank">Gatsby Sites</a></li>
-                  <li><a href="https://bruno-simon.com/" target="_blank">Personal portfolios</a></li>
+                  <li>
+                    <a href="https://bruno-simon.com/" target="_blank">Personal portfolios</a>
+                  </li>
                 </ul>
               </div>
               <div>
@@ -293,14 +456,72 @@
           <section>
             <h1>When to Use Each?</h1>
             <ul>
-              <li>Use <strong>Static</strong> for fast-loading, simple sites (docs, blogs)</li>
-              <li>Use <strong>Dynamic</strong> for interactive, personalized, data-driven apps</li>
+              <li>
+                Use
+                <strong>Static</strong>
+                for fast-loading, simple sites (docs, blogs)
+              </li>
+              <li>
+                Use
+                <strong>Dynamic</strong>
+                for interactive, personalized, data-driven apps
+              </li>
             </ul>
           </section>
         </section>
 
         <section>
-          <h1>Key Web Development Technologies</h1>
+          <h1>HTML, CSS, & JavaScript</h1>
+          <section>
+            <p>
+              HyperText Markup Language (
+              <strong>HTML</strong>
+              ), Cascading Style Sheets (
+              <strong>CSS</strong>
+              ), and
+              <strong>JavaScript</strong>
+              are the languages that run the web.
+            </p>
+            <ul>
+              <li>HTML is for adding meaning to raw content by marking it up.</li>
+              <li>CSS is for formatting that marked up content.</li>
+              <li>JavaScript is for making that content and formatting interactive.</li>
+            </ul>
+          </section>
+          <section>
+            <p>
+              Think of HTML as the abstract text and images behind a web page, CSS as the page that
+              actually gets displayed, and JavaScript as the behaviors that can manipulate both HTML
+              and CSS.
+            </p>
+            <div
+              style="
+                background-color: white;
+                padding: 0.25em;
+                border-radius: 0.25em;
+                width: 70%;
+                margin: 0 auto;
+              "
+            >
+              <img
+                src="https://internetingishard.netlify.app/html-css-javascript-905348.7c291929.png"
+                alt=""
+              />
+            </div>
+          </section>
+          <section>
+            <p>
+              For example, you might mark some particular run of text as a paragraph with this HTML:
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <h1>HTML</h1>
+          <ul>
+            <li>HTML is the standard markup language for creating web pages.</li>
+            <li>HTML stands for Hyper Text Markup Language.</li>
+          </ul>
         </section>
 
         <section>

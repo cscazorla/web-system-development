@@ -2,9 +2,12 @@
   "name": "web-system-development",
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "format": "prettier --write 'slides/**/*.html'"
   },
   "devDependencies": {
+    "htmlhint": "^1.6.1",
+    "prettier": "^3.5.3",
     "reveal.js": "^5.2.1",
     "reveal.js-mermaid-plugin": "^11.4.1",
     "vite": "^6.3.0"
