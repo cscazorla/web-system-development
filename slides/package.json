@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "format": "prettier --write 'slides/**/*.html'"
+    "format": "prettier --write '**/*.html'",
+    "build": "vite build"
   },
   "devDependencies": {
     "htmlhint": "^1.6.1",
