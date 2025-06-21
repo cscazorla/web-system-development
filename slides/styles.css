@@ -44,10 +44,6 @@
   margin: 0 0 1em 0;
 }
 
-.reveal code {
-  color: var(--color-primary);
-}
-
 .reveal em {
   font-style: italic;
   font-weight: 200;
@@ -68,6 +64,22 @@
 
 .reveal pre {
   width: 100%;
+}
+
+.reveal img.background_white {
+  background-color: white;
+  padding: 0.25em;
+  border-radius: 0.5em;
+}
+
+.example {
+  color: var(--color-accent);
+  font-size: 0.75em;
+  font-family: monospace;
+}
+
+.example::before {
+  content: '⚙️ ';
 }
 
 .highlight-red {
