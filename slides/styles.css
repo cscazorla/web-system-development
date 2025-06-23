@@ -54,16 +54,9 @@
   list-style-type: square;
 }
 
-.reveal ul ul {
-  list-style-type: disc;
-}
-
-.reveal ul ul ul {
-  list-style-type: circle;
-}
-
 .reveal ul ul li::marker {
   color: var(--color-links);
+  font-size: 0.7em;
 }
 
 .reveal ul:last-child {

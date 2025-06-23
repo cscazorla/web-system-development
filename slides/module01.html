@@ -2623,6 +2623,175 @@
           </section>
           <section>
             <h1>Image Dimensions</h1>
+            <div style="display: flex; align-items: flex-start; gap: 1em">
+              <div>
+                <ul>
+                  <li>
+                    By default, the
+                    <code>&lt;img/&gt;</code>
+                    element uses the
+                    <strong>inherit dimensions of its image file</strong>
+                    .
+                  </li>
+                  <li>
+                    Our JPG, GIF, and PNG images are actually 150x150 pixels, while our SVG mochi is
+                    only 75x75 pixels.
+                  </li>
+                  <li>
+                    To get our pixel-based images down to the intended size (75x75), we can use the
+                    <code>&lt;img/&gt;</code>
+                    element's
+                    <code>width</code>
+                    attribute.
+                  </li>
+                  <li>
+                    The
+                    <code>width</code>
+                    attribute sets an explicit dimension for the image.
+                  </li>
+                  <li>
+                    There's a corresponding
+                    <code>height</code>
+                    attribute, as well.
+                  </li>
+                  <li>
+                    Setting only one of them will cause the image to scale proportionally, while
+                    defining both will stretch the image.
+                  </li>
+                  <li>
+                    Dimension values are specified in pixels, and you should never include a unit
+                    (e.g.,
+                    <code>width='75px'</code>
+                    would be incorrect).
+                  </li>
+                </ul>
+                <pre>
+                  <code data-trim class="language-html">
+                    <img src="images/mochi.jpg" width="75"/>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <img
+                  width="70%"
+                  src="https://internetingishard.netlify.app/html-img-formats-3b43c6.998f97de.png"
+                />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Image Alt Text</h1>
+            <ul>
+              <li>
+                Adding
+                <code>alt</code>
+                attributes to your
+                <code>&lt;img/&gt;</code>
+                elements is a best practice.
+              </li>
+              <li>
+                It defines a
+                <strong>text alternative</strong>
+                to the image being displayed.
+              </li>
+              <li>
+                This has an impact on both search engines and users with text-only browsers (e.g.,
+                people that use
+                <em>text-to-speech</em>
+                software due to a vision impairment).
+              </li>
+              <li>
+                For more examples of how to use the
+                <code>alt</code>
+                attribute, please refer to the ridiculously detailed
+                <a href="https://www.w3.org/TR/html5/embedded-content-0.html#alt">
+                  official specification
+                </a>
+                .
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <img src="images/mochi.jpg" width="75" alt="A mochi ball in a bubble"/>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>HTML Entities</h1>
+            <ul>
+              <li>
+                An
+                <em>HTML entity</em>
+                is a special character that can't be represented as plain text in an HTML document.
+              </li>
+              <li>
+                This typically either means it's a
+                <strong>reserved character</strong>
+                in HTML or you don't have a key on your keyboard for it.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Reserved Characters</h1>
+            <ul>
+              <li>
+                The
+                <code>&lt;</code>
+                ,
+                <code>&gt;</code>
+                , and
+                <code>&amp;</code>
+                characters are called
+                <a href="https://dev.w3.org/html5/html-author/charref">reserved characters</a>
+                because they aren't allowed to be inserted into an HTML document without being
+                encoded.
+              </li>
+              <li>
+                This is because they mean something in the HTML syntax:
+                <ul>
+                  <li>
+                    <code>&lt;</code>
+                    begins a new tag,
+                  </li>
+                  <li>
+                    <code>&gt;</code>
+                    ends a tag, and, as we’re about to learn,
+                  </li>
+                  <li>
+                    <code>&amp;</code>
+                    sets off an HTML entity.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Entities always begin with an ampersand (
+                <code>&amp;</code>
+                ) and end with a semicolon (
+                <code>;</code>
+                ). In between, you put a special code that your browser will interpret as a symbol.
+                In this case, it interprets
+                <code>lt</code>
+                ,
+                <code>gt</code>
+                , and
+                <code>amp</code>
+                as less-than, greater-than, and ampersand symbols, respectively.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <h2>HTML Entities</h2>
+                  <p>
+                    There are three reserved characters in HTML: &lt; &gt; and &amp;.
+                    You should always use HTML entities for these three characters.
+                  </p>
+                </script>
+              </code>
+            </pre>
           </section>
         </section>
 
