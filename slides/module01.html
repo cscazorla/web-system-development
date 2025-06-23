@@ -2400,7 +2400,230 @@
         </section>
 
         <section>
-          <h1>Images</h1>
+          <section>
+            <h1>Images</h1>
+            <ul>
+              <li>
+                Images are included in web pages with the
+                <code>&lt;img/&gt;</code>
+                tag and its
+                <code>src</code>
+                attribute, which points to the image file you want to display.
+              </li>
+              <li>
+                Notice how it's an empty element like
+                <code>&lt;br/&gt;</code>
+                and
+                <code>&lt;hr/&gt;</code>
+                .
+              </li>
+              <li>
+                Retina displays and mobile devices make image handling a little bit more complicated
+                than a plain old
+                <code>&lt;img/&gt;</code>
+                tag. We'll deal with this later in the course.
+              </li>
+              <li>
+                Also be sure to check out the
+                <code>&lt;figure&gt;</code>
+                and
+                <code>&lt;figcaption&gt;</code>
+                element in the
+                <a href="/html-and-css/semantic-html/">Semantic HTML</a>
+                chapter.
+              </li>
+              <li>For now, let's focus on the many image formats floating around the Internet.</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Image Formats</h1>
+            <p>
+              There's four main image formats in use on the web, and they were all designed to do
+              different things.
+            </p>
+            <img
+              width="70%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/image-formats-62b23d.df203a3f.png"
+              alt="Image Formats"
+            />
+            <p>
+              Understanding their intended purpose goes a long way towards improving the quality of
+              your web pages.
+            </p>
+          </section>
+          <section>
+            <h1>JPG Images</h1>
+            <ul>
+              <li>
+                JPG images are designed for handling
+                <strong>large color palettes</strong>
+                without exorbitantly increasing
+                <strong>file size</strong>
+                .
+              </li>
+              <li>
+                This makes them great for
+                <strong>photos</strong>
+                and images with lots of
+                <strong>gradients</strong>
+                in them.
+              </li>
+              <li>
+                On the other hand, JPGs don't allow for
+                <strong>transparent</strong>
+                pixels, which you can see in the white edges of the image below if you look real
+                close
+              </li>
+            </ul>
+            <img
+              class="background_white"
+              src="https://internetingishard.netlify.app/mochi-77c69d.385ff9c7.jpg"
+              alt="JPG Image"
+            />
+            <pre>
+              <code data-trim class="language-html">
+                <!-- links-and-images/images.html -->
+
+                <p>This page covers common image formats.</p>
+
+                <h2>JPGs</h2>
+
+                <img src="images/mochi.jpg"/>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>GIF Images</h1>
+            <ul>
+              <li>
+                GIFs are the go-to option for simple
+                <strong>animations</strong>
+                , but the trade off is that they're somewhat
+                <strong>limited in terms of color palette</strong>
+                —never use them for photos.
+              </li>
+              <li>
+                Transparent pixels are a binary option for GIFs, meaning you can't have
+                <strong>semi-opaque</strong>
+                pixels. This can make it difficult to get high levels of detail on a transparent
+                background.
+              </li>
+              <li>
+                For this reason, it's usually better to use
+                <strong>PNG</strong>
+                images if you don't need animation.
+              </li>
+            </ul>
+            <img
+              src="https://internetingishard.netlify.app/mochi-961ee5.6d9c21cd.gif"
+              alt="GIF Image"
+            />
+            <pre>
+              <code data-trim class="language-html">
+                <!-- links-and-images/images.html -->
+
+                <h2>GIFs</h2>
+
+                <p>GIFs are good for animations.</p>
+
+                <img src="images/mochi.gif"/>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>PNG Images</h1>
+            <ul>
+              <li>
+                PNGs are great for
+                <strong>anything</strong>
+                that's
+                <strong>not a photo or animated</strong>
+                .
+              </li>
+              <li>
+                For
+                <strong>photos</strong>
+                , a PNG file of the same quality (as perceived the human eye) would generally be
+                bigger than an equivalent
+                <strong>JPG</strong>
+                file.
+              </li>
+              <li>
+                However, they do deal with
+                <strong>opacity</strong>
+                just fine, and they don't have color palette limitations. This makes them an
+                excellent fit for icons, technical diagrams, logos, etc.
+              </li>
+            </ul>
+            <img src="https://internetingishard.netlify.app/mochi-f95fdf.849f17a3.png" />
+            <pre>
+              <code data-trim class="language-html">
+                <!-- links-and-images/images.html -->
+
+                <h2>PNGs</h2>
+
+                <p>PNGs are good for diagrams and icons.</p>
+
+                <img src="images/mochi.png"/>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>SVG Images</h1>
+            <ul>
+              <li>
+                Unlike the pixel-based image formats above, SVG is a
+                <strong>vector-based</strong>
+                graphics format, meaning it can scale up or down to
+                <em>any</em>
+                dimension without loss of quality.
+              </li>
+              <li>
+                This property makes SVG images a wonderful tool for
+                <strong>responsive design</strong>
+                . They're good for pretty much all the same use cases as PNGs, and
+                <strong>you should use them whenever you can</strong>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>SVG Images</h1>
+            <ul>
+              <li>
+                These 300x300 pixel images were originally 100x100 pixels, but scaling them up
+                clearly shows the difference between them.
+              </li>
+              <li>
+                Notice the crisp, clean lines on the left SVG image, while the PNG image on the
+                right is now very pixelated.
+              </li>
+              <li>
+                Despite being a vector format, SVGs can be used exactly like their raster
+                counterparts.
+              </li>
+            </ul>
+            <img src="https://internetingishard.netlify.app/svg-vs-png-image-3df7fd.cf9848fd.png" />
+          </section>
+          <section>
+            <h1>Caveats</h1>
+            <ul>
+              <li>
+                There is one potential issue with SVGs: for them to display consistently across
+                browsers, you need to convert any text fields to outlines using your image editor
+                (e.g.,
+                <a href="https://www.sketchapp.com/">Sketch</a>
+                ).
+              </li>
+              <li>
+                If your images contain a lot of text, this can have a big impact on file size.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Image Dimensions</h1>
+          </section>
         </section>
 
         <section>
