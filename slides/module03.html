@@ -15,21 +15,24 @@
         </section>
 
         <section>
-          <h1>CSS</h1>
-          <ul>
-            <li>
-              CSS (Cascading Style Sheets) is a language that describes the presentation of a
-              document written in HTML.
-            </li>
-            <li>You can think of CSS as defining the “design” of a web page.</li>
-            <li>
-              It determines things like font size, margins, and colors using a language entirely
-              separate from HTML.
-            </li>
-          </ul>
-        </section>
-
-        <section>
+          <section>
+            <h1>CSS</h1>
+            <ul>
+              <li>
+                CSS (Cascading Style Sheets) is a language that describes the presentation of a
+                document written in HTML.
+              </li>
+              <li>
+                You can think of CSS as defining the
+                <strong>design</strong>
+                of a web page.
+              </li>
+              <li>
+                It determines things like font size, margins, and colors using a language entirely
+                separate from HTML.
+              </li>
+            </ul>
+          </section>
           <section>
             <h1>Why is it a separate language?</h1>
             <ul>
@@ -914,7 +917,404 @@
           </section>
         </section>
         <section>
-          <h1>The Box Model</h1>
+          <section>
+            <h1>Web layout</h1>
+            <p>
+              So far we've talked about the basic text formatting properties of CSS, but that was
+              only one aspect of styling pages. Defining the
+              <strong>layout</strong>
+              of a web page is an entirely different beast.
+            </p>
+          </section>
+          <section>
+            <h1>The Box Model</h1>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/css-html-and-the-box-model-9d82a2.21d4d282.png"
+              alt="Box model"
+            />
+            <ul>
+              <li>
+                The
+                <strong>CSS box model</strong>
+                is a set of rules that define how every web page on the Internet is rendered.
+              </li>
+              <li>
+                CSS treats each element in your HTML document as a
+                <strong>box</strong>
+                with a bunch of different properties that determine where it appears on the page.
+              </li>
+              <li>
+                So far, all of our web pages have just been a bunch of elements rendered one after
+                another. The box model is our toolkit for customizing this default
+                <strong>layout</strong>
+                scheme.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Setup</h1>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!DOCTYPE html>
+                  <html lang='en'>
+                    <head>
+                      <meta charset='UTF-8'/>
+                      <title>Boxes Are Easy!</title>
+                      <link rel='stylesheet' href='box-styles.css'/>
+                    </head>
+                    <body>
+                      <h1>Headings Are Block Elements</h1>
+
+                      <p>Paragraphs are blocks, too. <em>However</em>, &lt;em&gt; and &lt;strong&gt;
+                        elements are not. They are <strong>inline</strong> elements.</p>
+
+                      <p>Block elements define the flow of the HTML document, while inline elements
+                        do not.</p>
+                    </body>
+                  </html>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Block Elements and Inline Elements</h1>
+            <ul>
+              <li>
+                All the HTML elements that we've been working with have a default type of box.
+              </li>
+              <li>
+                For instance,
+                <code>&lt;h1&gt;</code>
+                and
+                <code>&lt;p&gt;</code>
+                are block-level elements, while
+                <code>&lt;em&gt;</code>
+                and
+                <code>&lt;strong&gt;</code>
+                are inline elements.
+              </li>
+              <li>
+                Let's get a better look at our boxes by adding the following to
+                <code>box-styles.css</code>
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-css">
+                h1, p {
+                  background-color: #DDE0E3;    /* Light gray */
+                }
+
+                em, strong {
+                  background-color: #B2D6FF;    /* Light blue */
+                }
+              </code>
+            </pre>
+            <ul>
+              <li>
+                The background-color property only fills in the background of the selected box, so
+                this will give us a clear view into the structure of the current sample page.
+              </li>
+              <li>
+                Our headings and paragraphs should have gray backgrounds, while our emphasis and
+                strong elements should be light blue.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Block and Inline Behaviours</h1>
+            <ul>
+              <li>
+                <strong>Block boxes</strong>
+                always appear
+                <strong>below</strong>
+                the previous block element. This is the “natural” or “static” flow of an HTML
+                document when it gets rendered by a web browser.
+              </li>
+              <li>
+                The
+                <strong>width of block boxes</strong>
+                is set automatically based on the width of its parent container. In this case, our
+                blocks are always the width of the browser window.
+              </li>
+              <li>
+                The default
+                <strong>height of block boxes</strong>
+                is based on the content it contains. When you narrow the browser window, the
+                <code>&lt;h1&gt;</code>
+                gets split over two lines, and its height adjusts accordingly.
+              </li>
+              <li>
+                <strong>Inline boxes</strong>
+                don’t affect
+                <strong>vertical spacing</strong>
+                . They’re not for determining layout—they’re for styling stuff
+                <em>inside</em>
+                of a block.
+              </li>
+              <li>
+                The
+                <strong>width of inline boxes</strong>
+                is based on the content it contains, not the width of the parent element.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Changing Box Behaviour</h1>
+            <ul>
+              <li>
+                We can override the default box type of HTML elements with the CSS
+                <code>display</code>
+                property.
+              </li>
+              <li>
+                For example, if we wanted to make our
+                <code>&lt;em&gt;</code>
+                and
+                <code>&lt;strong&gt;</code>
+                elements blocks instead of inline elements, we could update our rule in
+                <code>box-styles.css</code>
+                like so:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-css">
+                em, strong {
+                  background-color: #B2D6FF;
+                  display: block;
+                }
+              </code>
+            </pre>
+            <ul>
+              <li>
+                Now, these elements act like our headings and paragraphs: they start on their own
+                line, and they fill the entire width of the browser.
+              </li>
+              <li>
+                This comes in handy when you're trying to turn
+                <code>&lt;a&gt;</code>
+                elements into buttons or format
+                <code>&lt;img/&gt;</code>
+                elements (both of these are inline boxes by default).
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Rendering an element's box</h1>
+            <p>
+              The
+              <strong>CSS box model</strong>
+              is a set of rules that determine the dimensions of every element in a web page. It
+              gives each box (both inline and block) four properties:
+            </p>
+            <div style="display: flex; gap: 2em; align-items: flex-start">
+              <ul>
+                <li>
+                  <strong>Content</strong>
+                  - The text, image, or other media content in the element.
+                </li>
+                <li>
+                  <strong>Padding</strong>
+                  - The space between the box's content and its border.
+                </li>
+                <li>
+                  <strong>Border</strong>
+                  - The line between the box's padding and margin.
+                </li>
+                <li>
+                  <strong>Margin</strong>
+                  - The space between the box and surrounding boxes.
+                </li>
+              </ul>
+              <img
+                width="25%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/css-box-model-73a525.23b2d64b.png"
+                alt="Rendering an element's box"
+              />
+            </div>
+            <p>Together, this is everything a browser needs to render an element's box.</p>
+          </section>
+          <section>
+            <h1>Padding</h1>
+            <p>
+              The
+              <strong>padding</strong>
+              property defines the padding for the selected element:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                h1 {
+                  padding: 50px;
+                }
+              </code>
+            </pre>
+            <p>
+              This adds 50 pixels to
+              <em>each side</em>
+              of the
+              <code>&lt;h1&gt;</code>
+              heading. Notice how the background color expands to fill this space. That's always the
+              case for padding because it's inside the border, and everything inside the border gets
+              a background.
+            </p>
+            <p>
+              Sometimes you¡ll only want to style one side of an element. For that, CSS provides the
+              following properties:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                p {
+                  padding-top: 20px;
+                  padding-bottom: 20px;
+                  padding-left: 10px;
+                  padding-right: 10px;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Shorthand Formats</h1>
+            <p>
+              When you provide
+              <strong>two</strong>
+              values to the
+              <code>padding</code>
+              property, it's interpreted as the vertical and horizontal padding values,
+              respectively.
+            </p>
+            <div style="display: flex; gap: 0em; align-items: center">
+              <pre>
+                <code data-trim class="language-css">
+                  p {
+                    padding: 20px 10px;  /* Vertical  Horizontal */
+                  }
+                </code>
+              </pre>
+              <img
+                width="20%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/padding-shortform-two-values-a7ed4c.ae7f23f3.png"
+                alt="Padding shorthand form"
+              />
+            </div>
+            <p>
+              If you provide
+              <strong>four</strong>
+              values, you can set the padding for each side of an element individually. The values
+              are interpreted clockwise, starting at the top:
+            </p>
+            <div style="display: flex; gap: 0em; align-items: center">
+              <pre>
+                <code data-trim class="language-css">
+                  p {
+                    padding: 20px 0 20px 10px;  /* Top  Right  Bottom  Left */
+                  }
+                </code>
+              </pre>
+              <img
+                width="20%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/padding-shortform-four-values-93c021.2ee1e6b2.png"
+                alt="Padding shorthand form"
+              />
+            </div>
+          </section>
+          <section>
+            <h1>Border</h1>
+            <ul>
+              <li>The border is a line drawn around the content and padding of an element.</li>
+              <li>
+                The
+                <code>border</code>
+                property requires a new syntax that we've never seen before. First, we define the
+                <strong>stroke width</strong>
+                of the border, then its
+                <strong>style</strong>
+                , followed by its
+                <strong>color</strong>
+                .
+              </li>
+              <li>
+                Please refer to the
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">
+                  Mozilla Developer Network
+                </a>
+                for more information about border styles.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-css">
+                h1 {
+                  padding: 50px;
+                  border: 1px solid #5D6063;
+                }
+              </code>
+            </pre>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/css-border-syntax-d8ba17.61c3122e.png"
+              alt="Border syntax"
+            />
+          </section>
+          <section>
+            <h1>Margins</h1>
+            <p>
+              Margins define the space outside of an element's border. Or, rather, the space between
+              a box and its surrounding boxes.
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                p {
+                  padding: 20px 0 20px 10px;
+                  margin-bottom: 50px;
+                }
+              </code>
+            </pre>
+            <p>
+              Margins and padding can accomplish the same thing in a lot of situations, making it
+              difficult to determine which one is the “right” choice. The most common reasons why
+              you would pick one over the other are:
+            </p>
+            <ul>
+              <li>The padding of a box has a background, while margins are always transparent.</li>
+              <li>Padding is included in the click area of an element, while margins aren't.</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Content Box vs. Border Box</h1>
+            <p>
+              The
+              <code>width</code>
+              and
+              <code>height</code>
+              properties only define the size of a box's
+              <em>content</em>
+              . Its padding and border are both added
+              <em>on top of</em>
+              whatever explicit dimensions you set. This explains why you'll get an image that's 244
+              pixels wide when you take a screenshot of our button, despite the fact that it has a
+              <code>width:&nbsp;200px</code>
+              declaration attached to it.
+            </p>
+            <div style="display: flex; gap: 2em; align-items: center; justify-content: center">
+              <img
+                width="40%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/box-sizing-content-box-09f48a.6fded525.png"
+                alt="Content box vs. border box"
+              />
+              <img
+                width="40%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/box-sizing-border-box-ace2be.624b1ea3.png"
+                alt="Content box vs. border box"
+              />
+            </div>
+          </section>
         </section>
         <section>
           <h1>CSS Selectors</h1>
