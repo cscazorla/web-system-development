@@ -4,18 +4,1753 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web System Development</title>
+    <title>Module 02 - Web System Development</title>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
         <section>
           <h1>Web System Development</h1>
-          <h2>Module 02: Frontend Development</h2>
+          <h2>Module 02: HTML</h2>
         </section>
 
         <section>
-          <h1>Installing a local server</h1>
+          <section>
+            <h1>Structure of a web page</h1>
+            <div style="display: flex; justify-content: space-around; align-items: flex-start">
+              <div>
+                <pre>
+                  <code data-trim data-line-numbers class="language-html">
+                    <script type="text/template">
+                      <!DOCTYPE html>
+                      <html>
+                        <head>
+                          <!-- Metadata goes here -->
+                        </head>
+                        <body>
+                          <!-- Content goes here -->
+                        </body>
+                      </html>
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <img
+                width="30%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/html-tags-elements-72813b.d8a695f9.png"
+                alt="HTML Structure"
+              />
+            </div>
+            <ul>
+              <li>
+                First, we need to tell browsers that this is an
+                <strong>HTML5</strong>
+                web page with the
+                <code>&lt;!doctype html&gt;</code>
+                line. This is just a special string that browsers look for when they try to display
+                our web page, and it always needs to look exactly like it does above.
+              </li>
+              <li>
+                Then, our entire web page needs to be wrapped in
+                <code>&lt;html&gt;</code>
+                tags.
+                <ul>
+                  <li>
+                    The actual
+                    <code>&lt;html&gt;</code>
+                    text is called an “opening tag”, while
+                    <code>&lt;/html&gt;</code>
+                    is called a “closing tag”.
+                  </li>
+                  <li>
+                    Everything inside of these tags are considered part of the
+                    <code>&lt;html&gt;</code>
+                    “element”, which is this ethereal thing that gets created when a web browser
+                    parses your HTML tags.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Head and Body</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div>
+                <p>
+                  Inside of the
+                  <code>&lt;html&gt;</code>
+                  element, we have two more elements called
+                  <code>&lt;head&gt;</code>
+                  and
+                  <code>&lt;body&gt;</code>
+                  . A web page's head contains all of its metadata, like the page title, any CSS
+                  stylesheets, and other things that are required to render the page but you don't
+                  necessarily want the user to see.
+                </p>
+                <p>
+                  The bulk of our HTML markup will live in the
+                  <code>&lt;body&gt;</code>
+                  element, which represents the visible content of the page. Note that opening up
+                  our page in a web browser wont display anything, since it has an empty
+                  <code>&lt;body&gt;</code>
+                  .
+                </p>
+              </div>
+              <img
+                style="width: 40%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/html-head-body-7c2a73.dcf01064.png"
+                alt="HTML Structure"
+              />
+            </div>
+            <p>
+              The purpose of this
+              <code>&lt;head&gt;</code>
+              /
+              <code>&lt;body&gt;</code>
+              split will become clearer in a few chapters after we start working with CSS.
+            </p>
+          </section>
+          <section>
+            <h1>HTML Comments</h1>
+            <ul>
+              <li>
+                Notice the HTML comment syntax in the above snippet. Anything that starts with
+                <code>&lt;!--</code>
+                and ends with
+                <code>--&gt;</code>
+                will be completely ignored by the browser.
+              </li>
+              <li>
+                HTML comments are used to leave notes in your code that won't be seen by the
+                browser.
+              </li>
+              <li>
+                They're useful for documenting your code and making notes to yourself or temporarily
+                disabling certain elements.
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Page Titles</h1>
+            <p>
+              One of the most important pieces of metadata is the title of your web page, defined by
+              the aptly named
+              <code>&lt;title&gt;</code>
+              element. Browsers display this in the tab for your page, and Google displays it in
+              search engine results.
+            </p>
+            <p class="example">example01.html</p>
+            <img
+              width="80%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/html-title-element-f4eb85.764db0a6.png"
+              alt="Page Title"
+            />
+          </section>
+          <section>
+            <h1>Nested Elements</h1>
+            <ul>
+              <li>
+                Notice how all the HTML tags in our web page are neatly
+                <strong>nested</strong>
+                .
+              </li>
+              <li>It's very important to ensure that there are no overlapping elements.</li>
+              <li>
+                For instance, the
+                <code>&lt;title&gt;</code>
+                element is supposed to be inside of the
+                <code>&lt;head&gt;</code>
+                , so you'd never want to add the closing
+                <code>&lt;/head&gt;</code>
+                tag before the closing
+                <code>&lt;/title&gt;</code>
+                tag.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!-- (Don't ever do this) -->
+                  <head>
+                    <title>Pay attention to the tags!</title>
+                  </title>
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <h1>Paragraphs</h1>
+          <p>
+            Titles are all well and good, but let’s do something we can actually see. The
+            <code>&lt;p&gt;</code>
+            element marks all the text inside it as a distinct paragraph. Try adding the following
+            <code>&lt;p&gt;</code>
+            element to the body of our web page:
+          </p>
+          <pre>
+            <code data-trim class="language-html">
+              <script type="text/template">
+                <!DOCTYPE html>
+                <html>
+                  <head>
+                    <title>My First Web Page</title>
+                  </head>
+                  <body>
+                    <p>First, we need to learn some basic HTML.</p>
+                  </body>
+                </html>
+              </script>
+            </code>
+          </pre>
+          <p>
+            Also note how the
+            <code>&lt;p&gt;</code>
+            and
+            <code>&lt;title&gt;</code>
+            elements are indented twice, while
+            <code>&lt;body&gt;</code>
+            and
+            <code>&lt;head&gt;</code>
+            are indented once. Indenting nested elements like this is an important best practice
+            that makes your HTML easier to read for other developers (or for yourself if you come
+            back 5 months from now and want to change some stuff).
+          </p>
+        </section>
+
+        <section>
+          <h1>Headings</h1>
+          <ul>
+            <li>
+              Headings are the primary way you mark up different sections of your content. They
+              define the
+              <strong>outline</strong>
+              of your web page as
+              <strong>both humans and search engines see it</strong>
+              , which makes selecting relevant headings essential for a high-quality web page.
+            </li>
+            <li>Headings are like titles, but they’re actually displayed on the page.</li>
+            <li>
+              HTML provides six levels of headings, and the corresponding elements are:
+              <code>&lt;h1&gt;</code>
+              ,
+              <code>&lt;h2&gt;</code>
+              ,
+              <code>&lt;h3&gt;</code>
+              , … ,
+              <code>&lt;h6&gt;</code>
+              .
+            </li>
+            <li>The higher the number, the less prominent the heading.</li>
+            <li>By default, browsers render less important headings in smaller fonts.</li>
+          </ul>
+          <pre>
+            <code data-trim class="language-html">
+              <body>
+                <h1>Main page heading</h1>
+                <p>First, we need to learn some basic HTML.</p>
+
+                <h2>Headings</h2>
+                <p>Headings define the outline of your site. There are six levels of
+                headings.</p>
+              </body>
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <section>
+            <h1>Unordered Lists</h1>
+            <ul>
+              <li>
+                Whenever you surround a piece of text with HTML tags, you’re adding new meaning to
+                that text.
+              </li>
+              <li>
+                Wrapping content in
+                <code>&lt;ul&gt;</code>
+                tags tells a browser that whatever is inside should be rendered as an “unordered
+                list”.
+              </li>
+              <li>
+                To denote individual items in that list, you wrap them in
+                <code>&lt;li&gt;</code>
+                tags, like so:
+              </li>
+            </ul>
+            <pre>
+            <code data-trim class="language-html">
+                <h2>Lists</h2>
+
+                <p>This is how you make an unordered list:</p>
+
+                <ul>
+                  <li>Add a "ul" element (it stands for unordered list)</li>
+                  <li>Add each item in its own "li" element</li>
+                  <li>They don't need to be in any particular order</li>
+                </ul>
+            </code>
+          </pre>
+          </section>
+          <section>
+            <h1>Nested Elements in Lists</h1>
+            <p>
+              The HTML specification defines strict rules about what elements can go inside other
+              elements. In this case,
+              <code>&lt;ul&gt;</code>
+              elements should only contain
+              <code>&lt;li&gt;</code>
+              elements, which means you should never ever write something like this:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!-- (This is bad!) -->
+                  <ul>
+                    <p>Add a "ul" element (it stands for unordered list)</p>
+                  </ul>
+                </script>
+              </code>
+            </pre>
+            <p>
+              Instead, you should wrap that paragraph with
+              <code>&lt;li&gt;</code>
+              tags:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!-- (Do this instead) -->
+                  <ul>
+                    <li><p>Add a "ul" element (it stands for unordered list)</p></li>
+                  </ul>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>How do we know about these strict rules?</h1>
+            <ul>
+              <li class="fragment">
+                How do we know that
+                <code>&lt;ul&gt;</code>
+                only accepts
+                <code>&lt;li&gt;</code>
+                elements and that
+                <code>&lt;li&gt;</code>
+                allows nested paragraphs?
+              </li>
+              <li class="fragment">
+                Because the
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">
+                  Mozilla Developer Network
+                </a>
+                (MDN) says so. MDN is a superb HTML element reference.
+              </li>
+              <li class="fragment">
+                Whenever you're not sure about a particular element, do a quick Google search for
+                <strong>“MDN &lt;some-element&gt;”</strong>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Ordered Lists</h1>
+            <ul>
+              <li>
+                With an unordered list, rearranging the
+                <code>&lt;li&gt;</code>
+                elements shouldn’t change the meaning of the list. .
+              </li>
+              <li>
+                If the sequence of list items does matter, you should use an “ordered list” instead.
+              </li>
+              <li>
+                To create an ordered list, simply change the parent
+                <code>&lt;ul&gt;</code>
+                element to
+                <code>&lt;ol&gt;</code>
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <p>This is what an ordered list looks like:</p>
+
+                <ol>
+                  <li>Notice the new "ol" element wrapping everything</li>
+                  <li>But, the list item elements are the same</li>
+                  <li>Also note how the numbers increment on their own</li>
+                  <li>You should be noticing things is this precise order, because this is
+                      an ordered list</li>
+                </ol>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Block-Level vs. Inline Elements</h1>
+            <ul>
+              <li>
+                So far, we've only been working with “block-level elements” (also called “flow
+                content”).
+              </li>
+              <li>
+                The other major type of content is “inline elements” or “phrasing content”, which
+                are treated a little bit differently.
+              </li>
+              <li>
+                Block-level elements are always drawn on a new line, while inline elements can
+                affect sections of text anywhere within a line.
+              </li>
+            </ul>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/inline-vs-block-elements-44860e.2d5e4a82.png"
+              alt="Block-Level vs. Inline Elements"
+            />
+          </section>
+          <section>
+            <h1>Emphasis (Italic) Elements</h1>
+            <p>
+              For instance,
+              <code>&lt;p&gt;</code>
+              is a block-level element, while
+              <code>&lt;em&gt;</code>
+              is an inline element that affects a span of text
+              <em>inside</em>
+              of a paragraph. It stands for “emphasis”, and it's typically displayed as italicized
+              text.
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <h2>Inline Elements</h2>
+
+                  <p><em>Sometimes</em>, you need to draw attention to a particular word or
+                  phrase.</p>
+
+                  <!-- It's important that you properly nest your HTML elements. -->
+                  <!-- (Again, don't ever do this) -->
+                  <p>This is some <em>emphasized text</em></p>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Strong (Bold) Elements</h1>
+            <p>
+              If you want to be more emphatic than an
+              <code>&lt;em&gt;</code>
+              tag, you can use
+              <code>&lt;strong&gt;</code>
+              . It's an inline element just like
+              <code>&lt;em&gt;</code>
+              , and looks like this:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <p>Other times you need to <strong>strong</strong>ly emphasize the importance
+                  of a word or phrase.</p>
+
+                <p><em><strong>And sometimes you need to shout!</strong></em></p>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Structure vs Presentation</h1>
+            <ul>
+              <li>
+                You might be wondering why we’re using the terms “emphasis” and “strong” instead of
+                “italic” and “bold”.
+              </li>
+              <li>That brings us to an important distinction between HTML and CSS.</li>
+              <li>
+                HTML markup should provide
+                <strong>semantic</strong>
+                information about your content—not
+                <strong>presentational</strong>
+                information.
+              </li>
+              <li>
+                In other words, HTML should define the structure of your document, leaving its
+                appearance to CSS.
+              </li>
+            </ul>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/structure-vs-presentation-05c228.5f730b58.png"
+              alt="Structure vs Presentation"
+            />
+          </section>
+          <section>
+            <h1>
+              Why do we use
+              <code>&lt;em&gt;</code>
+              and
+              <code>&lt;strong&gt;</code>
+              ?
+            </h1>
+            <ul>
+              <li>
+                The pseudo-obsolete
+                <code>&lt;b&gt;</code>
+                and
+                <code>&lt;i&gt;</code>
+                elements are classic examples of this.
+              </li>
+              <li>
+                They used to stand for “bold” and “italic”, respectively, but HTML5 attempted to
+                create a clear separation between a document’s structure and its presentation.
+              </li>
+              <li>
+                Thus,
+                <code>&lt;i&gt;</code>
+                was replaced with
+                <code>&lt;em&gt;</code>
+                , since emphasized text can be displayed in all sorts of ways aside from being
+                italicized (e.g., in a different font, a different color, or a bigger size). Same
+                for
+                <code>&lt;b&gt;</code>
+                and
+                <code>&lt;strong&gt;</code>
+                .
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Empty HTML Elements</h1>
+            <ul>
+              <li>
+                The HTML tags we've encountered so far either wrap text content (e.g.,
+                <code>&lt;p&gt;</code>
+                ) or other HTML elements (e.g.,
+                <code>&lt;ol&gt;</code>
+                ).
+              </li>
+              <li>
+                That's not the case for all HTML elements. Some of them can be “empty“ or
+                “self-closing”.
+              </li>
+              <li>
+                Line breaks and horizontal rules are the most common empty elements you'll find.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Line Breaks</h1>
+            <p>
+              HTML condenses consecutive spaces, tabs, or newlines (together known as “whitespace”)
+              into a single space.
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <h2>Empty Elements</h2>
+
+                <p>Thanks for reading! HTML should be getting easier now.</p>
+
+                <p>Regards,
+                The Authors</p>
+              </code>
+            </pre>
+            <p>
+              The newline after
+              <code>Regards</code>
+              in the above snippet will be transformed into a space instead of displaying as a line
+              break
+            </p>
+          </section>
+          <section>
+            <h1>Add a Line Break</h1>
+            <ul>
+              <li>
+                This behavior may seem counter intuitive, but web developers often set their text
+                editor to limit line length to around 80 characters.
+              </li>
+              <li>
+                As a programmer, it's easier to manage code this way, but having each of the
+                newlines show up in the rendered page would severely mess up the intended page
+                layout.
+              </li>
+              <li>
+                To tell the browser that we want a
+                <strong>hard line break</strong>
+                , we need to use an explicit
+                <code>&lt;br/&gt;</code>
+                element.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <p>Regards,<br/>
+                  The Authors</p>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Be Careful with Line Breaks</h1>
+            <p>
+              However, be very careful not to abuse the
+              <code>&lt;br/&gt;</code>
+              tag. Each one you use should still convey
+              <em>meaning</em>
+              —you shouldn't use it to, say, add a bunch of space between paragraphs:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <!-- You shouldn't do this -->
+                <p>This paragraph needs some space below it...</p>
+                <br/><br/><br/><br/><br/><br/><br/><br/>
+                <p>So, I added some hard line breaks.</p>
+              </code>
+            </pre>
+            <p>
+              This kind of presentational information should be defined in your
+              <strong>CSS</strong>
+              instead of your
+              <strong>HTML</strong>
+              .
+            </p>
+          </section>
+          <section>
+            <h1>Horizontal Rules</h1>
+            <ul>
+              <li class="fragment">
+                The
+                <code>&lt;hr/&gt;</code>
+                element is a “horizontal rule”, which represents a thematic break.
+              </li>
+              <li class="fragment">
+                The transition from one scene of a story into the next or between the end of a
+                letter and a postscript are good examples of when a horizontal rule may be
+                appropriate.
+              </li>
+            </ul>
+            <pre class="fragment">
+              <code data-trim class="language-html">
+                <h2>Empty Elements</h2>
+
+                <p>Thanks for reading! HTML should be getting easier now.</p>
+
+                <p>Regards,<br/>
+                The Authors</p>
+
+                <hr/>
+
+                <p>P.S. This page might look like crap, but we'll fix that with some CSS
+                soon.</p>
+              </code>
+            </pre>
+            <ul>
+              <li class="fragment">
+                One of the themes for this chapter has been the separation of content (HTML) from
+                presentation (CSS), and
+                <code>&lt;hr/&gt;</code>
+                is no different.
+              </li>
+              <li class="fragment">
+                Like
+                <code>&lt;em&gt;</code>
+                and
+                <code>&lt;strong&gt;</code>
+                , it has a default appearance (a horizontal line), but once we start working with
+                CSS, we'll be able to render it as more space between sections, a decorative accent
+                character, or pretty much anything else we want.
+              </li>
+              <li class="fragment">
+                Like
+                <code>&lt;br/&gt;</code>
+                ,
+                <code>&lt;hr/&gt;</code>
+                should carry meaning—don't use it when you just want to display a line for the sake
+                of aesthetics. For that, you'll want to use the CSS
+                <code>border</code>
+                property, which we'll discuss in a few chapters.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Optional Trailing Slash</h1>
+            <ul>
+              <li>
+                The trailing slash (
+                <code>/</code>
+                ) in all empty HTML elements is entirely optional. The above snippet could also be
+                marked up like this (note the lack of
+                <code>/</code>
+                in the
+                <code>&lt;br&gt;</code>
+                and
+                <code>&lt;hr&gt;</code>
+                tags)
+              </li>
+              <li>
+                It doesn't really make a difference which convention you choose, but pick one and
+                stick to it for the sake of consistency.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <p>Regards,<br>The Authors</p>
+
+                <hr>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Links and Images</h1>
+            <ul>
+              <li>
+                Links and images are fundamentally different from those elements in that they deal
+                with external resources.
+              </li>
+              <li>
+                Links point the user to a different HTML document, and images pull another resource
+                into the page.
+              </li>
+              <li>
+                As we start working with multiple files, we’ll discover the importance of being an
+                organized web developer.
+              </li>
+            </ul>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/links-and-images-6820c7.7d96205e.png"
+              alt="Links and Images"
+            />
+          </section>
+          <section>
+            <h1>Setup</h1>
+            <div style="display: flex; justify-content: space-around; gap: 1em">
+              <div>
+                <p>
+                  We'll be working with
+                  <strong>three separate web pages</strong>
+                  this chapter, along with
+                  <strong>a few image files</strong>
+                  of various formats:
+                </p>
+                <ul>
+                  <li>
+                    Create a new folder called
+                    <em>links-and-images</em>
+                    to store all our files.
+                  </li>
+                  <li>
+                    Add two new files to that folder called
+                    <em>links.html</em>
+                    and
+                    <em>images.html</em>
+                    and insert the HTML templates below.
+                  </li>
+                  <li>
+                    Our last page will help us demonstrate relative links. Create a new folder in
+                    <em>links-and-images</em>
+                    called
+                    <em>misc</em>
+                    , then add a new file called
+                    <em>extras.html</em>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <img
+                  width="100%"
+                  src="https://internetingishard.netlify.app/example-files-b21613.a16803e0.png"
+                  alt="Links and Images"
+                />
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-around; gap: 1em">
+              <div>
+                <pre>
+                  <code data-trim class="language-html">
+                    <script type="text/template">
+                    <!-- /links.html -->
+
+                    <!DOCTYPE html>
+                    <html>
+                      <head>
+                        <title>Links</title>
+                      </head>
+                      <body>
+                        <h1>Links</h1>
+                      </body>
+                    </html>
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-html">
+                    <script type="text/template">
+                    <!-- /images.html -->
+
+                    <!DOCTYPE html>
+                    <html>
+                      <head>
+                        <title>Images</title>
+                      </head>
+                      <body>
+                        <h1>Images</h1>
+                      </body>
+                    </html>
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-html">
+                    <script type="text/template">
+                    <!-- /misc/extras.html -->
+
+                    <!DOCTYPE html>
+                    <html>
+                      <head>
+                        <title>Extras</title>
+                      </head>
+                      <body>
+                        <h1>Extras</h1>
+                      </body>
+                    </html>
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Image Downloads</h1>
+            <p>
+              We'll be embedding images in our
+              <code>images.html</code>
+              file, so be sure to download these
+              <a
+                href="https://internetingishard.netlify.app/html-and-css/links-and-images/images-4149f7.zip"
+              >
+                example mochi images
+              </a>
+              , too. Unzip them in your
+              <code>links-and-images</code>
+              folder, keeping the parent
+              <code>images</code>
+              folder from the ZIP file.
+            </p>
+          </section>
+          <section>
+            <h1>Anchors</h1>
+            <ul>
+              <li>
+                Links are created with the
+                <code>&lt;a&gt;</code>
+                element, which stands for “anchor”.
+              </li>
+              <li>
+                It works just like all the elements in the previous chapter: when you wrap some text
+                in
+                <code>&lt;a&gt;</code>
+                tags, it alters the meaning of that content.
+              </li>
+              <li>
+                Let's take a look by adding the following paragraph to the
+                <code>&lt;body&gt;</code>
+                element of
+                <code>links.html</code>
+                :
+              </li>
+            </ul>
+            <pre style="margin-bottom: 5em">
+              <code data-trim class="language-html">
+                <p>This example is about links and <a>images</a>.</p>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                However, if you load the page in a web browser, you'll notice that the
+                <code>&lt;a&gt;</code>
+                element doesn't look like a link at all.
+              </li>
+              <li>
+                Yes, unfortunately, the
+                <code>&lt;a&gt;</code>
+                element on its own doesn't do much of anything.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Links</h1>
+            <div style="display: flex; justify-content: space-between; gap: 1em">
+              <div>
+                <ul>
+                  <li>
+                    In the same way that an element adds meaning to the content it contains, an HTML
+                    <em>attribute</em>
+                    adds meaning to the element it's attached to.
+                  </li>
+                  <li>
+                    Different elements allow different attributes, and you can refer to
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN</a>
+                    for details about which elements accept which attributes.
+                  </li>
+                  <li>
+                    Right now, we're concerned with the
+                    <code>href</code>
+                    attribute because it determines where the user goes when they click an
+                    <code>&lt;a&gt;</code>
+                    element.
+                  </li>
+                  <li>Update your link to match the following:</li>
+                </ul>
+                <pre style="margin-bottom: 5em">
+                  <code data-trim class="language-html">
+                    <p>This example is about links and <a href="images.html">images</a>.</p>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <img
+                  width="100%"
+                  class="background_white"
+                  src="https://internetingishard.netlify.app/html-attributes-6f5690.38791440.png"
+                  alt="HTML Attributes"
+                />
+              </div>
+            </div>
+            <p>
+              Notice how attributes live inside the opening tag. The attribute name comes first,
+              then an equal sign, then the “value” of the attribute in either single or double
+              quotation marks. This syntax distinguishes attributes from content (which goes between
+              the tags).
+            </p>
+          </section>
+          <section>
+            <h1>Absolute, Relative and Root-Relative Links</h1>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/absolute-relative-root-relative-links-104560.44a1740c.png"
+              alt="Absolute, Relative and Root-Relative Links"
+            />
+            <ul>
+              <li>
+                A website is just a collection of
+                <strong>HTML files</strong>
+                organized into
+                <strong>folders</strong>
+                .
+              </li>
+              <li>
+                To refer to those files from inside of another file, the Internet uses “uniform
+                resource locators” (URLs).
+              </li>
+              <li>Depending on what you're referring to, URLs can take different forms.</li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                <!-- Add the following content to our links.html file -->
+
+                <p>This particular page is about links! There are three kinds of links:</p>
+
+                <ul>
+                  <!-- Add <li> elements here -->
+                </ul>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Absolute Links</h1>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/absolute-links-32f469.bd16b83a.png"
+              alt="Absolute Links"
+            />
+
+            <p>
+              Absolute links are the most detailed way you can refer to a web resource. They start
+              with the
+              <strong>scheme</strong>
+              (typically
+              <code>http://</code>
+              or
+              <code>https://</code>
+              ), followed by the
+              <strong>domain name</strong>
+              of the website, then the
+              <strong>path of the target web page</strong>
+              .
+            </p>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/absolute-link-syntax-64d730.e28d46a7.png"
+              alt="Absolute Links"
+            />
+            <pre>
+              <code data-trim class="language-html">
+                <li>Absolute links, like to
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">Mozilla
+                  Developer Network</a>, which is a very good resource for web
+                  developers.</li>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Relative Links</h1>
+            <div style="display: flex; align-items: flex-center; justify-content: space-between">
+              <div>
+                <img
+                  class="background_white"
+                  src="https://internetingishard.netlify.app/relative-links-e178d0.de636c3f.png"
+                  alt="Relative Links"
+                />
+              </div>
+              <div>
+                <img
+                  width="100%"
+                  src="https://internetingishard.netlify.app/example-files-b21613.a16803e0.png"
+                  alt="Relative Links"
+                />
+              </div>
+            </div>
+            <ul>
+              <li>
+                Relative links point to
+                <strong>another file</strong>
+                in your
+                <strong>website</strong>
+                from the vantage point of the file you're editing.
+              </li>
+              <li>
+                It's implied that the
+                <strong>scheme</strong>
+                and
+                <strong>domain name</strong>
+                are the
+                <strong>same</strong>
+                as the current page, so the only thing you need to supply is the
+                <strong>path</strong>
+                .
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!-- Here's how we can link to our extras.html file from inside of links.html: -->
+
+                  <li>Relative links, like to our <a href="misc/extras.html">extras page</a>.</li>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Parent Folders</h1>
+            <ul>
+              <li>
+                That works for referring to files that are in the same folder or a deeper folder.
+              </li>
+              <li>
+                What about linking to pages that are in a directory
+                <em>above</em>
+                the current file?
+              </li>
+              <li>
+                Let's try creating relative links to
+                <code>links.html</code>
+                and
+                <code>images.html</code>
+                from within our
+                <code>extras.html</code>
+                file.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!-- Add this to extras.html -->
+
+                  <p>
+                    This page is about miscellaneous HTML things, but you may also be interested in <a href='links.html'>links</a> or
+                    <a href='images.html'>images</a>.
+                  </p>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Parent Folders</h1>
+            <div
+              style="display: flex; justify-content: space-between; gap: 1em; align-items: center"
+            >
+              <div>
+                <ul>
+                  <li>
+                    When you click either of those links in a web browser, it will complain that the
+                    page doesn't exist.
+                  </li>
+                  <li>
+                    Examining the address bar, you'll discover that the browser is trying to load
+                    <code>misc/links.html</code>
+                    and
+                    <code>misc/images.html</code>
+                    —it's looking in the wrong folder!
+                  </li>
+                  <li>
+                    That's because our links are
+                    <em>relative</em>
+                    to the location of
+                    <code>extras.html</code>
+                    , which lives in the
+                    <code>misc</code>
+                    folder.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <img
+                  class="background_white"
+                  src="https://internetingishard.netlify.app/relative-link-no-parent-4629d0.2a30136c.png"
+                  alt="Relative Link No Parent"
+                />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>How to fix this?</h1>
+            <pre>
+              <code data-trim class="language-html">
+                <p>
+                  This page is about miscellaneous HTML things, but you may also be
+                  interested in <a href="../links.html">links</a> or <a
+                  href="../images.html">images</a>.
+                </p>
+              </code>
+            </pre>
+            <div
+              style="display: flex; justify-content: space-between; gap: 1em; align-items: center"
+            >
+              <div>
+                <ul>
+                  <li>
+                    To fix this, we need the
+                    <code>..</code>
+                    syntax.
+                  </li>
+                  <li>
+                    Two consecutive dots in a file path represent a pointer to the
+                    <strong>parent</strong>
+                    directory
+                  </li>
+                  <li>
+                    <p>
+                      This is like saying, “I know
+                      <code>extras.html</code>
+                      is in the
+                      <code>misc</code>
+                      folder. Go up a folder and look for
+                      <code>links.html</code>
+                      and
+                      <code>images.html</code>
+                      in there.”
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <img
+                  class="background_white"
+                  src="https://internetingishard.netlify.app/relative-link-with-parent-666b79.13ea3d47.png"
+                  alt="Relative Link with Parent"
+                />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Root-Relative Links</h1>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/root-relative-links-368060.237b8500.png"
+              alt="Root-Relative Links"
+            />
+            <ul>
+              <li>
+                Root-relative links are similar to the previous section, but instead of being
+                relative to the current page, they're relative to the
+                <strong>root</strong>
+                of the entire website.
+              </li>
+              <li>
+                For instance, if your website is hosted on
+                <code>our-site.com</code>
+                , all root-relative URLs will be relative to
+                <code>our-site.com</code>
+                .
+              </li>
+              <li>
+                Unfortunately, there is one caveat to our discussion of root-relative links: we are
+                using local HTML files instead of a website hosted on a web server. This means we
+                <strong>won't be able to experiment with root-relative links</strong>
+                . But, if we did have a real server, the link to our home page would look like this:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!-- This won't work for our local HTML files -->
+
+                  <!-- The only difference between a root-relative link and a relative one is that the former starts with a forward slash.  -->
+
+                  <li>Root-relative links, like to the <a href='/'>home page</a> of our website, but those aren't useful to us right now.</li>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Link Targetes</h1>
+            <ul>
+              <li>
+                Attributes alter the meaning of HTML elements, and sometimes you need to modify more
+                than one aspect of an element.
+              </li>
+              <li>
+                For example,
+                <code>&lt;a&gt;</code>
+                elements also accept a
+                <code>target</code>
+                attribute that defines where to display the page when the user clicks the link.
+              </li>
+              <li>
+                By default, most browsers replace the current page with the new one. We can use the
+                <code>target</code>
+                attribute to ask the browser to open a link in a new window/tab.
+              </li>
+              <li>
+                The
+                <code>target</code>
+                attribute has a few pre-defined values that carry special meaning for web browsers,
+                but the most common one is
+                <code>_blank</code>
+                , which specifies a new tab or window. You can read about the rest on
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">MDN</a>
+                .
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <li>
+                  Absolute links, like to
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"
+                     target="_blank">Mozilla Developer Network</a>, which is a very good
+                     resource for web developers.
+                </li>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <h1>Naming Conventions</h1>
+          <ul>
+            <li>
+              You'll notice that none of our files or folders have
+              <strong>spaces</strong>
+              in their names. That's on purpose.
+              <ul>
+                <li>
+                  <strong>Spaces</strong>
+                  in URLs require special handling and should be avoided at all costs.
+                </li>
+                <li>
+                  To see what we're talking about, try creating a new file in our
+                  <code>links-and-images</code>
+                  project called
+                  <code>spaces are bad.html</code>
+                </li>
+                <li>
+                  Add a little bit of text to it, then open it in Google Chrome or Safari (Firefox
+                  cheats and preserves the spaces).
+                </li>
+                <li>
+                  In the address bar, you'll see that all our spaces have been replaced with
+                  <code>%20</code>
+                  :
+                  <code>links-and-images/spaces%20are%20bad.html</code>
+                </li>
+                <li>
+                  Spaces aren't allowed in URLs, and that's the special encoding used to represent
+                  them:
+                  <ul>
+                    <li>
+                      Instead of a space, you should always use a
+                      <strong>hyphen</strong>
+                      , as we've been doing throughout this tutorial.
+                    </li>
+                    <li>It's also a good idea to use all lowercase characters for consistency.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              Notice how there's a direct connection between our
+              <strong>file/folder names and the URL</strong>
+              for the web page they represent.
+              <ul>
+                <li>The names of our folders and files determine the slugs for our web pages.</li>
+                <li>
+                  They're visible to the user, which means you should put in as much effort into
+                  naming your files as you put into creating the content they contain.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h1>Images</h1>
+            <ul>
+              <li>
+                Images are included in web pages with the
+                <code>&lt;img/&gt;</code>
+                tag and its
+                <code>src</code>
+                attribute, which points to the image file you want to display.
+              </li>
+              <li>
+                Notice how it's an empty element like
+                <code>&lt;br/&gt;</code>
+                and
+                <code>&lt;hr/&gt;</code>
+                .
+              </li>
+              <li>
+                Retina displays and mobile devices make image handling a little bit more complicated
+                than a plain old
+                <code>&lt;img/&gt;</code>
+                tag. We'll deal with this later in the course.
+              </li>
+              <li>
+                Also be sure to check out the
+                <code>&lt;figure&gt;</code>
+                and
+                <code>&lt;figcaption&gt;</code>
+                element in the
+                <a href="/html-and-css/semantic-html/">Semantic HTML</a>
+                chapter.
+              </li>
+              <li>For now, let's focus on the many image formats floating around the Internet.</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Image Formats</h1>
+            <p>
+              There's four main image formats in use on the web, and they were all designed to do
+              different things.
+            </p>
+            <img
+              width="70%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/image-formats-62b23d.df203a3f.png"
+              alt="Image Formats"
+            />
+            <p>
+              Understanding their intended purpose goes a long way towards improving the quality of
+              your web pages.
+            </p>
+          </section>
+          <section>
+            <h1>JPG Images</h1>
+            <ul>
+              <li>
+                JPG images are designed for handling
+                <strong>large color palettes</strong>
+                without exorbitantly increasing
+                <strong>file size</strong>
+                .
+              </li>
+              <li>
+                This makes them great for
+                <strong>photos</strong>
+                and images with lots of
+                <strong>gradients</strong>
+                in them.
+              </li>
+              <li>
+                On the other hand, JPGs don't allow for
+                <strong>transparent</strong>
+                pixels, which you can see in the white edges of the image below if you look real
+                close
+              </li>
+            </ul>
+            <img
+              class="background_white"
+              src="https://internetingishard.netlify.app/mochi-77c69d.385ff9c7.jpg"
+              alt="JPG Image"
+            />
+            <pre>
+              <code data-trim class="language-html">
+                <!-- links-and-images/images.html -->
+
+                <p>This page covers common image formats.</p>
+
+                <h2>JPGs</h2>
+
+                <img src="images/mochi.jpg"/>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>GIF Images</h1>
+            <ul>
+              <li>
+                GIFs are the go-to option for simple
+                <strong>animations</strong>
+                , but the trade off is that they're somewhat
+                <strong>limited in terms of color palette</strong>
+                —never use them for photos.
+              </li>
+              <li>
+                Transparent pixels are a binary option for GIFs, meaning you can't have
+                <strong>semi-opaque</strong>
+                pixels. This can make it difficult to get high levels of detail on a transparent
+                background.
+              </li>
+              <li>
+                For this reason, it's usually better to use
+                <strong>PNG</strong>
+                images if you don't need animation.
+              </li>
+            </ul>
+            <img
+              src="https://internetingishard.netlify.app/mochi-961ee5.6d9c21cd.gif"
+              alt="GIF Image"
+            />
+            <pre>
+              <code data-trim class="language-html">
+                <!-- links-and-images/images.html -->
+
+                <h2>GIFs</h2>
+
+                <p>GIFs are good for animations.</p>
+
+                <img src="images/mochi.gif"/>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>PNG Images</h1>
+            <ul>
+              <li>
+                PNGs are great for
+                <strong>anything</strong>
+                that's
+                <strong>not a photo or animated</strong>
+                .
+              </li>
+              <li>
+                For
+                <strong>photos</strong>
+                , a PNG file of the same quality (as perceived the human eye) would generally be
+                bigger than an equivalent
+                <strong>JPG</strong>
+                file.
+              </li>
+              <li>
+                However, they do deal with
+                <strong>opacity</strong>
+                just fine, and they don't have color palette limitations. This makes them an
+                excellent fit for icons, technical diagrams, logos, etc.
+              </li>
+            </ul>
+            <img src="https://internetingishard.netlify.app/mochi-f95fdf.849f17a3.png" />
+            <pre>
+              <code data-trim class="language-html">
+                <!-- links-and-images/images.html -->
+
+                <h2>PNGs</h2>
+
+                <p>PNGs are good for diagrams and icons.</p>
+
+                <img src="images/mochi.png"/>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>SVG Images</h1>
+            <ul>
+              <li>
+                Unlike the pixel-based image formats above, SVG is a
+                <strong>vector-based</strong>
+                graphics format, meaning it can scale up or down to
+                <em>any</em>
+                dimension without loss of quality.
+              </li>
+              <li>
+                This property makes SVG images a wonderful tool for
+                <strong>responsive design</strong>
+                . They're good for pretty much all the same use cases as PNGs, and
+                <strong>you should use them whenever you can</strong>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>SVG Images</h1>
+            <ul>
+              <li>
+                These 300x300 pixel images were originally 100x100 pixels, but scaling them up
+                clearly shows the difference between them.
+              </li>
+              <li>
+                Notice the crisp, clean lines on the left SVG image, while the PNG image on the
+                right is now very pixelated.
+              </li>
+              <li>
+                Despite being a vector format, SVGs can be used exactly like their raster
+                counterparts.
+              </li>
+            </ul>
+            <img src="https://internetingishard.netlify.app/svg-vs-png-image-3df7fd.cf9848fd.png" />
+          </section>
+          <section>
+            <h1>Caveats</h1>
+            <ul>
+              <li>
+                There is one potential issue with SVGs: for them to display consistently across
+                browsers, you need to convert any text fields to outlines using your image editor
+                (e.g.,
+                <a href="https://www.sketchapp.com/">Sketch</a>
+                ).
+              </li>
+              <li>
+                If your images contain a lot of text, this can have a big impact on file size.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Image Dimensions</h1>
+            <div style="display: flex; align-items: flex-start; gap: 1em">
+              <div>
+                <ul>
+                  <li>
+                    By default, the
+                    <code>&lt;img/&gt;</code>
+                    element uses the
+                    <strong>inherit dimensions of its image file</strong>
+                    .
+                  </li>
+                  <li>
+                    Our JPG, GIF, and PNG images are actually 150x150 pixels, while our SVG mochi is
+                    only 75x75 pixels.
+                  </li>
+                  <li>
+                    To get our pixel-based images down to the intended size (75x75), we can use the
+                    <code>&lt;img/&gt;</code>
+                    element's
+                    <code>width</code>
+                    attribute.
+                  </li>
+                  <li>
+                    The
+                    <code>width</code>
+                    attribute sets an explicit dimension for the image.
+                  </li>
+                  <li>
+                    There's a corresponding
+                    <code>height</code>
+                    attribute, as well.
+                  </li>
+                  <li>
+                    Setting only one of them will cause the image to scale proportionally, while
+                    defining both will stretch the image.
+                  </li>
+                  <li>
+                    Dimension values are specified in pixels, and you should never include a unit
+                    (e.g.,
+                    <code>width='75px'</code>
+                    would be incorrect).
+                  </li>
+                </ul>
+                <pre>
+                  <code data-trim class="language-html">
+                    <img src="images/mochi.jpg" width="75"/>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <img
+                  width="70%"
+                  src="https://internetingishard.netlify.app/html-img-formats-3b43c6.998f97de.png"
+                />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Image Alt Text</h1>
+            <ul>
+              <li>
+                Adding
+                <code>alt</code>
+                attributes to your
+                <code>&lt;img/&gt;</code>
+                elements is a best practice.
+              </li>
+              <li>
+                It defines a
+                <strong>text alternative</strong>
+                to the image being displayed.
+              </li>
+              <li>
+                This has an impact on both search engines and users with text-only browsers (e.g.,
+                people that use
+                <em>text-to-speech</em>
+                software due to a vision impairment).
+              </li>
+              <li>
+                For more examples of how to use the
+                <code>alt</code>
+                attribute, please refer to the ridiculously detailed
+                <a href="https://www.w3.org/TR/html5/embedded-content-0.html#alt">
+                  official specification
+                </a>
+                .
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <img src="images/mochi.jpg" width="75" alt="A mochi ball in a bubble"/>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>HTML Entities</h1>
+            <ul>
+              <li>
+                An
+                <em>HTML entity</em>
+                is a special character that can't be represented as plain text in an HTML document.
+              </li>
+              <li>
+                This typically either means it's a
+                <strong>reserved character</strong>
+                in HTML or you don't have a key on your keyboard for it.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Reserved Characters</h1>
+            <ul>
+              <li>
+                The
+                <code>&lt;</code>
+                ,
+                <code>&gt;</code>
+                , and
+                <code>&amp;</code>
+                characters are called
+                <a href="https://dev.w3.org/html5/html-author/charref">reserved characters</a>
+                because they aren't allowed to be inserted into an HTML document without being
+                encoded.
+              </li>
+              <li>
+                This is because they mean something in the HTML syntax:
+                <ul>
+                  <li>
+                    <code>&lt;</code>
+                    begins a new tag,
+                  </li>
+                  <li>
+                    <code>&gt;</code>
+                    ends a tag, and, as we're about to learn,
+                  </li>
+                  <li>
+                    <code>&amp;</code>
+                    sets off an HTML entity.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Entities always begin with an ampersand (
+                <code>&amp;</code>
+                ) and end with a semicolon (
+                <code>;</code>
+                ). In between, you put a special code that your browser will interpret as a symbol.
+                In this case, it interprets
+                <code>lt</code>
+                ,
+                <code>gt</code>
+                , and
+                <code>amp</code>
+                as less-than, greater-than, and ampersand symbols, respectively.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <h2>HTML Entities</h2>
+                  <p>
+                    There are three reserved characters in HTML: &lt; &gt; and &amp;.
+                    You should always use HTML entities for these three characters.
+                  </p>
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <h1>References</h1>
+          <ul>
+            <li>
+              <a href="https://developer.mozilla.org/" target="_blank">MDN Web Docs</a>
+            </li>
+            <li>
+              <a href="https://internetingishard.netlify.app/" target="_blank">
+                Interneting is Hard
+              </a>
+            </li>
+            <li>
+              <a href="https://web.dev/learn/html/welcome" target="_blank">Web.dev</a>
+            </li>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Version_control"
+                target="_blank"
+              >
+                Version control
+              </a>
+            </li>
+          </ul>
         </section>
       </div>
     </div>

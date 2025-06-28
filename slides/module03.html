@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 03 - Web System Development</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Web System Development</h1>
+          <h2>Module 03: CSS</h2>
+        </section>
+
+        <section>
+          <h1>CSS</h1>
+          <ul>
+            <li>
+              CSS (Cascading Style Sheets) is a language that describes the presentation of a
+              document written in HTML.
+            </li>
+            <li>You can think of CSS as defining the “design” of a web page.</li>
+            <li>
+              It determines things like font size, margins, and colors using a language entirely
+              separate from HTML.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h1>Why is it a separate language?</h1>
+            <ul>
+              <li>CSS serves a completely different purpose than HTML.</li>
+              <li>HTML represents the content of your web page</li>
+              <li>CSS defines how that content is presented to the user.</li>
+            </ul>
+          </section>
+          <section>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/css-vs-html-f4fdfa.0a26cc8e.png"
+              alt="HTML and CSS"
+            />
+            <ul>
+              <li>
+                CSS provides the vocabulary to tell a web browser things like, “I want my headings
+                to be really big and my sidebar to appear on the left of the main article.”
+              </li>
+              <li>
+                HTML doesn't have the terminology to make those kinds of layout decisions—all it can
+                say is, “that's a heading and that's a sidebar.”
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Setup</h1>
+            <div style="display: flex; gap: 1em; align-items: center">
+              <div>
+                <ul>
+                  <li>
+                    To keep things simple, create a new folder called
+                    <code>hello-css</code>
+                    .
+                  </li>
+                  <li>
+                    We're going to be styling an existing page called
+                    <code>hello-css.html</code>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                <code data-trim class="language-html">
+                  <script type="text/template">
+                    <!DOCTYPE html>
+                    <html lang='en'>
+                      <head>
+                        <meta charset='UTF-8'/>
+                        <title>Hello, CSS</title>
+                      </head>
+                      <body>
+                        <h1>Hello, CSS</h1>
+
+                        <p>CSS lets us style HTML elements. There's also
+                          <a href='dummy.html'>another page</a> associated with this example.</p>
+
+                        <h2>List Styles</h2>
+
+                        <p>You can style unordered lists with the following bullets:</p>
+
+                        <ul>
+                          <li>disc</li>
+                          <li>circle</li>
+                          <li>square</li>
+                        </ul>
+
+                        <p>And you can number ordered lists with the following:</p>
+
+                        <ol>
+                          <li>decimal</li>
+                          <li>lower-roman</li>
+                          <li>upper-roman</li>
+                          <li>lower-alpha</li>
+                          <li>upper-alpha</li>
+                          <li>(and many more!)</li>
+                        </ol>
+                      </body>
+                    </html>
+                  </script>
+                </code>
+              </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <p>
+              In addition, we'll need a small dummy page to learn how CSS styles can be applied to
+              multiple web pages. Create
+              <code>dummy.html</code>
+              and add the following:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!DOCTYPE html>
+                  <html lang='en'>
+                    <head>
+                      <meta charset='UTF-8'/>
+                      <title>Dummy</title>
+                    </head>
+                    <body>
+                      <h1>Dummy</h1>
+
+                      <p>This is a dummy page that helps us demonstrate reusable CSS
+                        stylesheets. <a href='hello-css.html'>Go back</a>.</p>
+
+                      <p>Want to try crossing out an <a href='nowhere.html'>obsolete link</a>? This
+                        is your chance!</p>
+                    </body>
+                  </html>
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>CSS stylesheets</h1>
+            <ul>
+              <li>
+                CSS stylesheets reside in plaintext files with a
+                <code>.css</code>
+                extension.
+              </li>
+              <li>
+                Create a new file called
+                <code>styles.css</code>
+                in our
+                <code>hello-css</code>
+                folder.
+              </li>
+              <li>
+                Let's add one CSS rule so that we can tell if our stylesheet is hooked up to our
+                HTML pages properly.
+              </li>
+            </ul>
+            <pre>
+            <code data-trim class="language-css">
+              body {
+                color: #FF0000;
+              }
+            </code>
+          </pre>
+          </section>
+          <section>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/css-rule-terminology-1a7961.eaaa292a.png"
+              alt="CSS rule terminology"
+            />
+            <ul>
+              <li>
+                A CSS
+                <strong>rule</strong>
+                always start with a
+                <strong>selector</strong>
+                that defines which HTML elements it applies to.
+              </li>
+              <li>
+                In this case, we're trying to style the
+                <code>&lt;body&gt;</code>
+                element.
+              </li>
+              <li>
+                After the selector, we have the
+                <strong>declarations block</strong>
+                inside of some curly braces.
+              </li>
+              <li>
+                Any
+                <strong>properties</strong>
+                we set in here will affect the
+                <code>&lt;body&gt;</code>
+                element.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <ul>
+              <li>
+                <code>color</code>
+                is a built-in property defined by the CSS specification that determines the text
+                color of whatever HTML elements have been selected.
+              </li>
+              <li>
+                It accepts a hexadecimal value representing a color.
+                <code>#FF0000</code>
+                means bright red.
+              </li>
+              <li>
+                CSS properties are kind of like
+                <a href="/html-and-css/links-and-images/#links">HTML attributes</a>
+                in that they both deal with key-value pairs.
+              </li>
+              <li>
+                Except, here we're defining
+                <strong>presentational</strong>
+                information instead of contributing to the
+                <strong>semantic</strong>
+                meaning of the underlying content.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Linking a CSS Stylesheet</h1>
+            <div style="display: flex; gap: 1em; align-items: center">
+              <ul>
+                <li>
+                  If you try loading either of the HTML pages in a browser, you won't see our
+                  stylesheet in action.That's because we didn't link them together yet.
+                </li>
+                <li>
+                  This is what the HTML
+                  <code>&lt;link/&gt;</code>
+                  element is for.
+                </li>
+                <li>
+                  In
+                  <code>hello-css.html</code>
+                  , update
+                  <code>&lt;head&gt;</code>
+                </li>
+                <li>
+                  This
+                  <code>&lt;link/&gt;</code>
+                  element is how browsers know they need to load
+                  <code>styles.css</code>
+                  when they try to render our
+                  <code>hello-css.html</code>
+                  page.
+                </li>
+                <li>
+                  We should now see
+                  <strong>blindingly red text</strong>
+                  everywhere.
+                </li>
+              </ul>
+              <div>
+                <pre>
+                  <code data-trim class="language-html">
+                    <script type="text/template">
+                      <head>
+                        <meta charset='UTF-8'/>
+                        <title>Hello, CSS</title>
+                        <link rel='stylesheet' href='styles.css'/>
+                      </head>
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <img
+              width="30%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/link-element-1beb38.2e70f24e.png"
+              alt="Link element"
+            />
+            <ul>
+              <li>
+                The
+                <code>&lt;link/&gt;</code>
+                element is just like the
+                <code>&lt;a&gt;</code>
+                element, but it's only meant to be used inside of
+                <code>&lt;head&gt;</code>
+                .
+              </li>
+              <li>
+                Since it's in the head of the document,
+                <code>&lt;link/&gt;</code>
+                connects to
+                <strong>metadata</strong>
+                that's defined outside of the current document.
+              </li>
+              <li>
+                Also notice that it's an
+                <strong>empty element</strong>
+                , so it doesn't need a closing tag.
+              </li>
+              <li>
+                The
+                <code>rel</code>
+                attribute defines the relationship between the resource and the HTML document.
+              </li>
+              <li>
+                By far the most common value is
+                <code>stylesheet</code>
+                , but there are a
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types">
+                  few other options
+                </a>
+                .
+              </li>
+              <li>
+                The
+                <code>href</code>
+                attribute should point to a
+                <code>.css</code>
+                file instead of another web page. The value for
+                <code>href</code>
+                can be an
+                <a href="/html-and-css/links-and-images/#absolute-relative-and-root-relative-links">
+                  absolute, relative, or root-relative link
+                </a>
+                .
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Setting Multiple Properties</h1>
+            <p>
+              You can stick as many properties as you want in the declarations block of a CSS rule.
+              Try setting the background color of the entire web page by changing our rule to the
+              following:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                body {
+                  color: #414141;
+                  background-color: #EEEEEE;
+                }
+              </code>
+            </pre>
+            <p>
+              The
+              <code>background-color</code>
+              property is very similar to the
+              <code>color</code>
+              property, but it defines the background color of whatever element you selected.
+            </p>
+          </section>
+          <section>
+            <h1>Different Elements</h1>
+            <p>
+              Of course, you'll want to apply styles to elements other than
+              <code>&lt;body&gt;</code>
+              . For that, simply add
+              <strong>more CSS rules</strong>
+              with different selectors.
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                body {
+                  color: #414141;
+                  background-color: #EEEEEE;
+                }
+
+                h1 {
+                  font-size: 36px;
+                }
+
+                h2 {
+                  font-size: 28px;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Selecting Multiple Elements</h1>
+            <p>
+              What if we want to add some styles to
+              <strong>all</strong>
+              our headings? We don't want to have redundant rules, since that would eventually
+              become a nightmare to maintain:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                h1 {
+                  font-family: "Helvetica", "Arial", sans-serif;
+                }
+
+                h2 {
+                  font-family: "Helvetica", "Arial", sans-serif;
+                }
+
+                h3 {
+                  font-family: "Helvetica", "Arial", sans-serif;
+                }
+              </code>
+            </pre>
+            <p>
+              Instead, we can select
+              <strong>multiple HTML elements in the same CSS rule</strong>
+              by separating them with commas:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                h1, h2, h3, h4, h5, h6 {
+                  font-family: "Helvetica", "Arial", sans-serif;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Defining Fonts</h1>
+            <ul>
+              <li>
+                <code>font-family</code>
+                is another built-in CSS property that defines the typeface for whatever element you
+                selected.
+              </li>
+              <li>
+                It accepts multiple values because not all users will have the same fonts installed.
+              </li>
+              <li>
+                With the example before, the browser tries to load the left-most one first (
+                <code>Helvetica</code>
+                ), falls back to
+                <code>Arial</code>
+                if the user doesn't have it, and finally chooses the system's default sans serif
+                font.
+              </li>
+            </ul>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/system-fonts-6a5c38.859004c6.png"
+              alt="System fonts"
+            />
+            <ul>
+              <li>
+                Relying on the user's built-in fonts has historically been incredibly limiting for
+                web designers. Nowadays, system fonts have been largely superseded by
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Web_fonts#web_fonts"
+                >
+                  web fonts
+                </a>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>CSS Comments</h1>
+            <pre>
+              <code data-trim class="language-css">
+                body {
+                  color: #414141;               /* Dark gray */
+                  background-color: #EEEEEE;    /* Light gray */
+                }
+              </code>
+            </pre>
+            <ul>
+              <li>Comments in CSS are a little different than their HTML counterparts.</li>
+              <li>
+                Instead of the
+                <code>&lt;!-- --&gt;</code>
+                syntax, CSS ignores everything between
+                <code>/*</code>
+                and
+                <code>*/</code>
+                characters.
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Units Of Measurement</h1>
+            <ul>
+              <li>Many CSS properties require a unit of measurement.</li>
+              <li>
+                There's
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">a lot of units</a>
+                available, but the most common ones you'll encounter are
+                <code>px</code>
+                (pixel) and
+                <code>em</code>
+                (pronounced like the letter
+                <em>m</em>
+                ).
+                <ul>
+                  <li>
+                    <code>px</code>
+                    is what you would intuitively call a pixel, regardless of whether the user has a
+                    retina display or not.
+                  </li>
+                  <li>
+                    <code>em</code>
+                    is the current font size of the element in question.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>EM Units</h1>
+            <p>
+              The
+              <code>em</code>
+              unit is very useful for defining sizes relative to some base font.
+            </p>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/em-units-dad09a.721071a6.png"
+              alt="EM units"
+            />
+            <p>
+              In the above diagram, you can see
+              <code>em</code>
+              units scaling to match a base font size of
+              <code>12px</code>
+              ,
+              <code>16px</code>
+              , and
+              <code>20px</code>
+              .
+            </p>
+          </section>
+          <section>
+            <h1>Example</h1>
+            <p>Consider the following alternative to the previous code snippet:</p>
+            <pre>
+              <code data-trim class="language-css">
+                body {
+                  color: #414141;               /* Dark gray */
+                  background-color: #EEEEEE;    /* Light gray */
+                  font-size: 18px;
+                }
+
+                h1 {
+                  font-size: 2em;
+                }
+
+                h2 {
+                  font-size: 1.6em;
+                }
+              </code>
+            </pre>
+            <ul>
+              <li>
+                This sets our base font size for the document to
+                <code>18px</code>
+                .
+              </li>
+              <li>
+                Then, it says that our
+                <code>&lt;h1&gt;</code>
+                elements should be
+                <strong>twice</strong>
+                that size and our
+                <code>&lt;h2&gt;</code>
+                's should be
+                <strong>1.6 times bigger</strong>
+                .
+              </li>
+              <li>
+                If we (or the user) ever wanted to make the base font bigger or smaller,
+                <code>em</code>
+                units would allow our entire page to scale accordingly.
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h1>List Styles</h1>
+        </section>
+      </div>
+
+      <div class="slide-footer">
+        <span>Web System Development</span>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

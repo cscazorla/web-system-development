@@ -27,6 +27,16 @@
   --r-heading-text-transform: none;
 }
 
+.slide-footer {
+  position: fixed;
+  bottom: 1em;
+  left: 1.5em;
+  font-size: 0.8em;
+  color: #ccc;
+  z-index: 10;
+  pointer-events: none;
+}
+
 .reveal strong {
   color: var(--color-primary);
 }
@@ -54,13 +64,13 @@
   list-style-type: square;
 }
 
-.reveal ul ul li::marker {
-  color: var(--color-links);
-  font-size: 0.7em;
+.reveal ul > li > ul {
+  margin: 0.5em 0 0 0;
 }
 
-.reveal ul:last-child {
-  margin: 0;
+.reveal ul ul li::marker {
+  color: var(--color-accent);
+  font-size: 0.8em;
 }
 
 .reveal ul li {
