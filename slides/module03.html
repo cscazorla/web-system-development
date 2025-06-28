@@ -600,6 +600,327 @@
 
         <section>
           <h1>List Styles</h1>
+          <p>
+            The
+            <code>list-style-type</code>
+            property lets you alter the bullet icon used for
+            <code>&lt;li&gt;</code>
+            elements. You'll typically want to define it on the parent
+            <code>&lt;ul&gt;</code>
+            or
+            <code>&lt;ol&gt;</code>
+            element:
+          </p>
+          <pre>
+            <code data-trim class="language-css">
+              ul {
+                list-style-type: circle;
+              }
+
+              ol {
+                list-style-type: lower-roman;
+              }
+            </code>
+          </pre>
+          <p>
+            Check out the
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type">
+              MDN documentation
+            </a>
+            for more information on the different values you can use.
+          </p>
+          <p>
+            You can even create custom bullets for
+            <code>&lt;li&gt;</code>
+            elements with the
+            <code>list-style-image</code>
+            property (see MDN
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image">
+              for details
+            </a>
+            ).
+          </p>
+        </section>
+        <section>
+          <section>
+            <h1>Reusable Stylesheets</h1>
+            <ul>
+              <li>So, we just defined some basic styles for one of our web pages.</li>
+              <li>It would be really convenient if we could reuse them on our other page, too.</li>
+              <li>
+                All we need to do is add the same
+                <code>&lt;link/&gt;</code>
+                element to any other pages we want to style.
+              </li>
+              <li>
+                Let's add the following line to the
+                <code>&lt;head&gt;</code>
+                of
+                <code>dummy.html</code>
+                :
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <link rel="stylesheet" href="styles.css"/>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>
+              Now, our
+              <code>dummy.html</code>
+              pages should match our
+              <code>hello-css.html</code>
+              styles.
+            </p>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/reusable-css-stylesheets-43a99a.5322b89d.png"
+              alt="Reusable stylesheets"
+            />
+            <p>
+              Whenever we change a style in
+              <code>styles.css</code>
+              , those changes will automatically be reflected in both of our web pages.
+            </p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>The Cascade</h1>
+            <ul>
+              <li>
+                The
+                <em>cascading</em>
+                part of CSS (Cascading Style Sheets) is due to the fact that rules cascade down from
+                multiple sources.
+              </li>
+              <li>
+                So far, we’ve only seen one place where CSS can be defined: external
+                <code>.css</code>
+                files.
+              </li>
+              <li>
+                However, external stylesheets are just one of many places you can put your CSS code.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <div
+              style="display: flex; justify-content: space-between; gap: 1em; align-items: center"
+            >
+              <div>
+                <p>The CSS hierarchy for every web page looks like this:</p>
+                <ul>
+                  <li>The browser's default stylesheet</li>
+                  <li>External stylesheets (that's us)</li>
+                  <li>Page-specific styles (that's also us)</li>
+                  <li>Inline styles (that could be us, but it never should be)</li>
+                </ul>
+                <p>
+                  This is
+                  <strong>ordered</strong>
+                  from
+                  <strong>least</strong>
+                  to
+                  <strong>most</strong>
+                  precedence, which means styles defined in each subsequent step override previous
+                  ones.
+                </p>
+              </div>
+              <img
+                width="20%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/css-cascade-0755f2.1b937115.png"
+                alt="CSS hierarchy"
+              />
+            </div>
+          </section>
+          <section>
+            <h1>Page-Specific Styles</h1>
+            <ul>
+              <li>
+                The
+                <code>&lt;style&gt;</code>
+                element is used to add page-specific CSS rules to individual HTML documents.
+              </li>
+              <li>
+                The
+                <code>&lt;style&gt;</code>
+                element always lives in the
+                <code>&lt;head&gt;</code>
+                of a web page, which makes sense because it's metadata, not actual content.
+              </li>
+              <li>
+                The example below will apply only to
+                <code>dummy.html</code>
+                . Our
+                <code>hello-css.html</code>
+                page won't be affected. If you did it right, you should see bright blue text when
+                you load
+                <code>dummy.html</code>
+                in a browser.
+              </li>
+              <li>
+                Anything you would put in our
+                <code>styles.css</code>
+                file can live in this
+                <code>&lt;style&gt;</code>
+                element.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <head>
+                    <meta charset='UTF-8'/>
+                    <title>Dummy</title>
+                    <link rel='stylesheet' href='styles.css'/>
+                    <style>
+                      body {
+                        color: #0000FF;    /* Blue */
+                      }
+                    </style>
+                  </head>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <div
+              style="display: flex; gap: 1em; align-items: center; justify-content: space-between"
+            >
+              <img
+                width="40%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/page-specific-css-styles-c6b688.605c6018.png"
+                alt="Page-specific CSS styles"
+              />
+              <img
+                width="40%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/external-css-styles-b073ea.58f27dbe.png"
+                alt="External CSS styles"
+              />
+            </div>
+            <ul>
+              <li>
+                Page-specific styles use the exact same CSS syntax as an external stylesheet, but
+                everything here will override rules in our
+                <code>styles.css</code>
+                file.
+              </li>
+              <li>
+                In this case, we’re telling the browser to ignore the
+                <code>color</code>
+                property we defined for
+                <code>&lt;body&gt;</code>
+                in our external stylesheet and use
+                <code>#0000FF</code>
+                instead.
+              </li>
+              <li>
+                The problem with page-specific styles is that they're incredibly
+                <strong>difficult to maintain</strong>
+                . As shown in the diagram on the left, when you want to apply these styles to
+                another page, you have to copy-and-paste them into that document's
+                <code>&lt;head&gt;</code>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Inline Styles</h1>
+            <p>
+              You can also stick CSS rules in the
+              <code>style</code>
+              attribute of an HTML element.
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <p>
+                    Want to try crossing out an
+                    <a href='nowhere.html' style='color: #990000; text-decoration: line-through;'>obsolete link</a>?
+                    This is your chance!
+                  </p>
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                Inline styles should be
+                <strong>avoided at all costs</strong>
+                because they make it impossible to alter styles from an external stylesheet.
+              </li>
+              <li>
+                If you ever wanted to re-style your website down the road, you can't just change a
+                few rules in your global
+                <code>styles.css</code>
+                file—you'd have to go through every single page and update every single HTML element
+                that has a
+                <code>style</code>
+                attribute.
+              </li>
+              <li>
+                That said, there will be many times when you need to apply styles to only a specific
+                HTML element. For this, you should always use
+                <strong>CSS classes</strong>
+                instead of inline styles. We'll explore classes later.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Multiple Stylesheets</h1>
+            <ul>
+              <li>
+                CSS rules can be spread across several external stylesheets by adding multiple
+                <code>&lt;link/&gt;</code>
+                elements to the same page.
+              </li>
+              <li>
+                A common use case is to separate out styles for different sections of your site.
+                This lets you selectively apply consistent styles to distinct categories of web
+                pages.
+              </li>
+              <li>
+                The order of the
+                <code>&lt;link/&gt;</code>
+                elements matters. Stylesheets that come later will override styles in earlier ones.
+                Typically, you'll put your
+                <em>base</em>
+                or
+                <em>default</em>
+                styles in a global stylesheet (
+                <code>styles.css</code>
+                ) and supplement them with section-specific stylesheets (
+                <code>product.css</code>
+                and
+                <code>blog.css</code>
+                ). This allows you to organize CSS rules into manageable files while avoiding the
+                perils of page-specific and inline styles.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <head>
+                  <link rel="stylesheet" href="styles.css"/>
+                  <link rel="stylesheet" href="product.css"/>
+                </head>
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <h1>The Box Model</h1>
+        </section>
+        <section>
+          <h1>CSS Selectors</h1>
+        </section>
+        <section>
+          <h1>Flexbox</h1>
         </section>
       </div>
 
