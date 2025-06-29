@@ -1467,63 +1467,64 @@
               </code>
             </pre>
           </section>
-        </section>
-
-        <section>
-          <h1>Naming Conventions</h1>
-          <ul>
-            <li>
-              You'll notice that none of our files or folders have
-              <strong>spaces</strong>
-              in their names. That's on purpose.
-              <ul>
-                <li>
-                  <strong>Spaces</strong>
-                  in URLs require special handling and should be avoided at all costs.
-                </li>
-                <li>
-                  To see what we're talking about, try creating a new file in our
-                  <code>links-and-images</code>
-                  project called
-                  <code>spaces are bad.html</code>
-                </li>
-                <li>
-                  Add a little bit of text to it, then open it in Google Chrome or Safari (Firefox
-                  cheats and preserves the spaces).
-                </li>
-                <li>
-                  In the address bar, you'll see that all our spaces have been replaced with
-                  <code>%20</code>
-                  :
-                  <code>links-and-images/spaces%20are%20bad.html</code>
-                </li>
-                <li>
-                  Spaces aren't allowed in URLs, and that's the special encoding used to represent
-                  them:
-                  <ul>
-                    <li>
-                      Instead of a space, you should always use a
-                      <strong>hyphen</strong>
-                      , as we've been doing throughout this tutorial.
-                    </li>
-                    <li>It's also a good idea to use all lowercase characters for consistency.</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li>
-              Notice how there's a direct connection between our
-              <strong>file/folder names and the URL</strong>
-              for the web page they represent.
-              <ul>
-                <li>The names of our folders and files determine the slugs for our web pages.</li>
-                <li>
-                  They're visible to the user, which means you should put in as much effort into
-                  naming your files as you put into creating the content they contain.
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <section>
+            <h1>Naming Conventions</h1>
+            <ul>
+              <li>
+                You'll notice that none of our files or folders have
+                <strong>spaces</strong>
+                in their names. That's on purpose.
+                <ul>
+                  <li>
+                    <strong>Spaces</strong>
+                    in URLs require special handling and should be avoided at all costs.
+                  </li>
+                  <li>
+                    To see what we're talking about, try creating a new file in our
+                    <code>links-and-images</code>
+                    project called
+                    <code>spaces are bad.html</code>
+                  </li>
+                  <li>
+                    Add a little bit of text to it, then open it in Google Chrome or Safari (Firefox
+                    cheats and preserves the spaces).
+                  </li>
+                  <li>
+                    In the address bar, you'll see that all our spaces have been replaced with
+                    <code>%20</code>
+                    :
+                    <code>links-and-images/spaces%20are%20bad.html</code>
+                  </li>
+                  <li>
+                    Spaces aren't allowed in URLs, and that's the special encoding used to represent
+                    them:
+                    <ul>
+                      <li>
+                        Instead of a space, you should always use a
+                        <strong>hyphen</strong>
+                        , as we've been doing throughout this tutorial.
+                      </li>
+                      <li>
+                        It's also a good idea to use all lowercase characters for consistency.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Notice how there's a direct connection between our
+                <strong>file/folder names and the URL</strong>
+                for the web page they represent.
+                <ul>
+                  <li>The names of our folders and files determine the slugs for our web pages.</li>
+                  <li>
+                    They're visible to the user, which means you should put in as much effort into
+                    naming your files as you put into creating the content they contain.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
         </section>
 
         <section>
@@ -2145,11 +2146,78 @@
         </section>
 
         <section>
-          <h1>Forms</h1>
-          <h1>PENDING</h1>
-          <ul>
-            <li>https://internetingishard.netlify.app/html-and-css/forms/</li>
-          </ul>
+          <section>
+            <h1>Forms</h1>
+            <h1>PENDING: Move this to the next chapter</h1>
+            <ul>
+              <li>https://internetingishard.netlify.app/html-and-css/forms/</li>
+              <li>https://web.dev/learn/html/forms</li>
+            </ul>
+            <img
+              class="background_white"
+              src="https://internetingishard.netlify.app/html-form-elements-939709.b6e2f779.png"
+              alt="HTML form elements"
+              style="width: 50%"
+            />
+            <ul>
+              <li>
+                HTML form elements let you
+                <strong>collect input</strong>
+                from your website's visitors.
+              </li>
+              <li>
+                Mailing lists, contact forms, and blog post comments are common examples for small
+                websites, but in organizations that rely on their website for revenue, forms are
+                sacred and revered.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Forms are the money pages</h1>
+            <ul>
+              <li>
+                They're how e-commerce sites sell their products, how SaaS companies collect payment
+                for their service, and how non-profit groups raise money online.
+              </li>
+              <li>
+                Many companies measure the success of their website by the effectiveness of its
+                forms because they answer questions like “how many leads did our website send to our
+                sales team?” and “how many people signed up for our product last week?”
+              </li>
+              <li>
+                This often means that forms are subjected to endless A/B tests and optimizations.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <img
+              class="background_white"
+              src="https://internetingishard.netlify.app/form-frontend-and-backend-2a0f80.f3e81924.png"
+              alt="Form frontend and backend"
+              style="width: 50%"
+            />
+            <ul>
+              <li>
+                There are two aspects of a functional HTML form: the frontend user interface and the
+                backend server.
+                <ul>
+                  <li>
+                    the former is the
+                    <strong>appearance</strong>
+                    of the form (as defined by HTML and CSS),
+                  </li>
+                  <li>
+                    while the latter is the code that processes it (storing data in a database,
+                    sending an email, etc).
+                  </li>
+                </ul>
+              </li>
+              <li>
+                We'll be focusing entirely on the frontend this chapter, leaving backend form
+                processing for a future tutorial.
+              </li>
+            </ul>
+          </section>
         </section>
 
         <section>
