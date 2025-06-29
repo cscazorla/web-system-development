@@ -500,8 +500,49 @@
               </li>
             </ul>
           </section>
-        </section>
-        <section>
+          <section>
+            <h1>List Styles</h1>
+            <p>
+              The
+              <code>list-style-type</code>
+              property lets you alter the bullet icon used for
+              <code>&lt;li&gt;</code>
+              elements. You'll typically want to define it on the parent
+              <code>&lt;ul&gt;</code>
+              or
+              <code>&lt;ol&gt;</code>
+              element:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                ul {
+                  list-style-type: circle;
+                }
+
+                ol {
+                  list-style-type: lower-roman;
+                }
+              </code>
+            </pre>
+            <p>
+              Check out the
+              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type">
+                MDN documentation
+              </a>
+              for more information on the different values you can use.
+            </p>
+            <p>
+              You can even create custom bullets for
+              <code>&lt;li&gt;</code>
+              elements with the
+              <code>list-style-image</code>
+              property (see MDN
+              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image">
+                for details
+              </a>
+              ).
+            </p>
+          </section>
           <section>
             <h1>Units Of Measurement</h1>
             <ul>
@@ -599,50 +640,6 @@
               </li>
             </ul>
           </section>
-        </section>
-
-        <section>
-          <h1>List Styles</h1>
-          <p>
-            The
-            <code>list-style-type</code>
-            property lets you alter the bullet icon used for
-            <code>&lt;li&gt;</code>
-            elements. You'll typically want to define it on the parent
-            <code>&lt;ul&gt;</code>
-            or
-            <code>&lt;ol&gt;</code>
-            element:
-          </p>
-          <pre>
-            <code data-trim class="language-css">
-              ul {
-                list-style-type: circle;
-              }
-
-              ol {
-                list-style-type: lower-roman;
-              }
-            </code>
-          </pre>
-          <p>
-            Check out the
-            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type">
-              MDN documentation
-            </a>
-            for more information on the different values you can use.
-          </p>
-          <p>
-            You can even create custom bullets for
-            <code>&lt;li&gt;</code>
-            elements with the
-            <code>list-style-image</code>
-            property (see MDN
-            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image">
-              for details
-            </a>
-            ).
-          </p>
         </section>
         <section>
           <section>
@@ -918,23 +915,20 @@
         </section>
         <section>
           <section>
-            <h1>Web layout</h1>
-            <p>
-              So far we've talked about the basic text formatting properties of CSS, but that was
-              only one aspect of styling pages. Defining the
-              <strong>layout</strong>
-              of a web page is an entirely different beast.
-            </p>
-          </section>
-          <section>
             <h1>The Box Model</h1>
             <img
-              width="50%"
+              width="40%"
               class="background_white"
               src="https://internetingishard.netlify.app/css-html-and-the-box-model-9d82a2.21d4d282.png"
               alt="Box model"
             />
             <ul>
+              <li>
+                So far we've talked about the basic text formatting properties of CSS, but that was
+                only one aspect of styling pages. Defining the
+                <strong>layout</strong>
+                of a web page is an entirely different beast.
+              </li>
               <li>
                 The
                 <strong>CSS box model</strong>
@@ -2355,6 +2349,9 @@
               alt="Flex direction axes"
             />
           </section>
+        </section>
+        <section>
+          <h1>Exercise</h1>
         </section>
       </div>
 
