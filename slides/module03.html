@@ -1778,7 +1778,220 @@
           </section>
         </section>
         <section>
-          <h1>Flexbox</h1>
+          <section>
+            <h1>Flexbox</h1>
+            <ul>
+              <li>
+                The Flexbox layout mode offers a way for defining the overall appearance of a web
+                page.
+              </li>
+              <li>
+                It gives us
+                <em>complete</em>
+                control over the alignment, direction, order, and size of our boxes.
+              </li>
+            </ul>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/flexbox-layouts-7abd58.f93fcbe3.png"
+              alt="Flexbox layouts"
+            />
+          </section>
+          <section>
+            <h1>Setup</h1>
+            <p>The goal is to wind up with something that looks like this:</p>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/footer-flexible-items-static-widths-af0a32.2dfc1aff.png"
+              alt="Flexbox layout"
+            />
+          </section>
+          <section>
+            <h1>Setup</h1>
+            <ul>
+              <li>
+                Make a new folder called
+                <code>flexbox</code>
+                to house all the example files for this chapter.
+              </li>
+              <li>
+                Then, create
+                <code>flexbox.html</code>
+                and
+                <code>styles.css</code>
+                and add the following markup and styles.
+              </li>
+              <li>
+                Finally,
+                <a href="/html-and-css/flexbox/flexbox-images-449705.zip">download some images</a>
+                for use by our example web page.
+              </li>
+            </ul>
+            <div style="display: flex; gap: 1em; align-items: flex-start; justify-content: center">
+              <pre>
+                <code data-trim class="language-html">
+                  <script type="text/template">
+                    <!-- flexbox.html -->
+
+                    <!DOCTYPE html>
+                    <html lang='en'>
+                      <head>
+                        <meta charset='UTF-8'/>
+                        <title>Some Web Page</title>
+                        <link rel='stylesheet' href='styles.css'/>
+                      </head>
+                      <body>
+                        <div class='menu-container'>
+                          <div class='menu'>
+                            <div class='date'>Aug 14, 2016</div>
+                            <div class='signup'>Sign Up</div>
+                            <div class='login'>Login</div>
+                          </div>
+                        </div>
+                      </body>
+                    </html>
+                  </script>
+                </code>
+              </pre>
+              <pre>
+                <code data-trim class="language-css">
+                  /* styles.css */
+
+                  * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                  }
+
+                  .menu-container {
+                    color: #fff;
+                    background-color: #5995DA;  /* Blue */
+                    padding: 20px 0;
+                  }
+
+                  .menu {
+                    border: 1px solid #fff;  /* For debugging */
+                    width: 900px;
+                  }
+                </code>
+              </pre>
+              <img
+                width="20%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/project-files-5cb6e0.e9e7714c.png"
+                alt="Project files"
+              />
+            </div>
+          </section>
+          <section>
+            <h1>Flexbox Overview</h1>
+            <ul>
+              <li>
+                Flexbox uses two types of boxes that we've never seen before:
+                <strong>flex containers</strong>
+                and
+                <strong>flex items</strong>
+                .
+              </li>
+              <li>
+                The job of a
+                <strong>flex container</strong>
+                is to group a bunch of flex items together and define how they're positioned.
+              </li>
+              <li>
+                Every HTML element that's a direct child of a flex container is an
+                <strong>item</strong>
+                . Flex items can be manipulated individually, but for the most part, it's up to the
+                container to determine their layout. The main purpose of flex items are to let their
+                container know how many things it needs to position.
+              </li>
+              <li>
+                Defining complex web pages with flexbox is all about
+                <strong>nesting boxes</strong>
+                . You align a bunch of flex items inside a container, and, in turn, those items can
+                serve as flex containers for their own items.
+              </li>
+            </ul>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/flex-container-and-flex-items-6234bb.7ffe361a.png"
+              alt="Flex container and flex items"
+            />
+          </section>
+          <section>
+            <h1>Flex Containers</h1>
+            <ul>
+              <li>
+                The first step in using flexbox is to turn one of our HTML elements into a flex
+                container.
+              </li>
+              <li>
+                We do this with the
+                <code>display</code>
+                property. By giving it a value of
+                <code>flex</code>
+                , we're telling the browser that everything in the box should be rendered with
+                flexbox instead of the default box model.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-css">
+                .menu-container {
+                  /* ... */
+                  display: flex;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Aligning a Flex Item</h1>
+            <div style="display: flex; gap: 1em; align-items: flex-start">
+              <ul>
+                <li>
+                  After you've got a flex container, your next job is to define the horizontal
+                  alignment of its items.
+                </li>
+                <li>
+                  That's what the
+                  <code>justify-content</code>
+                  property is for. We can use it to center our
+                  <code>.menu</code>
+                </li>
+                <li>
+                  Other values for
+                  <code>justify-content</code>
+                  are:
+                  <ul>
+                    <li><code>center</code></li>
+                    <li><code>flex-start</code></li>
+                    <li><code>flex-end</code></li>
+                    <li><code>space-around</code></li>
+                    <li><code>space-between</code></li>
+                  </ul>
+                </li>
+              </ul>
+              <div>
+                <pre>
+                  <code data-trim class="language-css">
+                    .menu-container {
+                      /* ... */
+                      display: flex;
+                      justify-content: center;    /* Add this */
+                    }
+                  </code>
+                </pre>
+                <img
+                  width="60%"
+                  class="background_white"
+                  src="https://internetingishard.netlify.app/flex-justify-content-alignment-ea129c.f7d754ab.png"
+                  alt="Flex justify content alignment"
+                />
+              </div>
+            </div>
+          </section>
         </section>
       </div>
 
