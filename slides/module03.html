@@ -1992,6 +1992,369 @@
               </div>
             </div>
           </section>
+          <section>
+            <h1>Distributing Multiple Flex Items</h1>
+            <p>
+              The
+              <code>justify-content</code>
+              property also lets you distribute items equally inside a container.
+            </p>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/flex-justify-content-distribution-b0ee9c.3c71bf1f.png"
+              alt="Flex justify content distribution"
+            />
+            <p>
+              Change our
+              <code>.menu</code>
+              rule to match the following:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                .menu {
+                  border: 1px solid #fff;
+                  width: 900px;
+                  display: flex;
+                  justify-content: space-around;
+                }
+              </code>
+            </pre>
+            <p>
+              The flex container automatically distributes extra horizontal space to either side of
+              each item. The
+              <code>space-between</code>
+              value is similar, but it only adds that extra space
+              <em>between</em>
+              items. This is what we actually want for our example page, so go ahead and update the
+              <code>justify-content</code>
+              line
+            </p>
+          </section>
+          <section>
+            <h1>Grouping Flex Items</h1>
+            <ul>
+              <li>
+                Flex containers only know how to position elements that are one level deep (i.e.,
+                their child elements).
+              </li>
+              <li>They don't care one bit about what's inside their flex items.</li>
+              <li>
+                This means that grouping flex items is another weapon in your layout-creation
+                arsenal.
+              </li>
+              <li>
+                Wrapping a bunch of items in an extra
+                <code>&lt;div&gt;</code>
+                results in a totally different web page.
+              </li>
+            </ul>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/grouping-flex-items-1bb642.c1c54766.png"
+              alt="Grouping flex items"
+            />
+            <div style="display: flex; gap: 1em; align-items: flex-start">
+              <pre>
+                <code data-trim class="language-html">
+                  <div class="menu">
+                    <div class="date">Aug 14, 2016</div>
+                    <div class="links">
+                      <div class="signup">Sign Up</div>      <!-- This is nested now -->
+                      <div class="login">Login</div>         <!-- This one too! -->
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre>
+                <code data-trim class="language-css">
+                  .links {
+                    border: 1px solid #fff;  /* For debugging */
+                    display: flex;
+                    justify-content: flex-end;
+                  }
+
+                  .login {
+                    margin-left: 20px;
+                  }
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <h1>Cross-Axis (Vertical) Alignment</h1>
+            <p>
+              So far, we've been manipulating horizontal alignment, but flex containers can also
+              define the vertical alignment of their items.
+            </p>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/align-items-vs-justify-content-4d380e.ab784eaa.png"
+              alt="Align items vs justify content"
+            />
+            <div style="display: flex; gap: 1em; align-items: flex-start">
+              <pre>
+                <code data-trim class="language-html">
+                  <body>
+                    <div class="menu-container">
+                      <div class="menu">
+                        <div class="date">Aug 14, 2016</div>
+                        <div class="links">
+                          <div class="signup">Sign Up</div>
+                          <div class="login">Login</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="header-container">
+                      <div class="header">
+                        <div class="subscribe">Subscribe &#9662;</div>
+                        <div class="logo"><img src="images/awesome-logo.svg" /></div>
+                        <div class="social"><img src="images/social-icons.svg" /></div>
+                      </div>
+                    </div>
+                  </body>
+                </code>
+              </pre>
+              <pre>
+                <code data-trim class="language-css">
+                  .header-container {
+                    color: #5995DA;
+                    background-color: #D6E9FE;
+                    display: flex;
+                    justify-content: center;
+                  }
+
+                  .header {
+                    width: 900px;
+                    height: 300px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  }
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <h1>Aligning a Flex Item</h1>
+            <p>
+              The available options for
+              <code>align-items</code>
+              is similar to
+              <code>justify-content</code>
+              :
+            </p>
+            <div
+              style="display: flex; gap: 1em; align-items: center; justify-content: space-between"
+            >
+              <div>
+                <ul style="display: block">
+                  <li><code>center</code></li>
+                  <li>
+                    <code>flex-start</code>
+                    &nbsp; (top)
+                  </li>
+                  <li>
+                    <code>flex-end</code>
+                    &nbsp; &nbsp; &nbsp;(bottom)
+                  </li>
+                  <li><code>stretch</code></li>
+                  <li><code>baseline</code></li>
+                </ul>
+              </div>
+              <img
+                width="50%"
+                class="background_white"
+                src="https://internetingishard.netlify.app/flex-align-items-26abfd.9d4b350a.png"
+                alt="Flex align items"
+              />
+            </div>
+          </section>
+          <section>
+            <h1>The Stretch Option</h1>
+            <p>
+              The
+              <code>stretch</code>
+              option is worth a taking a minute to play with because it lets you display the
+              background of each element. Let's take a brief look by adding the following to
+              <code>styles.css</code>
+              :
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                .header {
+                  /* ... */
+                  align-items: stretch;    /* Change this */
+                }
+
+                .social,
+                .logo,
+                .subscribe {
+                  border: 1px solid #5995DA;
+                }
+              </code>
+            </pre>
+            <p>
+              The box for each item extends the full height of the flex container, regardless of how
+              much content it contains.
+            </p>
+            <p>
+              A common use case for this behavior is creating equal-height columns with a variable
+              amount of content in each one
+            </p>
+          </section>
+          <section>
+            <h1>Wrapping Flex Items</h1>
+            <p>
+              Not only Flexbox can render items as a grid, it can change their alignment, direction,
+              order, and size, too. To create a
+              <strong>grid</strong>
+              , we need the
+              <code>flex-wrap</code>
+              property.
+            </p>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/flex-wrap-b960c1.73a3247a.png"
+              alt="Flex wrap"
+            />
+            <p>
+              Add a row of photos to
+              <code>flexbox.html</code>
+              . This should go inside of
+              <code>&lt;body&gt;</code>
+              , under the
+              <code>.header-container</code>
+              element, along with the corresponding CSS:
+            </p>
+            <div style="display: flex; gap: 1em">
+              <pre>
+                <code data-trim class="language-html">
+                  <div class="photo-grid-container">
+                    <div class="photo-grid">
+                      <div class="photo-grid-item first-item">
+                        <img src="images/one.svg"/>
+                      </div>
+                      <div class="photo-grid-item">
+                        <img src="images/two.svg"/>
+                      </div>
+                      <div class="photo-grid-item">
+                        <img src="images/three.svg"/>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre>
+                <code data-trim class="language-css">
+                  .photo-grid-container {
+                    display: flex;
+                    justify-content: center;
+                  }
+
+                  .photo-grid {
+                    width: 900px;
+                    display: flex;
+                    justify-content: flex-start;
+                  }
+
+                  .photo-grid-item {
+                    border: 1px solid #fff;
+                    width: 300px;
+                    height: 300px;
+                  }
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <p>
+              This should work as expected, but watch what happens when we add more items than can
+              fit into the flex container. Insert an extra two photos into the
+              <code>.photo-grid</code>
+              :
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <div class="photo-grid-item">
+                  <img src="images/four.svg"/>
+                </div>
+                <div class="photo-grid-item last-item">
+                  <img src="images/five.svg"/>
+                </div>
+              </code>
+            </pre>
+            <p>
+              By default, they flow off the edge of the page! Adding the following
+              <code>flex-wrap</code>
+              property forces items that don't fit to get bumped down to the next row:
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                .photo-grid {
+                  /* ... */
+                  flex-wrap: wrap;
+                  justify-content: center;    /* if we want to center the items */
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Flex Container Direction</h1>
+            <p>
+              <strong>Direction</strong>
+              refers to whether a container renders its items horizontally or vertically. So far,
+              all the containers we've seen use the default horizontal direction, which means items
+              are drawn one after another in the same row before popping down to the next column
+              when they run out of space.
+            </p>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/flex-direction-9acadf.b054ca57.png"
+              alt="Flex direction"
+            />
+            <p>
+              To change the direction, we need the
+              <code>flex-direction</code>
+              property.
+            </p>
+            <pre>
+              <code data-trim class="language-css">
+                .photo-grid {
+                  /* ... */
+                  flex-direction: column;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Alignment Considerations</h1>
+            <ul>
+              <li>
+                Notice that the column is hugging the left side of its flex container despite our
+                <code>justify-content: center;</code>
+                declaration.
+              </li>
+              <li>
+                When you rotate the direction of a container, you also rotate the direction of the
+                <code>justify-content</code>
+                property.
+              </li>
+              <li>
+                It now refers to the container's vertical alignment—not its horizontal alignment.
+              </li>
+            </ul>
+            <img
+              width="50%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/flex-direction-axes-b30e85.d1bca75a.png"
+              alt="Flex direction axes"
+            />
+          </section>
         </section>
       </div>
 
