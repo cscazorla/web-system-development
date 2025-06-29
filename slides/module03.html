@@ -1285,6 +1285,55 @@
             </ul>
           </section>
           <section>
+            <h1>Generic Boxes</h1>
+            <ul>
+              <li>
+                So far, every HTML element we've seen lends additional meaning to the content it
+                contains.
+              </li>
+              <li>
+                Indeed, this is the whole point of HTML, but there are many times when we need a
+                generic box purely for the sake of styling a web page.
+              </li>
+              <li>
+                This is what
+                <code>&lt;div&gt;</code>
+                and
+                <code>&lt;span&gt;</code>
+                are
+                <strong>container elements</strong>
+                that don't have any affect on the semantic structure of an HTML document. They
+                provide a hook for adding CSS styles to arbitrary sections of a web page.
+              </li>
+              <li>
+                For example, sometimes you need to add an invisible box to prevent a margin
+                collapse, or maybe you want to group the first few paragraphs of an article into a
+                synopsis with slightly different text formatting.
+              </li>
+              <li>
+                The following will give us a big blue button that spans the entire width of the
+                browser:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <div>Button</div>
+              </code>
+
+              <code data-trim class="language-css">
+                div {
+                  color: #FFF;
+                  background-color: #5995DA;
+                  font-weight: bold;
+                  padding: 20px;
+                  text-align: center;
+                  border: 2px solid #5D6063;
+                  border-radius: 5px;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
             <h1>Content Box vs. Border Box</h1>
             <p>
               The
@@ -1317,7 +1366,416 @@
           </section>
         </section>
         <section>
-          <h1>CSS Selectors</h1>
+          <section>
+            <h1>CSS Selectors</h1>
+            <ul>
+              <li>
+                Before we learned how to connect an HTML document to other files in our project.
+              </li>
+              <li>
+                <strong>CSS selectors</strong>
+                are similar, except instead of navigating between whole files, they let us map a
+                single CSS rule to a specific HTML element.
+              </li>
+              <li>
+                This makes it possible to
+                <em>selectively</em>
+                style individual elements while
+                <em>ignoring</em>
+                others.
+              </li>
+              <li>
+                Unless you want every section of your website to look exactly the same, this is a
+                crucial bit of functionality for us.
+              </li>
+              <li>
+                It's how we say things like “I want this paragraph to be blue and that other
+                paragraph to be yellow.” Until now, we've only been able to turn
+                <em>all</em>
+                our paragraphs blue (or yellow).
+              </li>
+              <li>
+                The only CSS selector we've seen so far is called the “type selector”, which targets
+                all the matching elements on a page.
+              </li>
+            </ul>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/css-selectors-1f0064.464e0c0e.png"
+              alt="CSS selectors"
+            />
+          </section>
+          <section>
+            <h1>Setup</h1>
+            <p>
+              We'll only need one HTML file and a CSS stylesheet for our example this chapter.
+              Create a new folder called
+              <code>css-selectors</code>
+              and new web page called
+              <code>selectors.html</code>
+              with the following markup:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/plain" class="language-html">
+                  <!DOCTYPE html>
+                  <html lang='en'>
+                    <head>
+                      <meta charset='UTF-8'/>
+                      <title>CSS Selectors</title>
+                      <link rel='stylesheet' href='styles.css'/>
+                    </head>
+                    <body>
+                      <h1>CSS Selectors</h1>
+
+                      <p>CSS selectors let you <em>select</em> individual HTML elements in an HTML
+                        document. This is <strong>super</strong> useful.</p>
+
+                      <p>Classes are ridiculously important, since they allow you to select
+                        arbitrary boxes in your web pages.</p>
+
+                      <p>We’ll also be talking about links in this example, so here’s
+                        <a href='https://internetingishard.com'>Interneting Is Hard</a> for us to
+                        style.</p>
+
+                      <div>Button One</div>
+
+                    </body>
+                  </html>
+                </script>
+              </code>
+            </pre>
+            <p>
+              Go ahead and create that
+              <code>styles.css</code>
+              stylesheet in the same folder, too.
+            </p>
+          </section>
+          <section>
+            <h1>Class Selectors</h1>
+            <ul>
+              <li>
+                Class selectors let you apply CSS styles to a
+                <strong>specific HTML element</strong>
+                .
+              </li>
+              <li>
+                They let you differentiate between HTML elements of the same type, like when we had
+                two
+                <code>&lt;p&gt;</code>
+                elements.
+              </li>
+              <li>
+                Class selectors require two things:
+                <ul>
+                  <li>
+                    A
+                    <code>class</code>
+                    attribute on the HTML element in question.
+                  </li>
+                  <li>A matching CSS class selector in your stylesheet.</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Example</h1>
+            <ul>
+              <li>
+                Let's add a
+                <code>class</code>
+                attribute to the desired paragraph and pluck out that
+                <code>&lt;p class='synopsis'&gt;</code>
+                element in our CSS with the following:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <p class="synopsis">
+                  CSS selectors let you <em>select</em> individual HTML
+                  elements in an HTML document. This is <strong>super</strong> useful.
+                </p>
+              </code>
+              <code data-trim class="language-css">
+                .synopsis {
+                  color: #7E8184;        /* Light gray */
+                  font-style: italic;
+                }
+              </code>
+            </pre>
+            <ul>
+              <li>
+                This rule is
+                <em>only</em>
+                applied to elements with the corresponding
+                <code>class</code>
+                attribute.
+              </li>
+              <li>
+                Notice the dot (
+                <code>.</code>
+                ) prefixing the class name. This distinguishes class selectors from the type
+                selectors that we've been working with before.
+              </li>
+              <li>
+                The
+                <code>class</code>
+                attribute isn't limited to
+                <code>&lt;p&gt;</code>
+                elements—it can be defined on
+                <em>any</em>
+                HTML element.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Reusing Class Styles</h1>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/reusing-css-styles-9e43c5.16fefba9.png"
+              alt="Reusing class styles"
+            />
+            <ul>
+              <li>
+                The same class can be applied to
+                <strong>multiple elements</strong>
+                in a single HTML document.
+              </li>
+              <li>This means that we can now reuse arbitrary CSS declarations wherever we want.</li>
+              <li>
+                To create another similar paragraph, all we have to do is add another HTML element
+                with the same class
+              </li>
+              <li>
+                This gives us a second paragraph that looks just like the first one—without writing
+                a single line of CSS!
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <p class="synopsis">First paragraph</p>
+
+                <p class="synopsis">Second paragraph</p>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Modifying Class Styles</h1>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/modifying-classes-48bd19.afd60085.png"
+              alt="Modifying class styles"
+            />
+            <ul>
+              <li>What if we want to alter our second paragraph a little bit?</li>
+              <li>
+                Fortunately, we can apply multiple classes to the
+                <em>same</em>
+                HTML element, too.
+              </li>
+              <li>
+                The styles from each class will be applied to the element, giving us the opportunity
+                to both reuse styles from
+                <code>.synopsis</code>
+                and override some of them with a new class.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <p class="synopsis">First paragraph</p>
+
+                <p class="synopsis call-to-action">Second paragraph</p>
+              </code>
+              <code data-trim class="language-css">
+                .call-to-action {
+                  font-style: italic;
+                  background-color: #EEB75A;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Pseudo-classes</h1>
+            <ul>
+              <li>
+                So far, all the CSS selectors we've seen map directly to a piece of HTML markup that
+                we wrote.
+              </li>
+              <li>
+                However, there's more going on in a rendered web page than just our HTML content.
+              </li>
+              <li>
+                There's
+                <strong>stateful</strong>
+                information about what the user is doing.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Pseudo-classes for Links</h1>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://internetingishard.netlify.app/pseudo-classes-99188b.6d35670a.png"
+              alt="Pseudo-classes for links"
+            />
+            <ul>
+              <li>
+                The classic example is a link. As a web developer, you create an
+                <code>&lt;a href&gt;</code>
+                element. After the browser renders it, the user can interact with that link. They
+                can
+                <strong>hover</strong>
+                over it,
+                <strong>click</strong>
+                it, and
+                <strong>visit</strong>
+                the URL.
+              </li>
+              <li>
+                CSS
+                <strong>pseudo-classes</strong>
+                provide a mechanism for hooking into this kind of temporary user information.
+              </li>
+              <li>
+                At any given time, an
+                <code>&lt;a href&gt;</code>
+                element can be in a number of
+                <strong>different states</strong>
+                , and you can use pseudo-classes to style each one of them individually.
+              </li>
+              <li>
+                Think of them as class selectors that you don't have to write on your own because
+                they're built into the browser.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Basic Link Styles</h1>
+            <p>
+              Pseudo-classes begin with a colon followed by the name of the desired class. The most
+              common link pseudo-classes are as follows:
+            </p>
+            <div style="display: flex; gap: 1em; align-items: center">
+              <ul>
+                <li>
+                  <code>:link</code>
+                  - A link the user has never visited.
+                </li>
+                <li>
+                  <code>:visited</code>
+                  - A link the user has visited before.
+                </li>
+                <li>
+                  <code>:hover</code>
+                  - A link with the user's mouse over it.
+                </li>
+                <li>
+                  <code>:active</code>
+                  - A link that's being pressed down by a mouse (or finger).
+                </li>
+              </ul>
+              <pre>
+                <code data-trim class="language-css">
+                  a:link {
+                    color: blue;
+                    text-decoration: none;
+                  }
+                  a:visited {
+                    color: purple;
+                  }
+                  a:hover {
+                    color: aqua;
+                    text-decoration: underline;
+                  }
+                  a:active {
+                    color: red;
+                  }
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <h1>Pseudo-classes for Structure</h1>
+            <ul>
+              <li>Link states are just one aspect of pseudo-classes.</li>
+              <li>
+                There's also a
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">
+                  bunch of other pseudo-classes
+                </a>
+                that provide extra information about an element's surroundings.
+              </li>
+              <li>
+                For example, the
+                <code>:last-of-type</code>
+                pseudo-class selects the final element of a particular type in its parent element.
+              </li>
+              <li>
+                This gives us an alternative to class selectors for selecting specific elements.
+              </li>
+              <li>
+                For instance, we could use
+                <code>:last-of-type</code>
+                to add some space after the last paragraph of our example page
+              </li>
+              <li>
+                This avoids selecting the first two
+                <code>&lt;p&gt;</code>
+                elements
+                <em>without</em>
+                requiring a new
+                <code>class</code>
+                attribute on the last paragraph:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-css">
+                p:last-of-type {
+                  margin-bottom: 50px;
+                }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>ID Selectors</h1>
+            <ul>
+              <li>“ID selectors” are a more stringent alternative to class selectors.</li>
+              <li>
+                They work pretty much the same way, except you can only have
+                <strong>one</strong>
+                element with the same ID per page, which means
+                <strong>you can't reuse styles</strong>
+                at all.
+              </li>
+              <li>
+                Instead of a
+                <code>class</code>
+                attribute, they require an
+                <code>id</code>
+                attribute on whatever HTML element you're trying to select. Try adding one to our
+                second button
+              </li>
+              <li>
+                The corresponding CSS selector must begin with a hash sign (
+                <code>#</code>
+                ) opposed to a dot.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <a id="button-2" class="button" href="nowhere.html">Button Two</a>
+              </code>
+              <code data-trim class="language-css">
+                #button-2 {
+                  color: #5D6063;  /* Dark gray */
+                }
+              </code>
+            </pre>
+          </section>
         </section>
         <section>
           <h1>Flexbox</h1>
