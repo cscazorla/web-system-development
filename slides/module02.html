@@ -671,9 +671,6 @@
               </code>
             </pre>
           </section>
-        </section>
-
-        <section>
           <section>
             <h1>Structure vs Presentation</h1>
             <ul>
@@ -1849,11 +1846,302 @@
         </section>
 
         <section>
-          <h1>Tables</h1>
-          <h1>PENDING</h1>
-          <ul>
-            <li>https://web.dev/learn/html/tables</li>
-          </ul>
+          <section>
+            <h1>Tables</h1>
+            <ul>
+              <li>HTML tables are used for displaying tabular data with rows and columns.</li>
+              <li>
+                The decision to use a
+                <code translate="no" dir="ltr">&lt;table&gt;</code>
+                should be based on the content you are presenting and your users' needs in relation
+                to that content.
+              </li>
+              <li>
+                If data is being presented, compared, sorted, calculated, or cross-referenced, then
+                <code translate="no" dir="ltr">&lt;table&gt;</code>
+                is probably the right choice.
+              </li>
+              <li>
+                If you simply want to lay out non-tabular content neatly, such as a large group of
+                thumbnail images, tables are not appropriate: instead, create a list of images .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Table Elements</h1>
+            <ul>
+              <li>
+                The
+                <a href="https://developer.mozilla.org/docs/Web/HTML/Element/table">
+                  &lt;table&gt;
+                </a>
+                tag wraps the table content, including all the table elements.
+              </li>
+              <li>
+                Inside the
+                <code translate="no" dir="ltr">&lt;table&gt;</code>
+                , you'll find
+                <ul>
+                  <li>
+                    the table headers (
+                    <code translate="no" dir="ltr">&lt;thead&gt;</code>
+                    ),
+                  </li>
+                  <li>
+                    table bodies (
+                    <code translate="no" dir="ltr">&lt;tbody&gt;</code>
+                    ),
+                  </li>
+                  <li>
+                    and, optionally, table footers (
+                    <code translate="no" dir="ltr">&lt;tfoot&gt;</code>
+                    ).
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Each of these is made up of table rows (
+                <code translate="no" dir="ltr">&lt;tr&gt;</code>
+                ).
+                <ul>
+                  <li>
+                    Rows contain table header (
+                    <code translate="no" dir="ltr">&lt;th&gt;</code>
+                    ) and table data (
+                    <code translate="no" dir="ltr">&lt;td&gt;</code>
+                    ) cells which, in turn, contain all the data.
+                  </li>
+                  <li>
+                    In the DOM, before any of this, you may find two additional features: the table
+                    caption (
+                    <code translate="no" dir="ltr">&lt;caption&gt;</code>
+                    ) and column groups (
+                    <code translate="no" dir="ltr">&lt;colgroup&gt;</code>
+                    ).
+                  </li>
+                  <li>
+                    Depending on whether or not the
+                    <code translate="no" dir="ltr">&lt;colgroup&gt;</code>
+                    has a
+                    <code translate="no" dir="ltr">span</code>
+                    attribute, it may contain nested table column (
+                    <code translate="no" dir="ltr">&lt;col&gt;</code>
+                    ) elements.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>The table's children in order</h1>
+            <ol>
+              <li>
+                <a href="https://developer.mozilla.org/docs/Web/HTML/Element/caption">
+                  &lt;caption&gt;
+                </a>
+                element
+              </li>
+              <li>
+                <a href="https://developer.mozilla.org/docs/Web/HTML/Element/colgroup">
+                  &lt;colgroup&gt;
+                </a>
+                elements
+              </li>
+              <li>
+                <a href="https://developer.mozilla.org/docs/Web/HTML/Element/thead">
+                  &lt;thead&gt;
+                </a>
+                elements
+              </li>
+              <li>
+                <a href="https://developer.mozilla.org/docs/Web/HTML/Element/tbody">
+                  &lt;tbody&gt;
+                </a>
+                elements
+              </li>
+              <li>
+                <a href="https://developer.mozilla.org/docs/Web/HTML/Element/tfoot">
+                  &lt;tfoot&gt;
+                </a>
+                elements
+              </li>
+            </ol>
+          </section>
+          <section>
+            <h1>Table Caption</h1>
+            <ul>
+              <li>
+                The
+                <code translate="no" dir="ltr">&lt;caption&gt;</code>
+                provides a descriptive, programmatically associated table title. It is visible and
+                available to all users by default.
+              </li>
+              <li>
+                It should be the first element nested in the
+                <code translate="no" dir="ltr">&lt;table&gt;</code>
+                element. Including it lets all users know the purpose of the table immediately
+                without having to read the surrounding text.
+              </li>
+              <li>The caption appears outside the table.</li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <table>
+                  <caption>A summary of the planets of our solar system</caption>
+                </table>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Data Sectioning</h1>
+            <p>The content of tables is made up of up to three sections:</p>
+            <ul>
+              <li>
+                zero or more table headers (
+                <code translate="no" dir="ltr">&lt;thead&gt;</code>
+                ) ,
+              </li>
+              <li>
+                table bodies (
+                <code translate="no" dir="ltr">&lt;tbody&gt;</code>
+                ),
+              </li>
+              <li>
+                and table footers (
+                <code translate="no" dir="ltr">&lt;tfoot&gt;</code>
+                ).
+              </li>
+            </ul>
+            <p>All are optional, with zero or more of each being supported.</p>
+            <pre>
+              <code data-trim class="language-html">
+                <table>
+                  <caption>A summary of the planets of our solar system</caption>
+                  <thead></thead>
+                  <tbody></tbody>
+                  <tfoot></tfoot>
+                </table>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Table Content</h1>
+            <ul>
+              <li>
+                Tables can be divided into table headers, bodies, and footers, but none of these
+                really does anything if the tables do not contain table rows, cells, and content.
+              </li>
+              <li>
+                Each table row,
+                <code translate="no" dir="ltr">&lt;tr&gt;</code>
+                contains one or more cells.
+              </li>
+              <li>
+                If a cell is a header cell, use
+                <code translate="no" dir="ltr">&lt;th&gt;</code>
+                . Otherwise, use
+                <code translate="no" dir="ltr">&lt;td&gt;</code>
+                .
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <table>
+                  <caption>A summary of the planets of our solar system</caption>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Mass</th>
+                      <th>Diameter</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Mercury</td>
+                      <td>0.055</td>
+                      <td>4,879</td>
+                    </tr>
+                    <tr>
+                      <td>Venus</td>
+                      <td>0.815</td>
+                      <td>12,104</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                  </tfoot>
+                </table>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Merging Cells</h1>
+            <div
+              style="display: flex; gap: 1em; justify-content: space-around; align-items: center"
+            >
+              <ul>
+                <li>
+                  Similar to MS Excel, Google Sheets, and Numbers, it is possible to join multiple
+                  cells into a single cell.
+                </li>
+                <li>
+                  The
+                  <code translate="no" dir="ltr">colspan</code>
+                  attribute is used to merge two or more adjacent cells within a single row.
+                </li>
+                <li>
+                  The
+                  <code translate="no" dir="ltr">rowspan</code>
+                  attribute is used to merge cells across rows, being placed on the cell in the top
+                  row.
+                </li>
+              </ul>
+              <div>
+                <pre>
+                  <code data-trim class="language-html">
+                    <table>
+                      <caption>Employee Skills Matrix</caption>
+                      <thead>
+                        <tr>
+                          <th>Employee</th>
+                          <th>Skill</th>
+                          <th>Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td rowspan="3">John Smith</td>
+                          <td>JavaScript</td>
+                          <td>Advanced</td>
+                        </tr>
+                        <tr>
+                          <td>Python</td>
+                          <td>Intermediate</td>
+                        </tr>
+                        <tr>
+                          <td>SQL</td>
+                          <td>Beginner</td>
+                        </tr>
+                        <tr>
+                          <td rowspan="2">Sarah Johnson</td>
+                          <td>HTML/CSS</td>
+                          <td>Advanced</td>
+                        </tr>
+                        <tr>
+                          <td>React</td>
+                          <td>Intermediate</td>
+                        </tr>
+                        <tr>
+                          <td>Mike Davis</td>
+                          <td>Java</td>
+                          <td>Advanced</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
         </section>
 
         <section>
