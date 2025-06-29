@@ -13,8 +13,76 @@
           <h1>Web System Development</h1>
           <h2>Module 02: HTML</h2>
         </section>
-
         <section>
+          <section>
+            <h1>Overview of HTML</h1>
+            <ul>
+              <li>
+                HyperText Markup Language, or HTML, is the standard
+                <strong>markup language</strong>
+                for describing the structure of documents displayed on the web.
+              </li>
+              <li>
+                HTML consists of a series of elements and attributes which are used to mark up all
+                the components of a document to structure it in a meaningful way.
+              </li>
+              <li>
+                HTML documents are basically a
+                <strong>tree of nodes</strong>
+                , including HTML elements and text nodes.
+                <ul>
+                  <li>
+                    HTML elements provide the semantics and formatting for documents, including
+                    creating paragraphs, lists and tables, and embedding images and form controls.
+                  </li>
+                  <li>Each element may have multiple attributes specified.</li>
+                  <li>
+                    Many elements can have content, including other elements and text. Other
+                    elements are empty, with the tag and attributes defining their function.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>HTML Elements</h1>
+            <ul>
+              <li>
+                HTML elements are delineated by
+                <strong>tags</strong>
+                , written using angle brackets (
+                <code translate="no" dir="ltr">&lt;</code>
+                and
+                <code translate="no" dir="ltr">&gt;</code>
+                ).
+              </li>
+              <li>
+                Our page title is a heading, level one, for which we use the
+                <code translate="no" dir="ltr">&lt;h1&gt;</code>
+                tag.
+                <ul>
+                  <li>
+                    The actual title, "Machine Learning Workshop", is the content of our element.
+                  </li>
+                  <li>The content goes between the open and closing tags.</li>
+                  <li>
+                    The entire thing—the opening tag, closing tag, and the content—is the element.
+                  </li>
+                  <li>The closing tag is the same tag as the opening tag, preceded by a slash.</li>
+                </ul>
+              </li>
+              <li>
+                Browsers do not display the tags. The tags are used to interpret the content of the
+                page.
+              </li>
+            </ul>
+            <img
+              width="40%"
+              class="background_white"
+              src="https://web.dev/static/learn/html/overview/image/the-tags-content-make-10a59ba9efd26_856.png"
+              alt="HTML elements"
+            />
+          </section>
           <section>
             <h1>Structure of a web page</h1>
             <div style="display: flex; justify-content: space-around; align-items: flex-start">
@@ -134,9 +202,6 @@
               </li>
             </ul>
           </section>
-        </section>
-
-        <section>
           <section>
             <h1>Page Titles</h1>
             <p>
@@ -161,6 +226,11 @@
                 Notice how all the HTML tags in our web page are neatly
                 <strong>nested</strong>
                 .
+              </li>
+              <li>
+                HTML tags should be
+                <strong>closed in the reverse order</strong>
+                of which they were opened.
               </li>
               <li>It's very important to ensure that there are no overlapping elements.</li>
               <li>
@@ -189,102 +259,235 @@
         </section>
 
         <section>
-          <h1>Paragraphs</h1>
-          <p>
-            Titles are all well and good, but let’s do something we can actually see. The
-            <code>&lt;p&gt;</code>
-            element marks all the text inside it as a distinct paragraph. Try adding the following
-            <code>&lt;p&gt;</code>
-            element to the body of our web page:
-          </p>
-          <pre>
-            <code data-trim class="language-html">
-              <script type="text/template">
-                <!DOCTYPE html>
-                <html>
-                  <head>
-                    <title>My First Web Page</title>
-                  </head>
-                  <body>
-                    <p>First, we need to learn some basic HTML.</p>
-                  </body>
-                </html>
-              </script>
-            </code>
-          </pre>
-          <p>
-            Also note how the
-            <code>&lt;p&gt;</code>
-            and
-            <code>&lt;title&gt;</code>
-            elements are indented twice, while
-            <code>&lt;body&gt;</code>
-            and
-            <code>&lt;head&gt;</code>
-            are indented once. Indenting nested elements like this is an important best practice
-            that makes your HTML easier to read for other developers (or for yourself if you come
-            back 5 months from now and want to change some stuff).
-          </p>
-        </section>
+          <section>
+            <h1>Text Basics</h1>
+            <p>HTML provides a number of elements that let you mark up text.</p>
+            <ul style="display: block">
+              <li>
+                <code>&lt;p&gt;</code>
+                for paragraphs
+              </li>
+              <li>
+                <code>&lt;h1&gt;</code>
+                for headings
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Paragraphs</h1>
+            <p>
+              Titles are all well and good, but let’s do something we can actually see. The
+              <code>&lt;p&gt;</code>
+              element marks all the text inside it as a distinct paragraph. Try adding the following
+              <code>&lt;p&gt;</code>
+              element to the body of our web page:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <!DOCTYPE html>
+                  <html>
+                    <head>
+                      <title>My First Web Page</title>
+                    </head>
+                    <body>
+                      <p>First, we need to learn some basic HTML.</p>
+                    </body>
+                  </html>
+                </script>
+              </code>
+            </pre>
+            <p>
+              Also note how the
+              <code>&lt;p&gt;</code>
+              and
+              <code>&lt;title&gt;</code>
+              elements are indented twice, while
+              <code>&lt;body&gt;</code>
+              and
+              <code>&lt;head&gt;</code>
+              are indented once.
+            </p>
+            <p>
+              Indenting nested elements like this is an important best practice that makes your HTML
+              easier to read for other developers (or for yourself if you come back 5 months from
+              now and want to change some stuff).
+            </p>
+          </section>
 
-        <section>
-          <h1>Headings</h1>
-          <ul>
-            <li>
-              Headings are the primary way you mark up different sections of your content. They
-              define the
-              <strong>outline</strong>
-              of your web page as
-              <strong>both humans and search engines see it</strong>
-              , which makes selecting relevant headings essential for a high-quality web page.
-            </li>
-            <li>Headings are like titles, but they’re actually displayed on the page.</li>
-            <li>
-              HTML provides six levels of headings, and the corresponding elements are:
-              <code>&lt;h1&gt;</code>
-              ,
-              <code>&lt;h2&gt;</code>
-              ,
-              <code>&lt;h3&gt;</code>
-              , … ,
-              <code>&lt;h6&gt;</code>
-              .
-            </li>
-            <li>The higher the number, the less prominent the heading.</li>
-            <li>By default, browsers render less important headings in smaller fonts.</li>
-          </ul>
-          <pre>
-            <code data-trim class="language-html">
-              <body>
-                <h1>Main page heading</h1>
-                <p>First, we need to learn some basic HTML.</p>
+          <section>
+            <h1>Headings</h1>
+            <ul>
+              <li>
+                Headings are the primary way you mark up different sections of your content. They
+                define the
+                <strong>outline</strong>
+                of your web page as
+                <strong>both humans and search engines see it</strong>
+                , which makes selecting relevant headings essential for a high-quality web page.
+              </li>
+              <li>Headings are like titles, but they’re actually displayed on the page.</li>
+              <li>
+                HTML provides six levels of headings, and the corresponding elements are:
+                <code>&lt;h1&gt;</code>
+                ,
+                <code>&lt;h2&gt;</code>
+                ,
+                <code>&lt;h3&gt;</code>
+                , … ,
+                <code>&lt;h6&gt;</code>
+                .
+              </li>
+              <li>The higher the number, the less prominent the heading.</li>
+              <li>By default, browsers render less important headings in smaller fonts.</li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <body>
+                  <h1>Main page heading</h1>
+                  <p>First, we need to learn some basic HTML.</p>
 
-                <h2>Headings</h2>
-                <p>Headings define the outline of your site. There are six levels of
-                headings.</p>
-              </body>
-            </code>
-          </pre>
+                  <h2>Headings</h2>
+                  <p>Headings define the outline of your site. There are six levels of
+                  headings.</p>
+                </body>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>HTML Entities</h1>
+            <ul>
+              <li>
+                An
+                <em>HTML entity</em>
+                is a special character that can't be represented as plain text in an HTML document.
+              </li>
+              <li>
+                This typically either means it's a
+                <strong>reserved character</strong>
+                in HTML or you don't have a key on your keyboard for it.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Reserved Characters</h1>
+            <ul>
+              <li>
+                The
+                <code>&lt;</code>
+                ,
+                <code>&gt;</code>
+                , and
+                <code>&amp;</code>
+                characters are called
+                <a href="https://dev.w3.org/html5/html-author/charref">reserved characters</a>
+                because they aren't allowed to be inserted into an HTML document without being
+                encoded.
+              </li>
+              <li>
+                This is because they mean something in the HTML syntax:
+                <ul>
+                  <li>
+                    <code>&lt;</code>
+                    begins a new tag,
+                  </li>
+                  <li>
+                    <code>&gt;</code>
+                    ends a tag, and, as we're about to learn,
+                  </li>
+                  <li>
+                    <code>&amp;</code>
+                    sets off an HTML entity.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Entities always begin with an ampersand (
+                <code>&amp;</code>
+                ) and end with a semicolon (
+                <code>;</code>
+                ). In between, you put a special code that your browser will interpret as a symbol.
+                In this case, it interprets
+                <code>lt</code>
+                ,
+                <code>gt</code>
+                , and
+                <code>amp</code>
+                as less-than, greater-than, and ampersand symbols, respectively.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <h2>HTML Entities</h2>
+                  <p>
+                    There are three reserved characters in HTML: &lt; &gt; and &amp;.
+                    You should always use HTML entities for these three characters.
+                  </p>
+                </script>
+              </code>
+            </pre>
+          </section>
         </section>
 
         <section>
           <section>
+            <h1>Lists</h1>
+            <ul>
+              <li>
+                HTML provides us with a few different ways to mark up lists. There are:
+                <ul>
+                  <li>
+                    unordered lists (
+                    <code translate="no" dir="ltr">&lt;ul&gt;</code>
+                    ),
+                  </li>
+                  <li>
+                    ordered lists (
+                    <code translate="no" dir="ltr">&lt;ol&gt;</code>
+                    ),
+                  </li>
+                  <li>
+                    and description lists (
+                    <code translate="no" dir="ltr">&lt;dl&gt;</code>
+                    ).
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                List items (
+                <code translate="no" dir="ltr">&lt;li&gt;</code>
+                ) are nested within ordered lists and unordered lists.
+              </li>
+              <li>
+                Inside a description list, you'll find description terms (
+                <code translate="no" dir="ltr">&lt;dt&gt;</code>
+                ) and description details
+                <code translate="no" dir="ltr">&lt;dd&gt;.</code>
+              </li>
+            </ul>
+          </section>
+          <section>
             <h1>Unordered Lists</h1>
             <ul>
               <li>
-                Whenever you surround a piece of text with HTML tags, you’re adding new meaning to
-                that text.
+                The
+                <code translate="no" dir="ltr">&lt;ul&gt;</code>
+                element is the parent element for unordered lists of items.
               </li>
               <li>
-                Wrapping content in
-                <code>&lt;ul&gt;</code>
-                tags tells a browser that whatever is inside should be rendered as an “unordered
-                list”.
+                The only children of a
+                <code translate="no" dir="ltr">&lt;ul&gt;</code>
+                are one or more
+                <code translate="no" dir="ltr">&lt;li&gt;</code>
+                list item elements.
               </li>
+              <li>By default, each unordered list item is prefixed with a bullet.</li>
               <li>
-                To denote individual items in that list, you wrap them in
-                <code>&lt;li&gt;</code>
-                tags, like so:
+                You need to close out your lists with a
+                <code translate="no" dir="ltr">&lt;/ul&gt;</code>
+                .
               </li>
             </ul>
             <pre>
@@ -903,49 +1106,43 @@
           </section>
           <section>
             <h1>Links</h1>
-            <div style="display: flex; justify-content: space-between; gap: 1em">
-              <div>
-                <ul>
-                  <li>
-                    In the same way that an element adds meaning to the content it contains, an HTML
-                    <em>attribute</em>
-                    adds meaning to the element it's attached to.
-                  </li>
-                  <li>
-                    Different elements allow different attributes, and you can refer to
-                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN</a>
-                    for details about which elements accept which attributes.
-                  </li>
-                  <li>
-                    Right now, we're concerned with the
-                    <code>href</code>
-                    attribute because it determines where the user goes when they click an
-                    <code>&lt;a&gt;</code>
-                    element.
-                  </li>
-                  <li>Update your link to match the following:</li>
-                </ul>
-                <pre style="margin-bottom: 5em">
-                  <code data-trim class="language-html">
-                    <p>This example is about links and <a href="images.html">images</a>.</p>
-                  </code>
-                </pre>
-              </div>
-              <div>
-                <img
-                  width="100%"
-                  class="background_white"
-                  src="https://internetingishard.netlify.app/html-attributes-6f5690.38791440.png"
-                  alt="HTML Attributes"
-                />
-              </div>
-            </div>
-            <p>
-              Notice how attributes live inside the opening tag. The attribute name comes first,
-              then an equal sign, then the “value” of the attribute in either single or double
-              quotation marks. This syntax distinguishes attributes from content (which goes between
-              the tags).
-            </p>
+            <img
+              width="60%"
+              class="background_white"
+              src="https://web.dev/static/learn/html/overview/image/an-opening-tag-attribute-363effa33af66_856.png"
+              alt="An opening tag attribute"
+            />
+            <ul>
+              <li>
+                In the same way that an element adds meaning to the content it contains, an HTML
+                <strong>attribute</strong>
+                adds meaning to the element it's attached to.
+              </li>
+              <li>
+                Different elements allow different attributes, and you can refer to
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN</a>
+                for details about which elements accept which attributes.
+              </li>
+              <li>
+                Right now, we're concerned with the
+                <code>href</code>
+                attribute because it determines where the user goes when they click an
+                <code>&lt;a&gt;</code>
+                element.
+              </li>
+              <li>
+                Notice how attributes live inside the opening tag. The attribute
+                <strong>name</strong>
+                comes first, then an equal sign, then the
+                <strong>value</strong>
+                of the attribute in either single or double quotation marks.
+              </li>
+            </ul>
+            <pre style="margin-bottom: 5em">
+              <code data-trim class="language-html">
+                <p>This example is about links and <a href="images.html">images</a>.</p>
+              </code>
+            </pre>
           </section>
           <section>
             <h1>Absolute, Relative and Root-Relative Links</h1>
@@ -1652,80 +1849,19 @@
         </section>
 
         <section>
-          <section>
-            <h1>HTML Entities</h1>
-            <ul>
-              <li>
-                An
-                <em>HTML entity</em>
-                is a special character that can't be represented as plain text in an HTML document.
-              </li>
-              <li>
-                This typically either means it's a
-                <strong>reserved character</strong>
-                in HTML or you don't have a key on your keyboard for it.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>Reserved Characters</h1>
-            <ul>
-              <li>
-                The
-                <code>&lt;</code>
-                ,
-                <code>&gt;</code>
-                , and
-                <code>&amp;</code>
-                characters are called
-                <a href="https://dev.w3.org/html5/html-author/charref">reserved characters</a>
-                because they aren't allowed to be inserted into an HTML document without being
-                encoded.
-              </li>
-              <li>
-                This is because they mean something in the HTML syntax:
-                <ul>
-                  <li>
-                    <code>&lt;</code>
-                    begins a new tag,
-                  </li>
-                  <li>
-                    <code>&gt;</code>
-                    ends a tag, and, as we're about to learn,
-                  </li>
-                  <li>
-                    <code>&amp;</code>
-                    sets off an HTML entity.
-                  </li>
-                </ul>
-              </li>
-              <li>
-                Entities always begin with an ampersand (
-                <code>&amp;</code>
-                ) and end with a semicolon (
-                <code>;</code>
-                ). In between, you put a special code that your browser will interpret as a symbol.
-                In this case, it interprets
-                <code>lt</code>
-                ,
-                <code>gt</code>
-                , and
-                <code>amp</code>
-                as less-than, greater-than, and ampersand symbols, respectively.
-              </li>
-            </ul>
-            <pre>
-              <code data-trim class="language-html">
-                <script type="text/template">
-                  <h2>HTML Entities</h2>
-                  <p>
-                    There are three reserved characters in HTML: &lt; &gt; and &amp;.
-                    You should always use HTML entities for these three characters.
-                  </p>
-                </script>
-              </code>
-            </pre>
-          </section>
+          <h1>Tables</h1>
+          <h1>PENDING</h1>
+          <ul>
+            <li>https://web.dev/learn/html/tables</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Forms</h1>
+          <h1>PENDING</h1>
+          <ul>
+            <li>https://internetingishard.netlify.app/html-and-css/forms/</li>
+          </ul>
         </section>
 
         <section>
