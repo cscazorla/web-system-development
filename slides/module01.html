@@ -947,57 +947,106 @@
           <section>
             <h1>Development Environment</h1>
             <ul>
+              <li>Code Editor</li>
+              <li>Web Browser</li>
+              <li>Node.js</li>
+              <li>Local HTTP Server</li>
+              <li>Version Control</li>
+              <li>Package Manager</li>
+              <li>Database</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Code Editor</h1>
+            <ul>
               <li>
-                <strong>Code editor</strong>
-                : A decent code editor is one of the most important things for any developer to have
-                available on their machine. As well as being the place where you write your code,
-                code editors have a whole host of other functionality available.
-                <ul>
-                  <li>
-                    <a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a>
-                  </li>
-                </ul>
+                We'll use
+                <strong>Visual Studio Code (VS Code)</strong>
               </li>
+              <li>Free, open source, and widely adopted</li>
+              <li>Includes syntax highlighting, IntelliSense, Git integration</li>
+              <li>Supports extensions like Prettier, ESLint, and Docker</li>
               <li>
-                <strong>Modern web browsers</strong>
-                : Having modern web browsers available to you is essential for web development so
-                that you can test your websites or apps on the browsers your visitors use to access
-                them.
-                <ul>
-                  <li>
-                    <a href="https://www.google.com/chrome/" target="_blank">Chrome</a>
-                  </li>
-                  <li>
-                    <a href="https://www.mozilla.org/firefox/" target="_blank">Firefox</a>
-                  </li>
-                  <li>
-                    <a href="https://www.apple.com/safari/" target="_blank">Safari</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <strong>Local web server:</strong>
-                when you type in a web address in a browser to load a website, the files that are
-                combined to render that site by your browser are fetched from a remote web server
-                hosted on a server computer somewhere else in the world.
-              </li>
-              <li>
-                <strong>Version Control</strong>
-                : Version control tools are used by developers to manage files on servers,
-                collaborate on a project with a team, share code and assets, and avoid editing
-                conflicts. Right now,
-                <a href="https://git-scm.com/">Git</a>
-                is the most popular version control system along with hosting services such as
-                <a href="https://github.com/">GitHub</a>
-                .
+                Download:
+                <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>
               </li>
             </ul>
           </section>
 
           <section>
-            <h1>How to setup a local testing server?</h1>
-            <p>Normally you can just open the HTML file in your browser directly.</p>
+            <h1>Web Browser</h1>
             <ul>
+              <li>
+                We'll primarily use
+                <a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a>
+              </li>
+              <li>Modern web platform with strong developer tools</li>
+              <li>
+                Key feature:
+                <strong>DevTools</strong>
+                (Elements, Console, Network, Performance)
+              </li>
+              <li>Other good options: Firefox Developer Edition, Safari, Edge</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Node.js</h1>
+            <ul>
+              <li>JavaScript runtime built on Chrome's V8 engine</li>
+              <li>Runs JavaScript code on the server</li>
+              <li>Foundation for our backend development and build tools</li>
+              <li>
+                Comes with
+                <strong>npm</strong>
+                (Node Package Manager)
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Why Node.js?</h1>
+            <ul>
+              <li>🧠 Same language (JavaScript) for frontend and backend</li>
+              <li>⚡ Fast execution with non-blocking I/O (event-driven architecture)</li>
+              <li>
+                🌍 Massive ecosystem with
+                <strong>npm</strong>
+                (largest package registry)
+              </li>
+              <li>📦 Ideal for APIs, microservices, and full-stack development</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Installing Node.js</h1>
+            <ol>
+              <li>
+                Go to
+                <a href="https://nodejs.org" target="_blank">nodejs.org</a>
+              </li>
+              <li>
+                Download the
+                <strong>LTS version</strong>
+                (recommended for most users)
+              </li>
+              <li>Run the installer and follow the steps</li>
+              <li>
+                After installation, verify with:
+                <pre><code data-trim class="language-bash">
+          node -v
+
+          npm -v
+                </code></pre>
+              </li>
+            </ol>
+          </section>
+
+          <section>
+            <h1>How to setup a local HTTP server?</h1>
+
+            <ul>
+              <li>Normally you can just open the HTML file in your browser directly.</li>
               <li>
                 If the web address path starts with
                 <code>file://</code>
@@ -1045,8 +1094,8 @@
               </li>
             </ul>
           </section>
-          <section>
-            <h1>Running a simple local HTTP server</h1>
+          <!-- <section>
+            <h1>Running a simple HTTP server</h1>
             <p>
               If you only need
               <strong>HTML</strong>
@@ -1088,6 +1137,124 @@
               <img width="50%" src="live-preview-1.png" alt="Live Preview 1" />
               <img width="45%" src="live-preview-2.png" alt="Live Preview 2" />
             </div>
+          </section> -->
+          <section>
+            <h1>What is Vite?</h1>
+            <ul>
+              <li>
+                🔧
+                <a href="https://vite.dev/" target="_blank">Vite</a>
+                is a fast build tool and development server for modern web projects
+              </li>
+
+              <li>⚡ Lightning-fast dev server with hot module reload</li>
+              <li>📦 Optimized production build with Rollup under the hood</li>
+              <li>💡 Out-of-the-box support for modern JavaScript features</li>
+              <li>🧰 Works well with React, TypeScript, Tailwind CSS, and more</li>
+              <li>🚀 Simple to set up and extend</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Installing Vite</h1>
+            <ol>
+              <li>Open your terminal</li>
+              <li>
+                Run the following command:
+                <pre><code data-trim class="language-bash">
+          npm create vite@latest
+                </code></pre>
+              </li>
+              <li>
+                Choose:
+                <ul>
+                  <li>Project name</li>
+                  <li>Framework (e.g. React)</li>
+                  <li>Language (e.g. TypeScript)</li>
+                </ul>
+              </li>
+              <li>
+                Navigate into your project:
+                <pre><code>cd your-project-name</code></pre>
+              </li>
+              <li>
+                Install dependencies:
+                <pre><code>npm install</code></pre>
+              </li>
+              <li>
+                Start the dev server:
+                <pre><code>npm run dev</code></pre>
+              </li>
+            </ol>
+          </section>
+
+          <section>
+            <h1>Version Control</h1>
+            <ul>
+              <li>
+                We'll use
+                <strong>Git</strong>
+                and
+                <strong>GitHub</strong>
+              </li>
+              <li>Track changes to code, collaborate with others</li>
+              <li>
+                Key concepts:
+                <ul>
+                  <li>Repository</li>
+                  <li>Commit / Push / Pull</li>
+                  <li>Branches & Merge</li>
+                </ul>
+              </li>
+              <li>GitHub hosts our repositories in the cloud</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Package Manager</h1>
+            <ul>
+              <li>
+                <strong>npm</strong>
+                comes with Node.js — it's the default
+              </li>
+              <li>Allows installing and managing third-party libraries</li>
+              <li>
+                We'll use it to install tools like:
+                <ul>
+                  <li>React, Express, Tailwind</li>
+                  <li>Testing libraries</li>
+                  <li>Build tools</li>
+                </ul>
+              </li>
+              <li>
+                Commands:
+                <code>npm install</code>
+                ,
+                <code>npm run</code>
+                ,
+                <code>npx</code>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Database</h1>
+            <ul>
+              <li>
+                We'll use
+                <strong>PostgreSQL</strong>
+                — a powerful open-source SQL database
+              </li>
+              <li>Stores and retrieves structured data</li>
+              <li>
+                We'll interact with it using:
+                <ul>
+                  <li>SQL queries</li>
+                  <li>ORM (Object-Relational Mapping), e.g., Prisma</li>
+                </ul>
+              </li>
+              <li>Runs in Docker for local development</li>
+            </ul>
           </section>
         </section>
 
