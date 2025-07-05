@@ -308,7 +308,418 @@
                 </script>
               </code>
             </pre>
+            <p class="fragment">
+              Notable in this example is the fact that although a variable declared with
+              <code>const</code>
+              cannot be reassigned to a different value, the contents of the object it references
+              can still be modified.
+            </p>
+            <p class="fragment">
+              This is because the const declaration ensures the immutability of the reference
+              itself, not the data it points to. Think of it like changing the furniture inside a
+              house, while the address of the house remains the same.
+            </p>
+            <p class="fragment">
+              One way of iterating through the items of the array is using
+              <em>forEach</em>
+              as seen in the example.
+              <em>forEach</em>
+              receives a
+              <i>function</i>
+              defined using the arrow syntax as a parameter.
+            </p>
+            <p class="fragment">
+              <em>forEach</em>
+              calls the function
+              <i>for each of the items in the array</i>
+              , always passing the individual item as an argument. The function as the argument of
+              <em>forEach</em>
+              may also receive
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"
+                target="_blank"
+              >
+                other arguments
+              </a>
+              .
+            </p>
           </section>
+          <section>
+            <h1>Immutable Arrays</h1>
+            <p>
+              In the previous example, a new item was added to the array using the method
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push"
+                target="_blank"
+              >
+                push
+              </a>
+              . When using
+              <strong>React</strong>
+              , techniques from functional programming are often used.
+            </p>
+            <p>
+              One characteristic of the functional programming paradigm is the use of
+              <a href="https://en.wikipedia.org/wiki/Immutable_object" target="_blank">immutable</a>
+              data structures. In React code, it is preferable to use the method
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"
+                target="_blank"
+              >
+                concat
+              </a>
+              , which creates a new array with the added item. This ensures the original array
+              <strong>remains unchanged</strong>
+              .
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const t = [1, -1, 3]
+
+                  const t2 = t.concat(5)  // creates new array
+
+                  console.log(t)  // [1, -1, 3] is printed
+                  console.log(t2) // [1, -1, 3, 5] is printed
+                </script>
+              </code>
+            </pre>
+            <p>
+              The method call
+              <code>t.concat(5)</code>
+              does not add a new item to the old array but returns
+              <strong>a new array</strong>
+              which, besides containing the items of the old array, also contains the new item.
+            </p>
+          </section>
+          <section>
+            <h1>Array Methods</h1>
+            <p>
+              There are plenty of useful methods defined for arrays. Let's look at a short example
+              of using the
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
+                target="_blank"
+              >
+                map
+              </a>
+              method.
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const t = [1, 2, 3]
+
+                  const m1 = t.map(value => value * 2)
+                  console.log(m1)   // [2, 4, 6] is printed
+                </script>
+              </code>
+            </pre>
+            <p>
+              Based on the old array, map creates a
+              <strong>new array</strong>
+              , for which the function given as a parameter is used to create the items. In the case
+              of this example, the original value is multiplied by two.
+            </p>
+            <p>Map can also transform the array into something completely different:</p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const m2 = t.map(value => '<li>' + value + '</li>')
+                  console.log(m2)
+                  // [ '<li>1</li>', '<li>2</li>', '<li>3</li>' ] is printed
+                </script>
+              </code>
+            </pre>
+            <p>
+              Here an array filled with integer values is transformed into an array containing
+              strings of
+              <strong>HTML</strong>
+              using the map method.
+            </p>
+          </section>
+          <section>
+            <h1>Destructuring</h1>
+            <p>
+              Individual items of an array are easy to assign to variables with the help of the
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
+                target="_blank"
+              >
+                destructuring assignment
+              </a>
+              .
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const t = [1, 2, 3, 4, 5]
+
+                  const [first, second, ...rest] = t
+
+                  console.log(first, second)  // 1 2 is printed
+                  console.log(rest)          // [3, 4, 5] is printed
+                </script>
+              </code>
+            </pre>
+            <p>
+              Above, the variable
+              <strong>first</strong>
+              is assigned the first integer of the array and the variable
+              <strong>second</strong>
+              is assigned the second integer of the array. The variable
+              <strong>rest</strong>
+              "collects" the remaining integers into its own array.
+            </p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Objects</h1>
+            <p>
+              There are a few different ways of defining objects in JavaScript. One very common
+              method is using
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals"
+                target="_blank"
+              >
+                object literals
+              </a>
+              , which happens by listing its properties within braces:
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const object1 = {
+                    name: 'Arto Hellas',
+                    age: 35,
+                    education: 'PhD',
+                  }
+
+                  const object2 = {
+                    name: 'Full Stack web application development',
+                    level: 'intermediate studies',
+                    size: 5,
+                  }
+
+                  const object3 = {
+                    name: {
+                      first: 'Dan',
+                      last: 'Abramov',
+                    },
+                    grades: [2, 3, 5, 3],
+                    department: 'Stanford University',
+                  }
+                </script>
+              </code>
+            </pre>
+            <p>
+              The values of the properties can be of any type, like integers, strings, arrays,
+              objects...
+            </p>
+            <p>
+              The properties of an object are referenced by using the "dot" notation, or by using
+              brackets:
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  console.log(object1.name)         // Arto Hellas is printed
+                  const fieldName = 'age'
+                  console.log(object1[fieldName])    // 35 is printed
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Adding Properties</h1>
+            <p>
+              You can also
+              <strong>add properties</strong>
+              to an object on the fly by either using dot notation or brackets:
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  object1.address = 'Helsinki'
+                  object1['secret number'] = 12341
+                </script>
+              </code>
+            </pre>
+            <p>
+              The latter of the additions has to be done by using brackets because when using dot
+              notation,
+              <i>secret number</i>
+              is not a valid property name because of the space character.
+            </p>
+            <p>
+              Naturally, objects in JavaScript can also have
+              <strong>methods</strong>
+              . However, during this course, we do not need to define any objects with methods of
+              their own. This is why they are only discussed briefly during the course.
+            </p>
+            <p>
+              JavaScript does not have classes in the same sense as object-oriented programming
+              languages. There has been, however, the addition of the
+              <i>class syntax</i>
+              starting from version
+              <strong>ES6</strong>
+              , which in some cases helps structure object-oriented classes.
+            </p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Functions</h1>
+            <p>
+              We have already become familiar with defining arrow functions. The complete process,
+              without cutting corners, of defining an arrow function is as follows:
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const sum = (p1, p2) => {
+                    console.log(p1)
+                    console.log(p2)
+                    return p1 + p2
+                  }
+
+                  const result = sum(1, 5)
+                  console.log(result) // 6 is printed
+                </script>
+              </code>
+            </pre>
+            <p>
+              If there is just a single parameter, we can exclude the parentheses from the
+              definition:
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const square = p => {
+                    console.log(p)
+                    return p * p
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Shortening Function Definitions</h1>
+            <p>
+              If the function only contains a single expression then the braces are not needed. In
+              this case, the function only returns the result of its only expression. Now, if we
+              remove console printing, we can further shorten the function definition:
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const square = p => p * p
+                </script>
+              </code>
+            </pre>
+            <p>
+              This form is particularly handy when manipulating arrays - e.g. when using the map
+              method:
+            </p>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  const t = [1, 2, 3]
+                  const tSquared = t.map(p => p * p)
+                  // tSquared is now [1, 4, 9]
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <h1>Classes</h1>
+          <p>
+            As mentioned previously, there is no class mechanism in JavaScript like the ones in
+            object-oriented programming languages. There are, however, features to make "simulating"
+            object-oriented
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"
+              target="_blank"
+            >
+              classes
+            </a>
+            possible.
+          </p>
+          <p>
+            Let's take a quick look at the
+            <i>class syntax</i>
+            that was introduced into JavaScript with ES6, which substantially simplifies the
+            definition of classes (or class-like things) in JavaScript.
+          </p>
+          <p>In the following example we define a "class" called Person and two Person objects:</p>
+          <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  class Person {
+                    constructor(name, age) {
+                      this.name = name
+                      this.age = age
+                    }
+                    greet() {
+                      console.log('hello, my name is ' + this.name)
+                    }
+                  }
+
+                  const adam = new Person('Adam Ondra', 29)
+                  adam.greet()
+
+                  const janja = new Person('Janja Garnbret', 23)
+                  janja.greet()
+                </script>
+              </code>
+            </pre>
+        </section>
+        <section>
+          <h1>References</h1>
+          <ul>
+            <li>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+                MDN Web Docs
+              </a>
+              <ul>
+                <li>
+                  <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_overview"
+                    target="_blank"
+                  >
+                    Language Overview
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="https://www.w3schools.com/js/js_es6.asp" target="_blank">W3Schools</a>
+            </li>
+            <li>
+              <a href="https://fullstackopen.com/en/" target="_blank">Full Stack Open</a>
+            </li>
+            <li>
+              <a href="https://eloquentjavascript.net/" target="_blank">Eloquent JavaScript</a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP"
+                target="_blank"
+              >
+                Namaste JavaScript
+              </a>
+            </li>
+            <li>
+              <a href="https://javascript.info/" target="_blank">JavaScript.info</a>
+            </li>
+            <li>
+              <a href="https://github.com/getify/You-Dont-Know-JS" target="_blank">
+                You Don't Know JS
+              </a>
+            </li>
+          </ul>
         </section>
       </div>
     </div>
