@@ -74,7 +74,7 @@
 }
 
 .reveal ul li {
-  margin: 0 0 0.5em 0;
+  margin: 0 0 0.25em -0.5em;
   padding-left: -0.5em;
 }
 
@@ -107,13 +107,6 @@
   border-bottom: 1px solid var(--color-primary);
   transform: translateY(-1px);
 }
-
-/* .reveal img.background_white {
-  background-color: white;
-  padding: 0.15em;
-  border-radius: 0.25em;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-} */
 
 .example {
   color: var(--color-secondary);
