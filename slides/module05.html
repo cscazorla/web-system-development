@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 05 - Web System Development</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Web System Development</h1>
+          <h2>Module 05: Frontend</h2>
+        </section>
+        <section>
+          <section>
+            <h1>What is Frontend Development?</h1>
+            <ul>
+              <li>
+                👨‍💻 Focuses on the
+                <strong>user-facing</strong>
+                part of a web application
+              </li>
+              <li>🖥️ Everything users see and interact with in their browser</li>
+              <li>
+                ⚙️ Built with
+                <strong>HTML, CSS, and JavaScript</strong>
+              </li>
+              <li>🎨 Involves design, layout, interactivity, and responsiveness</li>
+              <li>📱 Must work across devices and screen sizes</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Frontend Developer Responsibilities</h1>
+            <ul>
+              <li>Designing and building UIs (buttons, menus, forms)</li>
+              <li>Implementing layouts with responsive design</li>
+              <li>Connecting to APIs to display dynamic data</li>
+              <li>Handling user input and interactions</li>
+              <li>Ensuring performance and accessibility</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Modern Frontend Stack</h1>
+            <ul>
+              <li>
+                <strong>HTML</strong>
+                : content structure
+              </li>
+              <li>
+                <strong>CSS</strong>
+                : visual styling & layout
+              </li>
+              <li>
+                <strong>JavaScript</strong>
+                : behavior & logic
+              </li>
+              <li>
+                <strong>Frameworks</strong>
+                : React, Vue, Angular
+              </li>
+              <li>
+                <strong>Tooling</strong>
+                : Vite, npm, ESLint, Prettier
+              </li>
+              <li>
+                <strong>Testing</strong>
+                : Jest, Playwright, React Testing Library
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>What is React?</h1>
+            <ul>
+              <li>
+                React lets you build user interfaces out of individual pieces called components.
+              </li>
+              <li>
+                You can create your own React components like Thumbnail, LikeButton, and Video.
+              </li>
+              <li>Then combine them into entire screens, pages, and apps.</li>
+            </ul>
+            <img src="react-intro-01.png" alt="React Intro" />
+          </section>
+          <section>
+            <h1>Components are JS functions</h1>
+            <img width="80%" src="react-intro-02.png" alt="React Intro" />
+            <ul>
+              <li>
+                Want to show some content conditionally? Use an
+                <code>if</code>
+                statement. Displaying a list? Try array
+                <code>map()</code>
+                .
+              </li>
+              <li>
+                This markup syntax is called JSX. It is a JavaScript syntax extension popularized by
+                React.
+              </li>
+              <li>
+                Putting JSX markup close to related rendering logic makes React components easy to
+                create, maintain, and delete.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Why Use React?</h1>
+            <ul>
+              <li>
+                🔁
+                <strong>Component-based</strong>
+                architecture
+              </li>
+              <li>
+                ⚡ Efficient
+                <strong>virtual DOM</strong>
+                for fast UI updates
+              </li>
+              <li>
+                🧠
+                <strong>Declarative</strong>
+                UI programming: describe what to render
+              </li>
+              <li>📦 Huge ecosystem and community</li>
+              <li>💪 Backed by Meta (Facebook)</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Core Concepts in React</h1>
+            <ul>
+              <li>
+                <strong>JSX</strong>
+                : HTML-like syntax in JavaScript
+              </li>
+              <li>
+                <strong>Components</strong>
+                : Reusable UI blocks
+              </li>
+              <li>
+                <strong>Props</strong>
+                : Data passed to components
+              </li>
+              <li>
+                <strong>State</strong>
+                : Local component data
+              </li>
+              <li>
+                <strong>Hooks</strong>
+                : Functions to manage state and lifecycle
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Getting Started</h1>
+            <ul>
+              <li>
+                The easiest way to get started by far is by using
+                <a href="https://vitejs.dev/" target="_blank">Vite</a>
+                .
+              </li>
+              <li>
+                Let's create an application called
+                <i>introdemo</i>
+                , navigate to its directory and install the libraries:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-bash">
+                npm create vite@latest introdemo -- --template react
+
+                cd introdemo
+
+                npm install
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Running the application</h1>
+            <div
+              style="display: flex; gap: 0em; align-items: center; justify-content: space-around"
+            >
+              <ul>
+                <li>
+                  The application starts with
+                  <code>npm run dev</code>
+                </li>
+                <li>
+                  Vite starts the application
+                  <a
+                    href="https://vitejs.dev/config/server-options.html#server-port"
+                    target="_blank"
+                  >
+                    by default
+                  </a>
+                  on port 5173. If it is not free, Vite uses the next free port number.
+                </li>
+              </ul>
+              <div>
+                <img src="vite-server-introdemo-react.png" alt="Vite server" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <p>
+              Open the browser and a text editor so that you can view the code as well as the
+              webpage at the same time on the screen:
+            </p>
+            <div style="display: flex; justify-content: center">
+              <div>
+                <img width="40%" src="vite-react-intro.png" alt="Vite React Intro" />
+              </div>
+              <div>
+                <img width="40%" src="vite-react-files.png" alt="Vite React Files" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <ul>
+              <li>
+                The code of the application resides in the
+                <code>src</code>
+                folder.
+              </li>
+              <li>
+                By default, the file
+                <code>index.html</code>
+                doesn't contain any HTML markup that is visible to us in the browser:
+              </li>
+              <li>
+                You can try adding there some HTML to the file. However, when using React, all
+                content that needs to be rendered is usually defined as React components.
+              </li>
+              <li>
+                The command on the final line of file
+                <code>main.jsx</code>
+                renders its contents into the div-element, defined in the file
+                <code>index.html</code>
+                , having the id value
+                <em>root</em>
+                .
+              </li>
+            </ul>
+            <div style="display: flex; justify-content: center">
+              <pre><code class="language-html" data-trim>
+              &lt;!doctype html&gt;
+              &lt;html lang="en"&gt;
+                &lt;head&gt;
+                  &lt;meta charset="UTF-8" /&gt;
+                  &lt;link rel="icon" type="image/svg+xml" href="/vite.svg" /&gt;
+                  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+                  &lt;title&gt;Vite + React&lt;/title&gt;
+                &lt;/head&gt;
+                &lt;body&gt;
+                  &lt;div id="root"&gt;&lt;/div&gt;
+                  &lt;script type="module" src="/src/main.jsx"&gt;&lt;/script&gt;
+                &lt;/body&gt;
+              &lt;/html&gt;
+            </code></pre>
+              <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                import { StrictMode } from 'react'
+                import { createRoot } from 'react-dom/client'
+                import './index.css'
+                import App from './App.jsx'
+
+                createRoot(document.getElementById('root')).render(
+                  <StrictMode>
+                    <App />
+                  </StrictMode>,
+                )
+              </script>
+              </code>
+            </pre>
+            </div>
+          </section>
+          <section>
+            <p>
+              Let's simplify the default code such that the contents of the files
+              <strong>App.jsx</strong>
+              and
+              <strong>App.css</strong>
+              look like this:
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1em; margin-bottom: 1em">
+              <pre>
+                <code data-trim class="language-jsx">
+                  <script type="text/template">
+                  import './App.css';
+
+                  const App = () => {
+                    console.log('Hello from component');
+                    return (
+                      <div>
+                        <p>Hello world</p>
+                      </div>
+                    );
+                  };
+
+                  export default App;
+                  </script>
+                </code>
+              </pre>
+              <pre>
+                <code data-trim class="language-css">
+                  #root {
+                    max-width: 1280px;
+                    margin: 0 auto;
+                    padding: 2rem;
+                    text-align: center;
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <p>
+              The file
+              <code>App.jsx</code>
+              defines a
+              <strong>React component</strong>
+              with the name
+              <code>App</code>
+              . The component will be rendered as a
+              <code>div-tag</code>
+              , which wraps a
+              <code>p-tag</code>
+              containing the text
+              <em>Hello world</em>
+              .
+            </p>
+          </section>
+          <section>
+            <p>It is also possible to render dynamic content inside of a component.</p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const App = () => {
+                    const now = new Date()
+                    const a = 10
+                    const b = 20
+                    console.log(now, a+b)
+
+                    return (
+                      <div>
+                        <p>Hello world, it is {now.toString()}</p>
+                        <p>
+                          {a} plus {b} is {a + b}
+                        </p>
+                      </div>
+                    )
+                  }
+                </script>
+              </code>
+            </pre>
+            <p>
+              Any JavaScript code within the curly braces is evaluated and the result of this
+              evaluation is embedded into the defined place in the HTML produced by the component.
+            </p>
+          </section>
+          <section>
+            <h1>Writing markup with JSX</h1>
+            <ul>
+              <li>
+                The markup syntax you've seen above is called
+                <em>JSX</em>
+                .
+              </li>
+              <li>It is optional, but most React projects use JSX for its convenience.</li>
+              <li>
+                JSX is stricter than HTML:
+                <ul>
+                  <li>
+                    You have to close tags like
+                    <code>&lt;br /&gt;</code>
+                    .
+                  </li>
+                  <li>Your component also can't return multiple JSX tags.</li>
+                  <li>
+                    You have to wrap them into a shared parent, like a
+                    <code>&lt;div&gt;...&lt;/div&gt;</code>
+                    or an empty
+                    <code>&lt;&gt;...&lt;/&gt;</code>
+                    wrapper:
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  function AboutPage() {
+                    return (
+                      <>
+                        <h1>About</h1>
+                        <p>Hello there.<br />How do you do?</p>
+                      </>
+                    );
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Creating and nesting components</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 1em"
+            >
+              <ul>
+                <li>
+                  React apps are made out of
+                  <em>components</em>
+                  .
+                  <ul>
+                    <li>
+                      A component is a piece of the UI that has its own
+                      <strong>logic</strong>
+                      and
+                      <strong>appearance</strong>
+                      .
+                    </li>
+                    <li>
+                      It can be as small as a
+                      <strong>button</strong>
+                      , or as large as an
+                      <strong>entire page</strong>
+                      .
+                    </li>
+                    <li>React components are JavaScript functions that return markup</li>
+                  </ul>
+                </li>
+                <li>
+                  Notice that
+                  <code>&lt;Hello /&gt;</code>
+                  starts with a capital letter. That’s how you know it’s a React component. React
+                  component names must always start with a capital letter, while HTML tags must be
+                  lowercase.
+                </li>
+                <li>
+                  The
+                  <code>export default</code>
+                  keywords specify the main component in the file. If you’re not familiar with some
+                  piece of JavaScript syntax,
+                  <a
+                    href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export"
+                    target="_blank"
+                  >
+                    MDN
+                  </a>
+                  and
+                  <a href="https://javascript.info/import-export" target="_blank">
+                    javascript.info
+                  </a>
+                  have great references.
+                </li>
+                <li>Naturally, a component can be used multiple times</li>
+              </ul>
+              <pre>
+                <code data-trim class="language-jsx">
+                  <script type="text/template">
+                    const Hello = () => {
+                      return (
+                        <div>
+                          <p>Hello world</p>
+                        </div>
+                      );
+                    };
+
+                    const App = () => {
+                      return (
+                        <div>
+                          <h1>Greetings</h1>
+
+                          <Hello />
+                        </div>
+                      );
+                    };
+
+                    export default App;
+                  </script>
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <h1>Props: passing data to components</h1>
+            <p>
+              It is possible to pass data to components using so-called
+              <a href="https://react.dev/learn/passing-props-to-a-component" target="_blank">
+                props
+              </a>
+              .
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const Hello = (props) => {
+                    return (
+                      <div>
+
+                        <p>Hello {props.name}</p>
+                      </div>
+                    )
+                  }
+
+                  const App = () => {
+                    return (
+                      <div>
+                        <h1>Greetings</h1>
+                        <Hello name='George' />
+                        <Hello name='Daisy' />
+                      </div>
+                    )
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

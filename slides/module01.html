@@ -86,9 +86,13 @@
           <section>
             <h2>⚙️ Dynamic Website</h2>
             <ul>
-              <li>Content is generated on the fly (server-side or client-side)</li>
-              <li>Often connected to a database</li>
+              <li>
+                Content is generated on the fly
+                <strong>per user</strong>
+                (server-side or client-side)
+              </li>
               <li>Personalized content and user interactions</li>
+              <li>Uses databases, APIs, user auth, etc.</li>
               <li>Can scale and change content dynamically</li>
               <li>
                 <strong>Examples:</strong>
@@ -863,6 +867,67 @@
                 appearance of every website is determined by HTML and CSS.
               </p>
             </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Frontend vs Backend</h1>
+            <div style="display: flex; gap: 3em; justify-content: space-between">
+              <div>
+                <h2>Frontend</h2>
+                <ul>
+                  <li>User interface (UI)</li>
+                  <li>HTML, CSS, JavaScript</li>
+                  <li>Runs in the browser</li>
+                  <li>Interacts with backend via APIs</li>
+                </ul>
+              </div>
+              <div>
+                <h2>Backend</h2>
+                <ul>
+                  <li>Business logic & data storage</li>
+                  <li>Node.js, Express, databases</li>
+                  <li>Runs on the server</li>
+                  <li>Sends data to the frontend</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Frontend vs Backend Analogy</h1>
+            <ul>
+              <li>
+                🧑‍🍳
+                <strong>Backend</strong>
+                = Kitchen: prepares the meal (data, logic)
+              </li>
+              <li>
+                🧑‍💼
+                <strong>Frontend</strong>
+                = Waiter: presents the meal to the customer (UI)
+              </li>
+              <li>
+                🧾
+                <strong>Static Site</strong>
+                = Preprinted menu handed to everyone
+              </li>
+              <li>
+                🧠
+                <strong>Dynamic App</strong>
+                = Chef cooks based on your order (customized content)
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Why Split Frontend & Backend?</h1>
+            <ul>
+              <li>🏗️ Easier to scale and maintain large projects</li>
+              <li>🧪 Test frontend and backend independently</li>
+              <li>🌍 Backend can serve multiple frontends (web, mobile)</li>
+              <li>🔐 Keep sensitive logic (auth, database) on the server</li>
+              <li>⛓️ Enables API-based architecture (REST, GraphQL)</li>
+            </ul>
           </section>
         </section>
 
