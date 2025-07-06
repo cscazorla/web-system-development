@@ -4,8 +4,8 @@
   --color-background: #fff;
   --color-main: #333; /* Main text color */
   --color-primary: #009fb7; /* <h1>, <li> and <strong>  */
-  --color-secondary: #223843; /* <h2>, <h3>, etc. text and nested lists */
-  --color-links: #fe5f55;
+  --color-secondary: #0d1821; /* <h2>, <h3>, etc. text and nested lists */
+  --color-links: #af4319;
 
   --r-background-color: var(--color-background);
 
@@ -108,12 +108,12 @@
   transform: translateY(-1px);
 }
 
-.reveal img.background_white {
+/* .reveal img.background_white {
   background-color: white;
   padding: 0.15em;
   border-radius: 0.25em;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-}
+} */
 
 .example {
   color: var(--color-secondary);
