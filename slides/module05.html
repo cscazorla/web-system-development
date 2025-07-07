@@ -282,6 +282,35 @@
             </div>
           </section>
           <section>
+            <h1>React StrictMode</h1>
+            <ul>
+              <li>
+                <code>&lt;StrictMode&gt;</code>
+                is a developer tool that helps you write better React code.
+              </li>
+              <li>
+                It activates
+                <strong>additional checks and warnings</strong>
+                during development:
+                <ul>
+                  <li>Highlights unsafe lifecycle methods</li>
+                  <li>Detects unexpected side effects</li>
+                  <li>Warns about legacy API usage</li>
+                  <li>Identifies components with duplicate rendering</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Only runs in development</strong>
+                - it has no impact on production builds.
+              </li>
+              <li>
+                <strong>You should not remove it!</strong>
+                It ensures your app is future-proof and clean.
+              </li>
+            </ul>
+          </section>
+
+          <section>
             <p>
               Let's simplify the default code such that the contents of the files
               <strong>App.jsx</strong>
@@ -410,7 +439,7 @@
         </section>
         <section>
           <section>
-            <h1>Creating and nesting components</h1>
+            <h1>Components</h1>
             <div
               style="display: flex; justify-content: space-around; align-items: center; gap: 1em"
             >
@@ -519,6 +548,402 @@
                         <Hello name='Daisy' />
                       </div>
                     )
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 1em"
+            >
+              <ul>
+                <li>
+                  There can be an arbitrary number of props and their values can be "hard-coded"
+                  strings or the results of JavaScript expressions.
+                </li>
+                <li>
+                  If the value of the prop is achieved using JavaScript it must be wrapped with
+                  curly braces.
+                </li>
+                <li>
+                  The props sent by the component
+                  <i>App</i>
+                  are the values of the variables, the result of the evaluation of the sum
+                  expression and a regular string.
+                </li>
+              </ul>
+              <pre>
+                <code data-trim class="language-jsx">
+                  <script type="text/template">
+                    const Hello = (props) => {
+
+                      console.log(props)
+                      return (
+                        <div>
+                          <p>
+
+                            Hello {props.name}, you are {props.age} years old
+                          </p>
+                        </div>
+                      )
+                    }
+
+                    const App = () => {
+
+                      const name = 'Peter'
+                      const age = 10
+
+                      return (
+                        <div>
+                          <h1>Greetings</h1>
+
+                          <Hello name='Maya' age={26 + 10} />
+                          <Hello name={name} age={age} />
+                        </div>
+                      )
+                    }
+                  </script>
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 1em"
+            >
+              <ul>
+                <li>
+                  Component
+                  <i>Hello</i>
+                  also logs the value of the object props to the console.
+                </li>
+                <li>
+                  The
+                  <strong>console</strong>
+                  should always be open!
+                </li>
+              </ul>
+              <img width="50%" src="react-greetings-console.png" alt="React Greetings Console" />
+            </div>
+          </section>
+          <section>
+            <h1>Component helper functions</h1>
+            <p>
+              Let's expand our
+              <i>Hello</i>
+              component so that it guesses the year of birth of the person being greeted:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                const Hello = (props) =&gt; {
+
+                  const bornYear = () =&gt; {
+                    const yearNow = new Date().getFullYear()
+                    return yearNow - props.age
+                  }
+
+                  return (
+                    <div>
+                      <p>
+                        Hello {props.name}, you are {props.age} years old
+                      </p>
+
+                      <p>So you were probably born in {bornYear()}</p>
+                    </div>
+                  )
+                }
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>🛠 React Developer Tools</h1>
+            <ul>
+              <li>Browser extension for debugging and inspecting React apps</li>
+              <li>Helps understand how components render and update</li>
+              <li>Works with React in development mode</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>🔍 Features of React DevTools</h1>
+            <ul>
+              <li>
+                <strong>Component Inspector</strong>
+                - See your app's component tree
+              </li>
+              <li>
+                <strong>Props & State Viewer</strong>
+                - View and edit component data
+              </li>
+              <li>
+                <strong>Component Search</strong>
+                - Quickly find a component by name
+              </li>
+              <li>
+                <strong>Performance Profiler</strong>
+                - Analyze render times and bottlenecks
+              </li>
+              <li>
+                <strong>Hooks Inspector</strong>
+                - See hook values inside components
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>🔧 Installation</h1>
+            <ul>
+              <li>Install the browser extension:</li>
+              <ul>
+                <li>
+                  <a
+                    href="https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi"
+                    target="_blank"
+                  >
+                    Chrome Web Store
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
+                    target="_blank"
+                  >
+                    Firefox Add-ons
+                  </a>
+                </li>
+              </ul>
+              <li>Once installed, open your app in development mode</li>
+              <li>Open DevTools → Look for the "⚛️ Components" and "Profiler" tabs</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>📊 Using the Profiler</h1>
+            <ul>
+              <li>Tracks how long components take to render</li>
+              <li>Identify unnecessary re-renders</li>
+              <li>Use for performance optimizations</li>
+              <li>
+                Wrap your app in
+                <code>&lt;React.Profiler&gt;</code>
+                or just click "Record" in the Profiler tab
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>🧪 Live Editing</h1>
+            <ul>
+              <li>You can update props and state directly in DevTools</li>
+              <li>See how the UI changes in real-time</li>
+              <li>Useful for debugging and testing component behavior</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Example View</h1>
+            <img src="react-dev-tools.png" alt="React DevTools Screenshot" width="100%" />
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Adding Styles</h1>
+            <p>
+              In React, you specify a CSS class with
+              <code>className</code>
+              . It works the same way as the
+              <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class">
+                HTML
+              </a>
+              class attribute:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <img className="avatar" />
+                </script>
+              </code>
+            </pre>
+            <p>Then you write the CSS rules for it in a separate CSS file:</p>
+            <pre>
+              <code data-trim class="language-css">
+                <script type="text/template">
+                  /* In your CSS */
+                  .avatar {
+                    border-radius: 50%;
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <img src="avatar.png" alt="Avatar" width="100%" />
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Conditional Rendering</h1>
+            <p>
+              In React, there is no special syntax for writing conditions. Instead, you’ll use the
+              same techniques as you use when writing regular JavaScript code. For example, you can
+              use an
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else"
+                target="_blank"
+              >
+                if
+              </a>
+              statement to conditionally include JSX:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  let content;
+                  if (isLoggedIn) {
+                    content = <AdminPanel />;
+                  } else {
+                    content = <LoginForm />;
+                  }
+                  return (
+                    <div>
+                      {content}
+                    </div>
+                  );
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>
+              If you prefer more compact code, you can use the
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator"
+                target="_blank"
+              >
+                conditional ? operator.
+              </a>
+              Unlike
+              <code>if</code>
+              , it works inside JSX:
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <div>
+                    {isLoggedIn ? (
+                      <AdminPanel />
+                    ) : (
+                      <LoginForm />
+                    )}
+                  </div>
+                </script>
+              </code>
+            </pre>
+            <p>
+              When you don't need the
+              <code>else</code>
+              branch, you can also use a shorter
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation"
+                target="_blank"
+              >
+                logical
+                <code>&amp;&amp;</code>
+                syntax
+              </a>
+              :
+            </p>
+            <pre>
+              <code data-trim class="language-html">
+                <script type="text/template">
+                  <div>
+                    {isLoggedIn && <AdminPanel />}
+                  </div>
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Rendering Lists</h1>
+            <p>
+              You will rely on JavaScript features like
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for"
+                target="_blank"
+              >
+                for loop
+              </a>
+              and the
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
+                target="_blank"
+              >
+                array map() function
+              </a>
+              to render lists of components.
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const products = [
+                    { title: 'Cabbage', id: 1 },
+                    { title: 'Garlic', id: 2 },
+                    { title: 'Apple', id: 3 },
+                  ];
+
+                  const listItems = products.map(product =>
+                    <li key={product.id}>
+                      {product.title}
+                    </li>
+                  );
+
+                  return (
+                    <ul>{listItems}</ul>
+                  );
+                </script>
+              </code>
+            </pre>
+            <p>
+              Notice how
+              <code>&lt;li&gt;</code>
+              has a
+              <code>key</code>
+              attribute. For each item in a list, you should pass a string or a number that uniquely
+              identifies that item among its siblings.
+            </p>
+            <p>
+              Usually, a key should be coming from your data, such as a database ID. React uses your
+              keys to know what happened if you later insert, delete, or reorder the items.
+            </p>
+          </section>
+          <section>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const products = [
+                    { title: 'Cabbage', isFruit: false, id: 1 },
+                    { title: 'Garlic', isFruit: false, id: 2 },
+                    { title: 'Apple', isFruit: true, id: 3 },
+                  ];
+
+                  export default function ShoppingList() {
+                    const listItems = products.map(product =>
+                      <li
+                        key={product.id}
+                        style={{
+                          color: product.isFruit ? 'magenta' : 'darkgreen'
+                        }}
+                      >
+                        {product.title}
+                      </li>
+                    );
+
+                    return (
+                      <ul>{listItems}</ul>
+                    );
                   }
                 </script>
               </code>
