@@ -920,6 +920,7 @@
             </p>
           </section>
           <section>
+            <h1>Example</h1>
             <pre>
               <code data-trim class="language-jsx">
                 <script type="text/template">
@@ -934,7 +935,7 @@
                       <li
                         key={product.id}
                         style={{
-                          color: product.isFruit ? 'magenta' : 'darkgreen'
+                          color: product.isFruit ? 'green' : 'red'
                         }}
                       >
                         {product.title}
@@ -948,6 +949,352 @@
                 </script>
               </code>
             </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Stateful Components</h1>
+            <ul>
+              <li>
+                All of our components up till now have been simple in the sense that they have not
+                contained any state that could change during the lifecycle of the component.
+              </li>
+              <li>
+                Often, you'll want your component to
+                <strong>remember</strong>
+                some information and display it. For example, maybe you want to count the number of
+                times a button is clicked. To do this, add
+                <strong>state</strong>
+                to your component.
+              </li>
+              <li>
+                State is a way to store information that can change over time. It is a way to make
+                your component dynamic and interactive.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Responding to Events</h1>
+            <p>
+              You can respond to events by declaring
+              <em>event handler</em>
+              functions inside your components:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  function MyButton() {
+                    function handleClick() {
+                      alert('You clicked me!');
+                    }
+
+                    return (
+                      <button onClick={handleClick}>
+                        Click me
+                      </button>
+                    );
+                  }
+                </script>
+              </code>
+            </pre>
+            <p>
+              Notice how
+              <code>onClick={handleClick}</code>
+              has no parentheses at the end! Do not
+              <em>call</em>
+              the event handler function: you only need to
+              <em>pass it down</em>
+              . React will call your event handler when the user clicks the button.
+            </p>
+          </section>
+          <section>
+            <div
+              style="
+                display: flex;
+                gap: 1rem;
+                align-items: flex-start;
+                justify-content: space-between;
+              "
+            >
+              <div>
+                <ul>
+                  <li>
+                    First, import
+                    <code>useState</code>
+                    from React. Now you can declare a state variable inside your component
+                  </li>
+                  <li>
+                    You'll get two things from
+                    <code>useState</code>
+                    : the current state (
+                    <code>count</code>
+                    ), and the function that lets you update it (
+                    <code>setCount</code>
+                    ). You can give them any names, but the convention is to write
+                    <code>[something, setSomething]</code>
+                    .
+                  </li>
+                  <li>
+                    The first time the button is displayed,
+                    <code>count</code>
+                    will be
+                    <code>0</code>
+                    because you passed
+                    <code>0</code>
+                    to
+                    <code>useState()</code>
+                    . When you want to change state, call
+                    <code>setCount()</code>
+                    and pass the new value to it. Clicking this button will increment the counter:
+                  </li>
+                  <li>
+                    React will call your component function again. This time,
+                    <code>count</code>
+                    will be
+                    <code>1</code>
+                    . Then it will be
+                    <code>2</code>
+                    . And so on.
+                  </li>
+                  <li>
+                    If you render the same component multiple times, each will get its own state.
+                    Notice how each button “remembers” its own
+                    <code>count</code>
+                    state and doesn't affect other buttons.
+                  </li>
+                  <li>
+                    When the state modifying function
+                    <code>setCounter</code>
+                    is called, React
+                    <strong>re-renders</strong>
+                    the component
+                  </li>
+                </ul>
+              </div>
+              <div style="width: 40%">
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // Button.jsx
+                      import { useState } from 'react';
+
+                      export default function Button() {
+                        const [count, setCount] = useState(0);
+
+                        function handleClick() {
+                          setCount(count + 1);
+                        }
+
+                        return <button onClick={handleClick}>Clicked {count} times</button>;
+                      }
+
+
+
+                      // App.jsx
+                      import './App.css';
+                      import Button from './Button.jsx';
+
+                      const App = () => {
+                        return (
+                          <div>
+                            <Button />
+                            <Button />
+                          </div>
+                        );
+                      };
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Hooks</h1>
+            <ul>
+              <li>
+                Functions starting with
+                <code>use</code>
+                are called
+                <em>Hooks</em>
+                .
+              </li>
+              <li>
+                <code>useState</code>
+                is a built-in Hook provided by React. You can find other built-in Hooks in the
+                <a
+                  class="inline text-link dark:text-link-dark border-b border-link border-opacity-0 hover:border-opacity-100 duration-100 ease-in transition leading-normal"
+                  href="https://react.dev/reference/react"
+                >
+                  API reference.
+                </a>
+              </li>
+              <li>You can also write your own Hooks by combining the existing ones.</li>
+              <li>
+                Hooks are more restrictive than other functions. You can only call Hooks
+                <em>at the top</em>
+                of your components (or other Hooks). If you want to use
+                <code>useState</code>
+                in a condition or a loop, extract a new component and put it there.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Sharing data between components</h1>
+            <p>
+              In the previous example, each
+              <code>MyButton</code>
+              had its own independent
+              <code>count</code>
+              , and when each button was clicked, only the
+              <code>count</code>
+              for the button clicked changed:
+            </p>
+            <div style="display: flex; justify-content: center">
+              <div>
+                <img
+                  style="width: 50%"
+                  src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_child.png&w=828&q=75"
+                  alt="Sharing data between components"
+                />
+                <p>Initially, each MyButton's count state is 0</p>
+              </div>
+              <div>
+                <img
+                  style="width: 50%"
+                  src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_child_clicked.png&w=828&q=75"
+                  alt="Sharing data between components"
+                />
+                <p>The first MyButton updates its count to 1</p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Sharing data between components</h1>
+            <ul>
+              <li>
+                However, often you'll need components to
+                <em>share data and always update together</em>
+                .
+              </li>
+              <li>
+                To make both
+                <code>MyButton</code>
+                components display the same
+                <code>count</code>
+                and update together, you need to move the state from the individual buttons
+                <strong>upwards</strong>
+                to the closest component containing all of them.
+              </li>
+            </ul>
+            <div style="display: flex; justify-content: center">
+              <div>
+                <img
+                  style="width: 50%"
+                  src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent.png&w=828&q=75"
+                  alt="Sharing data between components"
+                />
+                <p>Initially, MyApp's count state is 0 and is passed down to both children</p>
+              </div>
+              <div>
+                <img
+                  style="width: 50%"
+                  src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent_clicked.png&w=828&q=75"
+                  alt="Sharing data between components"
+                />
+                <p>
+                  On click, MyApp updates its count state to 1 and passes it down to both children
+                </p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <img width="50%" src="CountersUpdateTogether.png" alt="CountersUpdateTogether" />
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+
+                  export default function CountersUpdatingTogether() {
+                    const [count, setCount] = useState(0);
+
+                    function handleClick() {
+                      setCount(count + 1);
+                    }
+
+                    return (
+                      <div>
+                        <h1>Counters that update together</h1>
+                        <MyButton count={count} onClick={handleClick} />
+                        <MyButton count={count} onClick={handleClick} />
+                      </div>
+                    );
+                  }
+
+                  function MyButton({ count, onClick }) {
+                    return <button onClick={onClick}>Clicked {count} times</button>;
+                  }
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Passing state to child components</h1>
+            <ul>
+              <li>
+                It's recommended to write React components that are small and reusable across the
+                application and even across projects.
+              </li>
+              <li>
+                Let's refactor our application so that it's composed of three smaller components,
+                one component for displaying the counter and two components for buttons.
+              </li>
+              <li>
+                One best practice in React is to lift the state up in the component hierarchy.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Improved Buttons</h1>
+            <img src="ImprovedButtons.png" alt="ImprovedButtons" />
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+
+                  const Button = (props) => {
+                    return <button onClick={props.onClick}>{props.text}</button>;
+                  };
+
+                  const Display = (props) => {
+                    return <div>{props.counter}</div>;
+                  };
+
+                  const ImprovedButtons = () => {
+                    const [counter, setCounter] = useState(0);
+
+                    const increaseByOne = () => setCounter(counter + 1);
+                    const decreaseByOne = () => setCounter(counter - 1);
+                    const setToZero = () => setCounter(0);
+
+                    return (
+                      <div>
+                        <Display counter={counter} />
+                        <Button onClick={increaseByOne} text="plus" />
+                        <Button onClick={setToZero} text="zero" />
+                        <Button onClick={decreaseByOne} text="minus" />
+                      </div>
+                    );
+                  };
+
+                  export default ImprovedButtons;
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Changes in state cause re-rendering</h1>
           </section>
         </section>
       </div>
