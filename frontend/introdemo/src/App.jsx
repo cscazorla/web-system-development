@@ -1,6 +1,7 @@
 import './App.css';
 import Avatar from './Avatar.jsx';
 import Button from './Button.jsx';
+import ComplexState from './ComplexState.jsx';
 import CountersUpdatingTogether from './CountersUpdatingTogether.jsx';
 import ImprovedButtons from './ImprovedButtons.jsx';
 import ShoppingList from './ShoppingList.jsx';
@@ -42,6 +43,8 @@ const App = () => {
       <CountersUpdatingTogether />
       <hr />
       <ImprovedButtons />
+      <hr />
+      <ComplexState />
     </div>
   );
 };
