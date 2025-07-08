@@ -1682,8 +1682,191 @@
                 <strong>separate pieces of state</strong>
                 is a far more suitable choice.
               </li>
+              <li>
+                There are situations where it can be beneficial to store a piece of application
+                state in a more complex data structure.
+                <a href="https://react.dev/learn/choosing-the-state-structure" target="_blank">
+                  The official React documentation
+                </a>
+                contains some helpful guidance on the topic.
+              </li>
             </ul>
           </section>
+          <section>
+            <h1>Handling Arrays in the State</h1>
+            <p>
+              Let's add a piece of state to our application containing an array
+              <em>allClicks</em>
+              that remembers every click that has occurred in the application.
+            </p>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Every click is stored in a separate piece of state called
+                    <em>allClicks</em>
+                    that is initialized as an empty array
+                  </li>
+                  <li>
+                    When the
+                    <em>left</em>
+                    button is clicked, we add the letter
+                    <em>L</em>
+                    to the
+                    <em>allClicks</em>
+                    array:
+                  </li>
+                  <li>
+                    The piece of state stored in
+                    <em>allClicks</em>
+                    is now set to be an array that contains all of the items of the previous state
+                    array plus the letter
+                    <em>L</em>
+                    .
+                  </li>
+                  <li>
+                    Adding the new item to the array is accomplished with the
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"
+                    >
+                      concat
+                    </a>
+                    method, which does not mutate the existing array but rather returns a
+                    <i>new copy of the array</i>
+                    with the item added to it.
+                  </li>
+                  <li>
+                    The component keeps track of the total number of button presses in the state
+                    <em>total</em>
+                    , whose value is always updated when the buttons are pressed.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const AllClicks = () => {
+                        const [left, setLeft] = useState(0);
+                        const [right, setRight] = useState(0);
+                        const [allClicks, setAll] = useState([]);
+                        const [total, setTotal] = useState(0);
+
+                        const handleLeftClick = () => {
+                          setAll(allClicks.concat('L'));
+                          setLeft(left + 1);
+                          setTotal(left + right);
+                        };
+
+                        const handleRightClick = () => {
+                          setAll(allClicks.concat('R'));
+                          setRight(right + 1);
+                          setTotal(left + right);
+                        };
+
+                        return (
+                          <div>
+                            {left}
+                            <button onClick={handleLeftClick}>left</button>
+                            <button onClick={handleRightClick}>right</button>
+                            {right}
+                            <p>{allClicks.join(' ')}</p>
+                            <p>total {total}</p>
+                          </div>
+                        );
+                      };
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>However ....</h1>
+            <p>The solution does not quite work:</p>
+            <img src="array-state.png" alt="Array state" width="20%" />
+            <p>
+              The total number of button presses is consistently one less than the actual amount of
+              presses, for some reason.
+            </p>
+          </section>
+          <section>
+            <p>Let us add couple of console.log statements to the event handler:</p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  // ...
+                  const handleLeftClick = () => {
+                    setAll(allClicks.concat('L'))
+                    console.log('left before', left)
+                    setLeft(left + 1)
+                    console.log('left after', left)
+                    setTotal(left + right)
+                  }
+
+                  // ...
+                </script>
+              </code>
+            </pre>
+            <p>The console reveals the problem:</p>
+            <ul>
+              <li>left before 0</li>
+              <li>left after 0</li>
+              <li>left before 1</li>
+              <li>left after 1</li>
+            </ul>
+          </section>
+          <section>
+            <p>
+              Even though a new value was set for
+              <em>left</em>
+              by calling
+              <code>setLeft(left + 1)</code>
+              , the old value persists despite the update. As a result, the attempt to count button
+              presses produces a result that is too small:
+            </p>
+            <p>
+              The reason for this is that a state update in React happens
+              <a href="https://react.dev/learn/queueing-a-series-of-state-updates" target="_blank">
+                asynchronously
+              </a>
+              , i.e. not immediately but "at some point" before the component is rendered again.
+            </p>
+            <p>We can fix this as follows:</p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  // ...
+                  const handleLeftClick = () => {
+                    setAll(allClicks.concat('L'))
+
+                    const updatedLeft = left + 1
+
+                    setLeft(updatedLeft)
+
+                    setTotal(updatedLeft + right)
+                  }
+
+                  // ...
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <h1>References</h1>
+          <ul>
+            <li>
+              <a href="https://react.dev/learn" target="_blank">React Official Documentation</a>
+            </li>
+            <li>
+              <a href="https://egghead.io/courses/start-learning-react" target="_blank">
+                React playlist on egghead.io
+              </a>
+            </li>
+          </ul>
         </section>
       </div>
     </div>

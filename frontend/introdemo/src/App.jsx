@@ -1,3 +1,4 @@
+import AllClicks from './AllClicks.jsx';
 import './App.css';
 import Avatar from './Avatar.jsx';
 import Button from './Button.jsx';
@@ -45,6 +46,8 @@ const App = () => {
       <ImprovedButtons />
       <hr />
       <ComplexState />
+      <hr />
+      <AllClicks />
     </div>
   );
 };
