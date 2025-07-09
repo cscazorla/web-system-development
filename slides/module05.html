@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 05 - Web System Development</title>
+    <title>Module 05 - Frontend</title>
   </head>
   <body>
     <div class="reveal">
@@ -1853,6 +1853,794 @@
                 </script>
               </code>
             </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Tutorial: Tic-Tac-Toe</h1>
+            <p style="text-align: center">
+              <a href="https://codesandbox.io/p/sandbox/ywjv3w?file=%2Fsrc%2FApp.js">
+                https://codesandbox.io/p/sandbox/ywjv3w?file=%2Fsrc%2FApp.js
+              </a>
+            </p>
+          </section>
+          <section>
+            <h1>Setting up</h1>
+            <pre>
+              <code data-trim class="">
+                <script type="text/template">
+                  npm create vite@latest tic-tac-toe -- --template react
+
+                  cd tic-tac-toe
+
+                  npm install
+
+                  npm run dev
+                </script>
+              </code>
+            </pre>
+            <p style="text-align: center">Clean up all the scaffolding code</p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  // src/App.jsx
+
+                  import './App.css';
+
+                  function App() {
+                    console.log('Hello');
+
+                    return <h1>Tic Tac Toe</h1>;
+                  }
+
+                  export default App;
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Adding the first component</h1>
+            <div
+              style="
+                display: flex;
+                justify-content: space-around;
+                align-items: flex-start;
+                gap: 1em;
+              "
+            >
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // App.jsx
+
+                      import './App.css';
+
+                      function Square() {
+                        return <button className="square">X</button>;
+                      }
+
+                      function App() {
+                        return (
+                          <>
+                            <h1>Tic Tac Toe</h1>
+                            <Square />
+                          </>
+                        );
+                      }
+
+                      export default App;
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-css">
+                    // App.css
+
+                    * {
+                      box-sizing: border-box;
+                    }
+
+                    body {
+                      font-family: sans-serif;
+                      margin: 20px;
+                      padding: 0;
+                    }
+
+                    h1 {
+                      margin-top: 0;
+                      font-size: 22px;
+                    }
+
+                    .square {
+                      background: #fff;
+                      border: 1px solid #999;
+                      float: left;
+                      font-size: 24px;
+                      font-weight: bold;
+                      line-height: 34px;
+                      height: 34px;
+                      margin-right: -1px;
+                      margin-top: -1px;
+                      padding: 0;
+                      text-align: center;
+                      width: 34px;
+                    }
+
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Creating the board</h1>
+            <div
+              style="
+                display: flex;
+                justify-content: space-around;
+                align-items: flex-start;
+                gap: 1em;
+              "
+            >
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // App.jsx
+
+                      import './App.css';
+
+                      function Square({ value }) {
+                        return <button className="square">{value}</button>;
+                      }
+
+                      function App() {
+                        return (
+                          <>
+                            <h1>Tic Tac Toe</h1>
+
+                            <div className="board-row">
+                              <Square value="1" />
+                              <Square value="2" />
+                              <Square value="3" />
+                            </div>
+
+                            <div className="board-row">
+                              <Square value="4" />
+                              <Square value="5" />
+                              <Square value="6" />
+                            </div>
+
+                            <div className="board-row">
+                              <Square value="7" />
+                              <Square value="8" />
+                              <Square value="9" />
+                            </div>
+                          </>
+                        );
+                      }
+
+                      export default App;
+
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-css">
+                    // App.css
+
+                    div.board-row {
+                      display: flex;
+                    }
+
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Adding interactivity</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import './App.css';
+
+                  import { useState } from 'react';
+
+                  function Square() {
+                    const [value, setValue] = useState(null);
+
+                    function handleClick() {
+                      console.log('clicked!');
+
+                      setValue('X');
+                    }
+
+                    return (
+                      <button className="square" onClick={handleClick}>
+                        {value}
+                      </button>
+                    );
+                  }
+
+                  function App() {
+                    return (
+                      <>
+                        <h1>Tic Tac Toe</h1>
+                        <div className="board-row">
+                          <Square />
+                          <Square />
+                          <Square />
+                        </div>
+                        <div className="board-row">
+                          <Square />
+                          <Square />
+                          <Square />
+                        </div>
+                        <div className="board-row">
+                          <Square />
+                          <Square />
+                          <Square />
+                        </div>
+                      </>
+                    );
+                  }
+
+                  export default App;
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>React Developer Tools</h1>
+            <img
+              src="https://react.dev/images/tutorial/codesandbox-devtools.png"
+              alt="React Developer Tools"
+            />
+          </section>
+          <section>
+            <h1>Lifting state up</h1>
+            <ul>
+              <li>
+                To have a complete game, we now need to alternate placing “X”s and “O”s on the
+                board, and we need a way to determine a winner.
+              </li>
+              <li>
+                Currently, each
+                <code>Square</code>
+                component maintains a part of the game's state. To check for a winner in a
+                tic-tac-toe game, the
+                <code>App</code>
+                would need to somehow know the state of each of the 9
+                <code>Square</code>
+                components.
+              </li>
+              <li>
+                The best approach is to store the game's state in the parent
+                <code>App</code>
+                component instead of in each
+                <code>Square</code>
+                . The
+                <code>App</code>
+                component can tell each
+                <code>Square</code>
+                what to display by passing a prop, like we did when you passed a number to each
+                Square.
+              </li>
+              <li>
+                To collect data from multiple children, or to have two child components communicate
+                with each other, declare the shared state in their parent component instead. The
+                parent component can pass that state back down to the children via props. This keeps
+                the child components in sync with each other and with their parent.
+              </li>
+              <li>
+                Lifting state into a parent component is common when React components are
+                refactored.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  // ...
+                  export default function App() {
+                    const [squares, setSquares] = useState(Array(9).fill(null));
+                    return (
+                      // ...
+                    );
+                  }
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                Edit the
+                <code>App</code>
+                component so that it declares a state variable named
+                <code>squares</code>
+                that defaults to an array of 9 nulls corresponding to the 9 squares
+              </li>
+              <li>
+                <code>Array(9).fill(null)</code>
+                creates an array with nine elements and sets each of them to
+                <code>null</code>
+                .
+              </li>
+              <li>
+                The
+                <code>useState()</code>
+                call around it declares a
+                <code>squares</code>
+                state variable that's initially set to that array. Each entry in the array
+                corresponds to the value of a square.
+              </li>
+              <li>
+                When you fill the board in later, the
+                <code>squares</code>
+                array will look like this:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  ['O', null, 'X', 'X', 'X', 'O', 'O', null, null]
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Passing data from parent to child</h1>
+            <p>
+              Now the
+              <code>App</code>
+              component needs to pass the
+              <code>value</code>
+              prop down to each
+              <code>Square</code>
+              that it renders:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+
+                  function Square({ value }) {
+                    return <button className="square">{value}</button>;
+                  }
+
+                  export default function App() {
+                    const [squares, setSquares] = useState(Array(9).fill(null));
+                    return (
+                      <>
+                        <div className="board-row">
+                          <Square value={squares[0]} />
+                          <Square value={squares[1]} />
+                          <Square value={squares[2]} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[3]} />
+                          <Square value={squares[4]} />
+                          <Square value={squares[5]} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[6]} />
+                          <Square value={squares[7]} />
+                          <Square value={squares[8]} />
+                        </div>
+                      </>
+                    );
+                  }
+
+                </script>
+              </code>
+            </pre>
+            <p>
+              Each Square will now receive a
+              <code>value</code>
+              prop that will either be
+              <code>'X'</code>
+              ,
+              <code>'O'</code>
+              , or
+              <code>null</code>
+              for empty squares.
+            </p>
+          </section>
+          <section>
+            <ul>
+              <li>
+                Next, we need to change what happens when a
+                <code>Square</code>
+                is clicked.
+              </li>
+              <li>
+                The
+                <code>App</code>
+                component now maintains which squares are filled. We'll need to create a way for the
+                <code>Square</code>
+                to update the
+                <code>App</code>
+                's state.
+              </li>
+              <li>
+                Since state is private to a component that defines it, we cannot update the
+                <code>App</code>
+                's state directly from
+                <code>Square</code>
+                .
+              </li>
+              <li>
+                Instead, we'll pass down a function from the
+                <code>App</code>
+                component to the
+                <code>Square</code>
+                component, and we'll have
+                <code>Square</code>
+                call that function when a square is clicked.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <p>
+              The
+              <code>handleClick</code>
+              function creates a copy of the
+              <code>squares</code>
+              array (
+              <code>nextSquares</code>
+              ) with the JavaScript
+              <code>slice()</code>
+              Array method. Then,
+              <code>handleClick</code>
+              updates the
+              <code>nextSquares</code>
+              array to add
+              <code>X</code>
+              to the first (
+              <code>[0]</code>
+              index) square.
+            </p>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 1em"
+            >
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      function Square({ value, onSquareClick }) {
+                        return (
+                          <button className="square" onClick={onSquareClick}>
+                            {value}
+                          </button>
+                        );
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      export default function App() {
+                        const [squares, setSquares] = useState(Array(9).fill(null));
+
+                        function handleClick() {
+                          const nextSquares = squares.slice();
+                          nextSquares[0] = "X";
+                          setSquares(nextSquares);
+                        }
+
+                        return (
+                          // ...
+                        )
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+            <p>
+              Calling the
+              <code>setSquares</code>
+              function lets React know the state of the component has changed. This will trigger a
+              re-render of the components that use the
+              <code>squares</code>
+              state (
+              <code>App</code>
+              ) as well as its child components (the
+              <code>Square</code>
+              components that make up the board).
+            </p>
+          </section>
+          <section>
+            <ul>
+              <li>Now we can add X's to the board… but only to the upper left square.</li>
+              <li>
+                The
+                <code>handleClick</code>
+                function is hardcoded to update the index for the upper left square (
+                <code>0</code>
+                ).
+              </li>
+              <li>
+                Let's update
+                <code>handleClick</code>
+                to be able to update any square. Add an argument
+                <code>i</code>
+                to the
+                <code>handleClick</code>
+                function that takes the index of the square to update:
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  export default function App() {
+                    const [squares, setSquares] = useState(Array(9).fill(null));
+
+                    function handleClick(i) {
+                      const nextSquares = squares.slice();
+                      nextSquares[i] = "X";
+                      setSquares(nextSquares);
+                    }
+
+                    return (
+                      // ...
+                    )
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>
+              Next, we will need to pass that
+              <code>i</code>
+              to
+              <code>handleClick</code>
+              . We could try to set the
+              <code>onSquareClick</code>
+              prop of square to be
+              <code>handleClick(0)</code>
+              directly in the JSX like this, but it won’t work:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  <Square value={squares[0]} onSquareClick={handleClick(0)} />
+
+                  // Browser console
+                  > Too many re-renders. React limits the number of renders to prevent an infinite loop.
+                </script>
+              </code>
+            </pre>
+            <p>
+              The
+              <code>handleClick(0)</code>
+              call will be a part of rendering the board component. Because
+              <code>handleClick(0)</code>
+              alters the state of the board component by calling
+              <code>setSquares</code>
+              , your entire board component will be re-rendered again. But this runs
+              <code>handleClick(0)</code>
+              again, leading to an infinite loop.
+            </p>
+          </section>
+          <section>
+            <h1>Why didn’t this problem happen earlier?</h1>
+            <p>
+              When we were passing
+              <code>onSquareClick={handleClick}</code>
+              , we were passing the
+              <code>handleClick</code>
+              function down as a prop. We were not calling it! But now we are
+              <em>calling</em>
+              that function right away—notice the parentheses in
+              <code>handleClick(0)</code>
+              —and that's why it runs too early. You don't
+              <em>want</em>
+              to call
+              <code>handleClick</code>
+              until the user clicks!
+            </p>
+          </section>
+          <section>
+            <h1>How do we fix it?</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  export default function App() {
+                    // ...
+                    return (
+                      <>
+                        <div className="board-row">
+                          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                          // ...
+                    );
+                  }
+                </script>
+              </code>
+            </pre>
+            <p>
+              Notice the new
+              <code>() =&gt;</code>
+              syntax. Here,
+              <code>() =&gt; handleClick(0)</code>
+              is an
+              <em>arrow function,</em>
+              which is a shorter way to define functions. When the square is clicked, the code after
+              the
+              <code>=&gt;</code>
+              “arrow” will run, calling
+              <code>handleClick(0)</code>
+              .
+            </p>
+          </section>
+          <section>
+            <h1>Now state handling is in the App component</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import './App.css';
+
+                  import { useState } from 'react';
+
+                  function Square({ value, onSquareClick }) {
+                    return (
+                      <button className="square" onClick={onSquareClick}>
+                        {value}
+                      </button>
+                    );
+                  }
+
+                  function App() {
+                    const [squares, setSquares] = useState(Array(9).fill(null));
+
+                    function handleClick(i) {
+                      const nextSquares = squares.slice();
+                      nextSquares[i] = 'X';
+                      setSquares(nextSquares);
+                    }
+
+                    return (
+                      <>
+                        <div className="board-row">
+                          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+                          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+                          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+                          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+                          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+                          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+                        </div>
+                      </>
+                    );
+                  }
+
+                  export default App;
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Recap</h1>
+            <ul>
+              <li>
+                Now that your state handling is in the
+                <code>Board</code>
+                component, the parent
+                <code>Board</code>
+                component passes props to the child
+                <code>Square</code>
+                components so that they can be displayed correctly.
+              </li>
+              <li>
+                When clicking on a
+                <code>Square</code>
+                , the child
+                <code>Square</code>
+                component now asks the parent
+                <code>Board</code>
+                component to update the state of the board.
+              </li>
+              <li>
+                When the
+                <code>Board</code>
+                's state changes, both the
+                <code>Board</code>
+                component and every child
+                <code>Square</code>
+                re-renders automatically.
+              </li>
+              <li>
+                Keeping the state of all squares in the
+                <code>Board</code>
+                component will allow it to determine the winner in the future.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>What happens when a user clicks the top left square?</h1>
+            <ul>
+              <li>
+                Clicking on the upper left square runs the function that the
+                <code>button</code>
+                received as its
+                <code>onClick</code>
+                prop from the
+                <code>Square</code>
+                .
+              </li>
+              <li>
+                The
+                <code>Square</code>
+                component received that function as its
+                <code>onSquareClick</code>
+                prop from the
+                <code>Board</code>
+                .
+              </li>
+              <li>
+                The
+                <code>Board</code>
+                component defined that function directly in the JSX. It calls
+                <code>handleClick</code>
+                with an argument of
+                <code>0</code>
+                .
+              </li>
+              <li>
+                <code>handleClick</code>
+                uses the argument (
+                <code>0</code>
+                ) to update the first element of the
+                <code>squares</code>
+                array from
+                <code>null</code>
+                to
+                <code>X</code>
+                .
+              </li>
+              <li>
+                The
+                <code>squares</code>
+                state of the
+                <code>Board</code>
+                component was updated, so the
+                <code>Board</code>
+                and all of its children re-render. This causes the
+                <code>value</code>
+                prop of the
+                <code>Square</code>
+                component with index
+                <code>0</code>
+                to change from
+                <code>null</code>
+                to
+                <code>X</code>
+                .
+              </li>
+              <li>
+                In the end the user sees that the upper left square has changed from empty to having
+                an
+                <code>X</code>
+                after clicking it.
+              </li>
+            </ul>
           </section>
         </section>
         <section>
