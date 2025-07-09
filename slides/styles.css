@@ -69,7 +69,6 @@
 }
 
 .reveal ul ul li::marker {
-  color: var(--color-secondary);
   font-size: 0.8em;
 }
 

@@ -469,14 +469,14 @@
                 <li>
                   Notice that
                   <code>&lt;Hello /&gt;</code>
-                  starts with a capital letter. That’s how you know it’s a React component. React
+                  starts with a capital letter. That's how you know it's a React component. React
                   component names must always start with a capital letter, while HTML tags must be
                   lowercase.
                 </li>
                 <li>
                   The
                   <code>export default</code>
-                  keywords specify the main component in the file. If you’re not familiar with some
+                  keywords specify the main component in the file. If you're not familiar with some
                   piece of JavaScript syntax,
                   <a
                     href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export"
@@ -787,7 +787,7 @@
           <section>
             <h1>Conditional Rendering</h1>
             <p>
-              In React, there is no special syntax for writing conditions. Instead, you’ll use the
+              In React, there is no special syntax for writing conditions. Instead, you'll use the
               same techniques as you use when writing regular JavaScript code. For example, you can
               use an
               <a
@@ -2409,7 +2409,7 @@
               <code>onSquareClick</code>
               prop of square to be
               <code>handleClick(0)</code>
-              directly in the JSX like this, but it won’t work:
+              directly in the JSX like this, but it won't work:
             </p>
             <pre>
               <code data-trim class="language-jsx">
@@ -2434,7 +2434,7 @@
             </p>
           </section>
           <section>
-            <h1>Why didn’t this problem happen earlier?</h1>
+            <h1>Why didn't this problem happen earlier?</h1>
             <p>
               When we were passing
               <code>onSquareClick={handleClick}</code>
@@ -2641,6 +2641,1540 @@
                 after clicking it.
               </li>
             </ul>
+          </section>
+          <section>
+            <h1>Why immutability is important</h1>
+            <ul>
+              <li>
+                Note how in
+                <code>handleClick</code>
+                , we call
+                <code>.slice()</code>
+                to create a copy of the
+                <code>squares</code>
+                array instead of modifying the existing array. To explain why, we need to discuss
+                immutability and why immutability is important to learn.
+              </li>
+              <li>
+                There are generally two approaches to changing data:
+                <ul>
+                  <li>
+                    The first approach is to
+                    <em>mutate</em>
+                    the data by directly changing the data's values.
+                  </li>
+                  <li>
+                    The second approach is to
+                    <em>replace</em>
+                    the data with a new copy which has the desired changes.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Mutating vs. Replacing</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 1em"
+            >
+              <div>
+                <p>
+                  Here is what it would look like if we mutated the
+                  <code>squares</code>
+                  array:
+                </p>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const squares = [null, null, null, null, null, null, null, null, null];
+                      squares[0] = 'X';
+                      // Now `squares` is ["X", null, null, null, null, null, null, null, null];
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <p>
+                  And here is what it would look like if you changed data without mutating the
+                  <code>squares</code>
+                  array:
+                </p>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const squares = [null, null, null, null, null, null, null, null, null];
+                      const nextSquares = ['X', null, null, null, null, null, null, null, null];
+                      // Now `squares` is unchanged, but `nextSquares` first element is 'X' rather than `null`
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Immutability is important</h1>
+            <ul>
+              <li>
+                The result is the same but by not mutating (changing the underlying data) directly,
+                you gain several benefits.
+              </li>
+              <li>
+                Immutability makes complex features much easier to implement. Later in this
+                tutorial, you will implement a
+                <strong>time travel</strong>
+                feature that lets you review the game's history and
+                <strong>jump back</strong>
+                to past moves. This functionality isn't specific to games—an ability to
+                <strong>undo</strong>
+                and
+                <strong>redo</strong>
+                certain actions is a common requirement for apps. Avoiding direct data mutation
+                <em>lets you keep previous versions of the data intact</em>
+                , and reuse them later.
+              </li>
+              <li>
+                There is also another benefit of immutability. By default, all child components
+                re-render automatically when the state of a parent component changes. This includes
+                even the child components that weren't affected by the change. Although re-rendering
+                is not by itself noticeable to the user (you shouldn't actively try to avoid it!),
+                <strong>you might want to skip re-rendering</strong>
+                a part of the tree that clearly wasn't affected by it for performance reasons.
+                Immutability makes it very cheap for components to compare whether their data has
+                changed or not. You can learn more about how React chooses when to re-render a
+                component in
+                <a href="https://react.dev/reference/react/memo">
+                  the
+                  <code>memo</code>
+                  API reference
+                </a>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Taking turns</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div style="width: 70%">
+                <ul>
+                  <li>
+                    It's now time to fix a major defect in this tic-tac-toe game: the “O”s cannot be
+                    marked on the board.
+                  </li>
+                  <li>
+                    We'll set the first move to be “X” by default. Let's keep track of this by
+                    adding another piece of state to the
+                    <code>App</code>
+                    component
+                  </li>
+                  <li>
+                    Each time a player moves,
+                    <code>xIsNext</code>
+                    (a boolean) will be flipped to determine which player goes next and the game's
+                    state will be saved. We'll update the
+                    <code>Board</code>
+                    's
+                    <code>handleClick</code>
+                    function to flip the value of
+                    <code>xIsNext</code>
+                  </li>
+                </ul>
+              </div>
+              <div style="width: 30%">
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      export default function App() {
+                        const [xIsNext, setXIsNext] = useState(true);
+                        const [squares, setSquares] = useState(Array(9).fill(null));
+
+                        function handleClick(i) {
+                          const nextSquares = squares.slice();
+                          if (xIsNext) {
+                            nextSquares[i] = "X";
+                          } else {
+                            nextSquares[i] = "O";
+                          }
+                          setSquares(nextSquares);
+                          setXIsNext(!xIsNext);
+                        }
+
+                        return (
+                          //...
+                        );
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Fixing the game</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div>
+                <ul>
+                  <li>There's a problem: try clicking on the same square multiple times</li>
+                  <li>
+                    The
+                    <code>X</code>
+                    is overwritten by an
+                    <code>O</code>
+                    !
+                  </li>
+                  <li>
+                    When we mark a square with an
+                    <code>X</code>
+                    or an
+                    <code>O</code>
+                    we aren't first checking to see if the square already has an
+                    <code>X</code>
+                    or
+                    <code>O</code>
+                    value.
+                  </li>
+                  <li>
+                    We can fix this by
+                    <em>returning early</em>
+                    . We'll check to see if the square already has an
+                    <code>X</code>
+                    or an
+                    <code>O</code>
+                    . If the square is already filled, you will
+                    <code>return</code>
+                    in the
+                    <code>handleClick</code>
+                    function early—before it tries to update the board state.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      function handleClick(i) {
+                        if (squares[i]) {
+                          return;
+                        }
+                        const nextSquares = squares.slice();
+                        //...
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>What it looks like so far</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import './App.css';
+
+                  import { useState } from 'react';
+
+                  function Square({ value, onSquareClick }) {
+                    return (
+                      <button className="square" onClick={onSquareClick}>
+                        {value}
+                      </button>
+                    );
+                  }
+
+                  function App() {
+                    const [xIsNext, setXIsNext] = useState(true);
+                    const [squares, setSquares] = useState(Array(9).fill(null));
+
+                    function handleClick(i) {
+                      if (squares[i]) {
+                        return;
+                      }
+                      const nextSquares = squares.slice();
+                      if (xIsNext) {
+                        nextSquares[i] = 'X';
+                      } else {
+                        nextSquares[i] = 'O';
+                      }
+                      setSquares(nextSquares);
+                      setXIsNext(!xIsNext);
+                    }
+
+                    return (
+                      <>
+                        <div className="board-row">
+                          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+                          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+                          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+                          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+                          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+                          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+                        </div>
+                      </>
+                    );
+                  }
+
+                  export default App;
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Declaring a winner</h1>
+            <p>
+              We'll add a helper function called
+              <code>calculateWinner</code>
+              that takes an array of 9 squares, checks for a winner and returns
+              <code>'X'</code>
+              ,
+              <code>'O'</code>
+              , or
+              <code>null</code>
+              as appropriate. Don't worry too much about the
+              <code>calculateWinner</code>
+              function; it's not specific to React
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  export default function App() {
+                    //...
+                  }
+
+                  function calculateWinner(squares) {
+                    const lines = [
+                      [0, 1, 2],
+                      [3, 4, 5],
+                      [6, 7, 8],
+                      [0, 3, 6],
+                      [1, 4, 7],
+                      [2, 5, 8],
+                      [0, 4, 8],
+                      [2, 4, 6]
+                    ];
+                    for (let i = 0; i < lines.length; i++) {
+                      const [a, b, c] = lines[i];
+                      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                        return squares[a];
+                      }
+                    }
+                    return null;
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Checking for a winner</h1>
+            <p>
+              We will call
+              <code>calculateWinner(squares)</code>
+              in the
+              <code>Board</code>
+              component's
+              <code>handleClick</code>
+              function to check if a player has won. We can perform this check at the same time you
+              check if a user has clicked a square that already has an
+              <code>X</code>
+              or an
+              <code>O</code>
+              . We'd like to return early in both cases:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  function handleClick(i) {
+                    if (squares[i] || calculateWinner(squares)) {
+                      return;
+                    }
+                    const nextSquares = squares.slice();
+                    //...
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>
+              To let the players know when the game is over, you can display text such as “Winner:
+              X” or “Winner: O”. To do that you'll add a
+              <code>status</code>
+              section to the
+              <code>Board</code>
+              component. The status will display the winner if the game is over and if the game is
+              ongoing we'll display which player's turn is next.
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  export default function App() {
+                    // ...
+                    const winner = calculateWinner(squares);
+                    let status;
+                    if (winner) {
+                      status = "Winner: " + winner;
+                    } else {
+                      status = "Next player: " + (xIsNext ? "X" : "O");
+                    }
+
+                    return (
+                      <>
+                        <div className="status">{status}</div>
+                        <div className="board-row">
+                          // ...
+                    )
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Adding Time Travel</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    As a final exercise, let's make it possible to
+                    <strong>go back in time</strong>
+                    to previous moves.
+                  </li>
+                  <li>
+                    If we mutated the
+                    <code>squares</code>
+                    array, implementing time travel would be very difficult.
+                  </li>
+                  <li>
+                    However, we used
+                    <code>slice()</code>
+                    to create a new copy of the
+                    <code>squares</code>
+                    array after every move, and treated it as immutable. This will allow us to store
+                    every past version of the
+                    <code>squares</code>
+                    array, and navigate between the turns that have already happened.
+                  </li>
+                  <li>
+                    We'll store the past
+                    <code>squares</code>
+                    arrays in another array called
+                    <code>history</code>
+                    , which we'll store as a new state variable.
+                  </li>
+                  <li>
+                    The
+                    <code>history</code>
+                    array represents all board states, from the first to the last move.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      [
+                        // Before first move
+                        [null, null, null, null, null, null, null, null, null],
+
+                        // After first move
+                        [null, null, null, null, 'X', null, null, null, null],
+
+                        // After second move
+                        [null, null, null, null, 'X', null, null, null, 'O'],
+
+                        // ...
+                      ]
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Lifting state up, again</h1>
+            <ul>
+              <li>
+                Currently we have the following hierarchy:
+                <code>App</code>
+                -&gt;
+                <code>Square</code>
+              </li>
+              <li>
+                We are changing the hierarchy of the components to:
+                <code>Game</code>
+                -&gt;
+                <code>Board</code>
+                -&gt;
+                <code>Square</code>
+              </li>
+              <li>
+                The new top-level component called
+                <code>Game</code>
+                will display a list of past moves. That's where we will place the history state that
+                contains the entire game history.
+              </li>
+              <li>
+                Placing the
+                <code>history</code>
+                state into the
+                <code>Game</code>
+                component will let us remove the
+                <code>squares</code>
+                state from its child
+                <code>Board</code>
+                component.
+              </li>
+              <li>
+                Just like we “lifted state up” from the
+                <code>Square</code>
+                component into the
+                <code>App</code>
+                component, we will now lift it up from the
+                <code>Board</code>
+                into the top-level
+                <code>Game</code>
+                component. This gives the
+                <code>Game</code>
+                component full control over the
+                <code>Board</code>
+                's data and lets it instruct the
+                <code>Board</code>
+                to render previous turns from the
+                <code>history</code>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Renaming the components</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Let's rename the
+                    <code>App</code>
+                    component to
+                    <code>Board</code>
+                    and create a new
+                    <code>Game</code>
+                    component with
+                    <code>export default</code>
+                    .
+                  </li>
+                  <li>
+                    Note that we are removing the
+                    <code>export default</code>
+                    keywords before the
+                    <code>function App() {</code>
+                    declaration and adding them before the
+                    <code>function Game() {</code>
+                    declaration.
+                  </li>
+                  <li>
+                    This tells
+                    <code>index.js</code>
+                    file to use the
+                    <code>Game</code>
+                    component as the top-level component instead of your
+                    <code>Board</code>
+                    component.
+                  </li>
+                  <li>
+                    The additional
+                    <code>div</code>
+                    s returned by the
+                    <code>Game</code>
+                    component are making room for the game information we'll add to the board later.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      function Board() {
+                        // ...
+                      }
+
+                      export default function Game() {
+                        return (
+                          <div className="game">
+                            <div className="game-board">
+                              <Board />
+                            </div>
+                            <div className="game-info">
+                              <ol>{/*TODO*/}</ol>
+                            </div>
+                          </div>
+                        );
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Adding the history state</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Let's add a new state to the
+                    <code>Game</code>
+                    component to track the history of moves.
+                  </li>
+                  <li>
+                    Notice how
+                    <strong>[Array(9).fill(null)]</strong>
+                    is an array with a single item, which itself is an array of 9 nulls.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      export default function Game() {
+                        const [xIsNext, setXIsNext] = useState(true);
+                        const [history, setHistory] = useState([Array(9).fill(null)]);
+                        // ...
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Rendering the squares</h1>
+            <p>
+              To render the squares for the current move, we'll want to read the last squares array
+              from the
+              <code>history</code>
+              . We don't need
+              <code>useState</code>
+              for this—we already have enough information to calculate it during rendering
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  export default function Game() {
+                    const [xIsNext, setXIsNext] = useState(true);
+                    const [history, setHistory] = useState([Array(9).fill(null)]);
+                    const currentSquares = history[history.length - 1];
+                    // ...
+                </script>
+              </code>
+            </pre>
+            <p>
+              Next, create a
+              <code>handlePlay</code>
+              function inside the
+              <code>Game</code>
+              component that will be called by the
+              <code>Board</code>
+              component to update the game. Pass
+              <code>xIsNext</code>
+              ,
+              <code>currentSquares</code>
+              and
+              <code>handlePlay</code>
+              as props to the
+              <code>Board</code>
+              component:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  export default function Game() {
+                    const [xIsNext, setXIsNext] = useState(true);
+                    const [history, setHistory] = useState([Array(9).fill(null)]);
+                    const currentSquares = history[history.length - 1];
+
+                    function handlePlay(nextSquares) {
+                      // TODO
+                    }
+
+                    return (
+                      <div className="game">
+                        <div className="game-board">
+                          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+                          //...
+                    )
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Making the Board fully controlled</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Let's make the
+                    <code>Board</code>
+                    component fully controlled by the props it receives.
+                  </li>
+                  <li>
+                    Change the
+                    <code>Board</code>
+                    component to take three props:
+                    <code>xIsNext</code>
+                    ,
+                    <code>squares</code>
+                    , and a new
+                    <code>onPlay</code>
+                    function that
+                    <code>Board</code>
+                    can call with the updated squares array when a player makes a move.
+                  </li>
+                  <li>
+                    Next, remove the first two lines of the
+                    <code>Board</code>
+                    function that call
+                    <code>useState</code>
+                  </li>
+                  <li>
+                    Now replace the
+                    <code>setSquares</code>
+                    and
+                    <code>setXIsNext</code>
+                    calls in
+                    <code>handleClick</code>
+                    in the
+                    <code>Board</code>
+                    component with a single call to your new
+                    <code>onPlay</code>
+                    function so the
+                    <code>Game</code>
+                    component can update the
+                    <code>Board</code>
+                    when the user clicks a square
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      function Board({ xIsNext, squares, onPlay }) {
+                        function handleClick(i) {
+                          if (calculateWinner(squares) || squares[i]) {
+                            return;
+                          }
+                          const nextSquares = squares.slice();
+                          if (xIsNext) {
+                            nextSquares[i] = "X";
+                          } else {
+                            nextSquares[i] = "O";
+                          }
+                          onPlay(nextSquares);
+                        }
+                        //...
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Final touches</h1>
+            <ul>
+              <li>
+                We need to implement the
+                <code>handlePlay</code>
+                function in the
+                <code>Game</code>
+                component to get the game working again.
+              </li>
+              <li>
+                What should
+                <code>handlePlay</code>
+                do when called? Remember that Board used to call
+                <code>setSquares</code>
+                with an updated array; now it passes the updated
+                <code>squares</code>
+                array to
+                <code>onPlay</code>
+                .
+              </li>
+              <li>
+                The
+                <code>handlePlay</code>
+                function needs to update
+                <code>Game</code>
+                's state to trigger a re-render, but we don't have a
+                <code>setSquares</code>
+                function that we can call any more—we're now using the
+                <code>history</code>
+                state variable to store this information.
+              </li>
+              <li>
+                We'll want to update
+                <code>history</code>
+                by appending the updated
+                <code>squares</code>
+                array as a new history entry. You also want to toggle
+                <code>xIsNext</code>
+                , just as Board used to do
+              </li>
+              <li>
+                Here,
+                <code>[...history, nextSquares]</code>
+                creates a new array that contains all the items in
+                <code>history</code>
+                , followed by
+                <code>nextSquares</code>
+                . For example, if
+                <code>history</code>
+                is
+                <code>[[null,null,null], ["X",null,null]]</code>
+                and
+                <code>nextSquares</code>
+                is
+                <code>["X",null,"O"]</code>
+                , then the new
+                <code>[...history, nextSquares]</code>
+                array will be
+                <code>[[null,null,null], ["X",null,null], ["X",null,"O"]]</code>
+                .
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  export default function Game() {
+                    //...
+                    function handlePlay(nextSquares) {
+                      setHistory([...history, nextSquares]);
+                      setXIsNext(!xIsNext);
+                    }
+                    //...
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>What it looks like after the refactoring</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+                  import './App.css';
+
+                  function Square({ value, onSquareClick }) {
+                    return (
+                      <button className="square" onClick={onSquareClick}>
+                        {value}
+                      </button>
+                    );
+                  }
+
+                  function Board({ xIsNext, squares, onPlay }) {
+                    function handleClick(i) {
+                      if (calculateWinner(squares) || squares[i]) {
+                        return;
+                      }
+                      const nextSquares = squares.slice();
+                      if (xIsNext) {
+                        nextSquares[i] = 'X';
+                      } else {
+                        nextSquares[i] = 'O';
+                      }
+                      onPlay(nextSquares);
+                    }
+
+                    const winner = calculateWinner(squares);
+                    let status;
+                    if (winner) {
+                      status = 'Winner: ' + winner;
+                    } else {
+                      status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+                    }
+
+                    return (
+                      <>
+                        <div className="status">{status}</div>
+                        <div className="board-row">
+                          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+                          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+                          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+                          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+                          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+                          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+                        </div>
+                      </>
+                    );
+                  }
+
+                  export default function Game() {
+                    const [xIsNext, setXIsNext] = useState(true);
+                    const [history, setHistory] = useState([Array(9).fill(null)]);
+                    const currentSquares = history[history.length - 1];
+
+                    function handlePlay(nextSquares) {
+                      setHistory([...history, nextSquares]);
+                      setXIsNext(!xIsNext);
+                    }
+
+                    return (
+                      <div className="game">
+                        <div className="game-board">
+                          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+                        </div>
+                        <div className="game-info">
+                          <ol>{/*TODO*/}</ol>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  function calculateWinner(squares) {
+                    const lines = [
+                      [0, 1, 2],
+                      [3, 4, 5],
+                      [6, 7, 8],
+                      [0, 3, 6],
+                      [1, 4, 7],
+                      [2, 5, 8],
+                      [0, 4, 8],
+                      [2, 4, 6],
+                    ];
+                    for (let i = 0; i < lines.length; i++) {
+                      const [a, b, c] = lines[i];
+                      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                        return squares[a];
+                      }
+                    }
+                    return null;
+                  }
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Showing the past moves</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div style="width: 60%">
+                <ul>
+                  <li>
+                    Since we are recording the tic-tac-toe game's history, we can now display a list
+                    of past moves to the player.
+                  </li>
+                  <li>
+                    React elements like
+                    <code>&lt;button&gt;</code>
+                    are regular JavaScript objects; we can pass them around in our application. To
+                    render multiple items in React, we can use an array of React elements.
+                  </li>
+                  <li>
+                    You already have an array of
+                    <code>history</code>
+                    moves in state, so now you need to transform it to an array of React elements.
+                    In JavaScript, to transform one array into another, you can use the
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
+                      target="_blank"
+                    >
+                      array map method
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div style="width: 40%">
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      export default function Game() {
+                        const [xIsNext, setXIsNext] = useState(true);
+                        const [history, setHistory] = useState([Array(9).fill(null)]);
+                        const currentSquares = history[history.length - 1];
+
+                        function handlePlay(nextSquares) {
+                          setHistory([...history, nextSquares]);
+                          setXIsNext(!xIsNext);
+                        }
+
+                        function jumpTo(nextMove) {
+                          // TODO
+                        }
+
+                        const moves = history.map((squares, move) => {
+                          let description;
+                          if (move > 0) {
+                            description = 'Go to move #' + move;
+                          } else {
+                            description = 'Go to game start';
+                          }
+                          return (
+                            <li>
+                              <button onClick={() => jumpTo(move)}>{description}</button>
+                            </li>
+                          );
+                        });
+
+                        return (
+                          <div className="game">
+                            <div className="game-board">
+                              <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+                            </div>
+                            <div className="game-info">
+                              <ol>{moves}</ol>
+                            </div>
+                          </div>
+                        );
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Warning</h1>
+            <p>
+              If you check the browser's console you will notice that there is a warning that says:
+            </p>
+            <p>
+              <em>
+                Warning: Each child in an array or iterator should have a unique “key” prop. Check
+                the render method of `Game`. See
+                <a href="https://react.dev/link/warning-keys" target="_blank">
+                  https://react.dev/link/warning-keys
+                </a>
+                for more information.
+              </em>
+            </p>
+          </section>
+          <section>
+            <h1>Picking a key</h1>
+            <ul>
+              <li>
+                When you
+                <em>render</em>
+                a list, React stores some information about each rendered list item. When you
+                <em>update</em>
+                a list, React needs to determine what has changed.
+              </li>
+              <li>
+                Imagine transitioning from
+                <pre>
+                  <code data-trim class="language-html">
+                    <script type="text/template">
+                      <li>Alexa: 7 tasks left</li>
+                      <li>Ben: 5 tasks left</li>
+                    </script>
+                  </code>
+                </pre>
+              </li>
+              <li>
+                to
+                <pre>
+                  <code data-trim class="language-html">
+                    <script type="text/template">
+                      <li>Ben: 9 tasks left</li>
+                      <li>Claudia: 8 tasks left</li>
+                      <li>Alexa: 5 tasks left</li>
+                    </script>
+                  </code>
+                </pre>
+              </li>
+              <li>
+                We need to specify a key property for each list item to differentiate each list item
+                from its siblings. If your data was from a database, Alexa, Ben, and Claudia's
+                database IDs could be used as keys.
+                <pre>
+                  <code data-trim class="language-html">
+                    <script type="text/template">
+                      <li key={user.id}>
+                        {user.name}: {user.taskCount} tasks left
+                      </li>
+                    </script>
+                  </code>
+                </pre>
+              </li>
+              <li>
+                It's strongly recommended that you assign proper keys whenever you build dynamic
+                lists.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Fixing the key error</h1>
+            <ul>
+              <li>
+                In the tic-tac-toe game's history, each past move has a unique ID associated with
+                it: it's the
+                <strong>sequential</strong>
+                number of the
+                <strong>move</strong>
+                .
+              </li>
+              <li>
+                Moves will never be re-ordered, deleted, or inserted in the middle, so it's safe to
+                use the move index as a key.
+              </li>
+              <li>
+                In the
+                <code>Game</code>
+                function, you can add the key as
+                <code>&lt;li key={move}&gt;</code>
+                , and if you reload the rendered game, React's
+                <em>key error</em>
+                should disappear
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const moves = history.map((squares, move) => {
+                    //...
+                    return (
+                      <li key={move}>
+                        <button onClick={() => jumpTo(move)}>{description}</button>
+                      </li>
+                    );
+                  });
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Implementing Time Travel</h1>
+
+            <ul>
+              <li>
+                Before we can implement
+                <code>jumpTo</code>
+                , you need the
+                <code>Game</code>
+                component to keep track of which step the user is currently viewing. To do this,
+                let's define a new state variable called
+                <code>currentMove</code>
+                , defaulting to
+                <code>0</code>
+              </li>
+              <li>
+                Next, update the
+                <code>jumpTo</code>
+                function inside
+                <code>Game</code>
+                to update that
+                <code>currentMove</code>
+                . You'll also set
+                <code>xIsNext</code>
+                to
+                <code>true</code>
+                if the number that you're changing
+                <code>currentMove</code>
+                to is even.
+              </li>
+              <li>
+                If we
+                <em>go back in time</em>
+                and then make a new move from that point, we only want to keep the history up to
+                that point. Instead of adding
+                <code>nextSquares</code>
+                after all items (
+                <code>...</code>
+                spread syntax) in
+                <code>history</code>
+                , we'll add it after all items in
+                <code>history.slice(0, currentMove + 1)</code>
+                so that we are only keeping that portion of the old history.
+              </li>
+              <li>
+                Each time a move is made, we need to update
+                <code>currentMove</code>
+                to point to the latest history entry.
+              </li>
+              <li>
+                Finally, we will modify the
+                <code>Game</code>
+                component to render the currently selected move, instead of always rendering the
+                final move
+              </li>
+            </ul>
+          </section>
+          <section>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+                  import './App.css';
+
+                  function Square({ value, onSquareClick }) {
+                    return (
+                      <button className="square" onClick={onSquareClick}>
+                        {value}
+                      </button>
+                    );
+                  }
+
+                  function Board({ xIsNext, squares, onPlay }) {
+                    function handleClick(i) {
+                      if (calculateWinner(squares) || squares[i]) {
+                        return;
+                      }
+                      const nextSquares = squares.slice();
+                      if (xIsNext) {
+                        nextSquares[i] = 'X';
+                      } else {
+                        nextSquares[i] = 'O';
+                      }
+                      onPlay(nextSquares);
+                    }
+
+                    const winner = calculateWinner(squares);
+                    let status;
+                    if (winner) {
+                      status = 'Winner: ' + winner;
+                    } else {
+                      status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+                    }
+
+                    return (
+                      <>
+                        <div className="status">{status}</div>
+                        <div className="board-row">
+                          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+                          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+                          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+                          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+                          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+                          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+                        </div>
+                      </>
+                    );
+                  }
+
+                  export default function Game() {
+                    const [xIsNext, setXIsNext] = useState(true);
+                    const [history, setHistory] = useState([Array(9).fill(null)]);
+                    const [currentMove, setCurrentMove] = useState(0);
+                    const currentSquares = history[currentMove];
+
+                    function handlePlay(nextSquares) {
+                      const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+                      setHistory(nextHistory);
+                      setCurrentMove(nextHistory.length - 1);
+                      setXIsNext(!xIsNext);
+                    }
+
+                    function jumpTo(nextMove) {
+                      setCurrentMove(nextMove);
+                      setXIsNext(nextMove % 2 === 0);
+                    }
+
+                    const moves = history.map((squares, move) => {
+                      let description;
+                      if (move > 0) {
+                        description = 'Go to move #' + move;
+                      } else {
+                        description = 'Go to game start';
+                      }
+                      return (
+                        <li key={move}>
+                          <button onClick={() => jumpTo(move)}>{description}</button>
+                        </li>
+                      );
+                    });
+
+                    return (
+                      <div className="game">
+                        <div className="game-board">
+                          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+                        </div>
+                        <div className="game-info">
+                          <ol>{moves}</ol>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  function calculateWinner(squares) {
+                    const lines = [
+                      [0, 1, 2],
+                      [3, 4, 5],
+                      [6, 7, 8],
+                      [0, 3, 6],
+                      [1, 4, 7],
+                      [2, 5, 8],
+                      [0, 4, 8],
+                      [2, 4, 6],
+                    ];
+                    for (let i = 0; i < lines.length; i++) {
+                      const [a, b, c] = lines[i];
+                      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                        return squares[a];
+                      }
+                    }
+                    return null;
+                  }
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Final Clean Up</h1>
+            <div
+              style="display: flex; justify-content: space-around; align-items: center; gap: 2em"
+            >
+              <div style="width: 60%">
+                <ul>
+                  <li>
+                    If you look at the code very closely, you may notice that
+                    <code>xIsNext === true</code>
+                    when
+                    <code>currentMove</code>
+                    is even and
+                    <code>xIsNext === false</code>
+                    when
+                    <code>currentMove</code>
+                    is odd.
+                  </li>
+                  <li>
+                    In other words, if we know the value of
+                    <code>currentMove</code>
+                    , then we can always figure out what
+                    <code>xIsNext</code>
+                    should be.
+                  </li>
+                  <li>
+                    There's
+                    <em>no reason for us to store both of these in state</em>
+                    . In fact,
+                    <strong>always try to avoid redundant state</strong>
+                    .
+                  </li>
+                  <li>
+                    Simplifying what you store in state reduces bugs and makes your code easier to
+                    understand.
+                  </li>
+                  <li>
+                    Let's change
+                    <code>Game</code>
+                    so that it doesn't store
+                    <code>xIsNext</code>
+                    as a separate state variable and instead figures it out based on the
+                    <code>currentMove</code>
+                  </li>
+                </ul>
+              </div>
+              <div style="width: 40%">
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      export default function Game() {
+                        const [history, setHistory] = useState([Array(9).fill(null)]);
+                        const [currentMove, setCurrentMove] = useState(0);
+                        const xIsNext = currentMove % 2 === 0;
+                        const currentSquares = history[currentMove];
+
+                        function handlePlay(nextSquares) {
+                          const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+                          setHistory(nextHistory);
+                          setCurrentMove(nextHistory.length - 1);
+                        }
+
+                        function jumpTo(nextMove) {
+                          setCurrentMove(nextMove);
+                        }
+                        // ...
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Final Result</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+                  import './App.css';
+
+                  function Square({ value, onSquareClick }) {
+                    return (
+                      <button className="square" onClick={onSquareClick}>
+                        {value}
+                      </button>
+                    );
+                  }
+
+                  function Board({ xIsNext, squares, onPlay }) {
+                    function handleClick(i) {
+                      if (calculateWinner(squares) || squares[i]) {
+                        return;
+                      }
+                      const nextSquares = squares.slice();
+                      if (xIsNext) {
+                        nextSquares[i] = 'X';
+                      } else {
+                        nextSquares[i] = 'O';
+                      }
+                      onPlay(nextSquares);
+                    }
+
+                    const winner = calculateWinner(squares);
+                    let status;
+                    if (winner) {
+                      status = 'Winner: ' + winner;
+                    } else {
+                      status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+                    }
+
+                    return (
+                      <>
+                        <div className="status">{status}</div>
+                        <div className="board-row">
+                          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+                          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+                          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+                          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+                          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+                        </div>
+                        <div className="board-row">
+                          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+                          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+                          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+                        </div>
+                      </>
+                    );
+                  }
+
+                  export default function Game() {
+                    const [history, setHistory] = useState([Array(9).fill(null)]);
+                    const [currentMove, setCurrentMove] = useState(0);
+                    const xIsNext = currentMove % 2 === 0;
+                    const currentSquares = history[currentMove];
+
+                    function handlePlay(nextSquares) {
+                      const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+                      setHistory(nextHistory);
+                      setCurrentMove(nextHistory.length - 1);
+                    }
+
+                    function jumpTo(nextMove) {
+                      setCurrentMove(nextMove);
+                    }
+
+                    const moves = history.map((squares, move) => {
+                      let description;
+                      if (move > 0) {
+                        description = 'Go to move #' + move;
+                      } else {
+                        description = 'Go to game start';
+                      }
+                      return (
+                        <li key={move}>
+                          <button onClick={() => jumpTo(move)}>{description}</button>
+                        </li>
+                      );
+                    });
+
+                    return (
+                      <div className="game">
+                        <div className="game-board">
+                          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+                        </div>
+                        <div className="game-info">
+                          <ol>{moves}</ol>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  function calculateWinner(squares) {
+                    const lines = [
+                      [0, 1, 2],
+                      [3, 4, 5],
+                      [6, 7, 8],
+                      [0, 3, 6],
+                      [1, 4, 7],
+                      [2, 5, 8],
+                      [0, 4, 8],
+                      [2, 4, 6],
+                    ];
+                    for (let i = 0; i < lines.length; i++) {
+                      const [a, b, c] = lines[i];
+                      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                        return squares[a];
+                      }
+                    }
+                    return null;
+                  }
+
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Ideas for improvements</h1>
+            <ol>
+              <li>For the current move only, show “You are at move #…” instead of a button.</li>
+              <li>
+                Rewrite
+                <code>Board</code>
+                to use two loops to make the squares instead of hardcoding them.
+              </li>
+              <li>
+                Add a toggle button that lets you sort the moves in either ascending or descending
+                order.
+              </li>
+              <li>
+                When someone wins, highlight the three squares that caused the win (and when no one
+                wins, display a message about the result being a draw).
+              </li>
+              <li>
+                Display the location for each move in the format (row, col) in the move history
+                list.
+              </li>
+            </ol>
           </section>
         </section>
         <section>
