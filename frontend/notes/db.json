@@ -1,0 +1,19 @@
+{
+  "notes": [
+    {
+      "id": "1",
+      "content": "Learn React fundamentals and component lifecycle",
+      "important": true
+    },
+    {
+      "id": "2",
+      "content": "Practice Flexbox layouts",
+      "important": false
+    },
+    {
+      "id": "3",
+      "content": "Build a full-stack web application with Node.js",
+      "important": true
+    }
+  ]
+}

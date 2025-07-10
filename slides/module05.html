@@ -4637,14 +4637,535 @@
               </div>
             </div>
           </section>
-        </section>
-        <section>
-          <h1>My Todo App</h1>
-          <img width="50%" src="my-to-do-list.png" alt="My Todo App" />
+          <section>
+            <h1>My Todo App</h1>
+            <img width="50%" src="my-to-do-list.png" alt="My Todo App" />
+          </section>
         </section>
         <section>
           <section>
-            <h1>Interacting with a server</h1>
+            <h1>Communicating with a server</h1>
+            <ul>
+              <li>
+                For a while now we have only been working on
+                <strong>frontend</strong>
+                , i.e. client-side (browser) functionality.
+              </li>
+              <li>
+                We will begin working on
+                <strong>backend</strong>
+                in the next module of this course. Nonetheless, we will now take a step in that
+                direction by familiarizing ourselves with how the code executing in the browser
+                communicates with the backend.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>JSON Server</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div style="max-width: 60%">
+                <ul>
+                  <li>
+                    Let's use a tool meant to be used during software development called
+                    <a href="https://github.com/typicode/json-server" target="_blank">
+                      JSON Server
+                    </a>
+                    to act as our server.
+                  </li>
+                  <li>
+                    Create a file named
+                    <code>db.json</code>
+                    in the root of the project with the content on the right.
+                  </li>
+                  <li>
+                    Start the JSON Server by running the
+                    <code>npx</code>
+                    command in the root of the project.
+                    <ul>
+                      <li>
+                        <code>npx</code>
+                        : Runs a package from the npm registry without permanently installing it.
+                      </li>
+                      <li>
+                        <code>json-server</code>
+                        : Launches the JSON Server, a tool that lets you spin up a full fake REST
+                        API from a JSON file.
+                      </li>
+                      <li>
+                        <code>--port 3001</code>
+                        : Specifies that the server should run on port 3001.
+                      </li>
+                      <li>
+                        <code>db.json</code>
+                        : The JSON file that acts as your database.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div style="max-width: 40%">
+                <pre>
+                  <code data-trim class="language-json">
+                    <script type="text/template">
+                      {
+                        "notes": [
+                          {
+                            "id": "1",
+                            "content": "Learn React fundamentals and component lifecycle",
+                            "important": true
+                          },
+                          {
+                            "id": "2",
+                            "content": "Practice Flexbox layouts",
+                            "important": false
+                          },
+                          {
+                            "id": "3",
+                            "content": "Build a full-stack web application with Node.js",
+                            "important": true
+                          }
+                        ]
+                      }
+                    </script>
+                  </code>
+                </pre>
+                <pre>
+                  <code data-trim class="language-bash">
+                    <script type="text/template">
+                      npx json-server --port 3001 db.json
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>JSON Server</h1>
+            <ul>
+              <li>
+                Let's navigate to the address
+                <a href="http://localhost:3001/notes" target="_blank">
+                  http://localhost:3001/notes
+                </a>
+                in the browser.
+              </li>
+              <li>
+                We can see that JSON Server serves the notes we previously wrote to the file in JSON
+                format:
+              </li>
+              <li>
+                If your browser doesn't have a way to format the display of JSON-data, then install
+                an appropriate plugin, e.g.
+                <a href="https://chromewebstore.google.com/detail/gmegofmjomhknnokphhckolhcffdaihd">
+                  JSONView
+                </a>
+                to make your life easier.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Workflow</h1>
+            <div class="mermaid">
+              <pre>
+                  sequenceDiagram
+                  participant User
+                  participant React as React Frontend
+                  participant Server as json-server Backend
+                  participant DB as db.json
+
+                  User-&gt;&gt;React: 1. Enter note content & submit
+                  React-&gt;&gt;React: 2. Create note object
+                  React-&gt;&gt;Server: 3. POST /notes (new note data)
+                  Server-&gt;&gt;DB: 4. Save note to db.json
+                  DB--&gt;&gt;Server: 5. Confirm save
+                  Server--&gt;&gt;React: 6. Return saved note with ID
+                  React-&gt;&gt;React: 7. Update UI with new note
+                  React--&gt;&gt;User: 8. Display new note in list
+                </pre
+              >
+            </div>
+          </section>
+          <section>
+            <h1>Workflow</h1>
+            <ul>
+              <li>
+                Going forward, the idea will be to save the notes to the server, which in this case
+                means saving them to the json-server.
+              </li>
+              <li>
+                The React code fetches the notes from the server and renders them to the screen.
+              </li>
+              <li>
+                Whenever a new note is added to the application, the React code also sends it to the
+                server to make the new note persist in
+                <strong>memory</strong>
+                .
+              </li>
+              <li>
+                <em>json-server</em>
+                stores all the data in the
+                <code>db.json</code>
+                file, which resides on the server. In the real world, data would be stored in some
+                kind of
+                <strong>database</strong>
+                .
+              </li>
+              <li>
+                This is a handy tool that enables the use of server-side functionality in the
+                development phase without the need to program any of it.
+              </li>
+              <li>
+                We will get familiar with the principles of implementing server-side functionality
+                in more detail the next module.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Fetching existing notes asynchronously</h1>
+            <ul>
+              <li>
+                Our first task is fetching the already existing notes to our React application from
+                the address
+                <a href="http://localhost:3001/notes" target="_blank">
+                  http://localhost:3001/notes
+                </a>
+              </li>
+              <li>
+                We will be using the fetch method, which is based on so-called
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                  target="_blank"
+                >
+                  promises
+                </a>
+              </li>
+              <li>
+                JavaScript engines and runtime environments follow the
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop"
+                  target="_blank"
+                >
+                  asynchronous model
+                </a>
+              </li>
+              <li>
+                In principle, this requires all
+                <a href="https://en.wikipedia.org/wiki/Input/output" target="_blank">
+                  IO operations
+                </a>
+                (with some exceptions) to be executed as non-blocking.
+              </li>
+              <li>
+                This means that code execution continues immediately after calling an IO function,
+                without waiting for it to return.
+              </li>
+              <li>
+                When an asynchronous operation is completed, or, more specifically, at some point
+                after its completion, the JavaScript engine calls the
+                <em>event handlers</em>
+                registered to the operation.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Single-threaded Javascript Engines</h1>
+            <ul>
+              <li>
+                Currently, JavaScript engines are
+                <i>single-threaded</i>
+                , which means that they cannot execute code in parallel.
+              </li>
+              <li>
+                As a result, it is a requirement in practice to use a non-blocking model for
+                executing IO operations. Otherwise, the browser would "freeze" during, for instance,
+                the fetching of data from a server.
+              </li>
+              <li>
+                Another consequence of this single-threaded nature of JavaScript engines is that if
+                some code execution takes up a lot of time, the browser will get stuck for the
+                duration of the execution.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Example</h1>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  setTimeout(() => {
+                    console.log('loop..')
+                    let i = 0
+                    while (i < 50000000000) {
+                      i++
+                    }
+                    console.log('end')
+                  }, 5000)
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>In this example everything would work normally for 5 seconds.</li>
+              <li>
+                However, when the function defined as the parameter for
+                <em>setTimeout</em>
+                is run, the browser will be stuck for the duration of the execution of the long
+                loop.
+              </li>
+              <li>
+                Even the browser tab cannot be closed during the execution of the loop, at least not
+                in Chrome.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Single-threaded Javascript Engines</h1>
+            <ul>
+              <li>
+                For the browser to remain
+                <em>responsive</em>
+                , i.e., to be able to continuously react to user operations with sufficient speed,
+                the code logic needs to be such that no single computation can take too long.
+              </li>
+              <li>
+                In today's browsers, it is possible to run parallelized code with the help of
+                so-called
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers"
+                  target="_blank"
+                >
+                  web workers
+                </a>
+              </li>
+              <li>
+                The event loop of an individual browser window is, however, still only handled by a
+                <a
+                  href="https://medium.com/techtrument/multithreading-javascript-46156179cf9a"
+                  target="_blank"
+                >
+                  single thread
+                </a>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Adding a npm-package to the project</h1>
+            <ul>
+              <li>Let's get back to the topic of fetching data from the server.</li>
+              <li>
+                We could use the previously mentioned promise-based function
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch"
+                  target="_blank"
+                >
+                  fetch
+                </a>
+                to pull the data from the server. Fetch is a great tool. It is standardized and
+                supported by all modern browsers (excluding IE).
+              </li>
+              <li>
+                That being said, we will be using the
+                <a href="https://github.com/axios/axios" target="_blank">axios</a>
+                library instead for communication between the browser and server. It functions like
+                fetch but is somewhat more pleasant to use.
+              </li>
+              <li>
+                Another good reason to use axios is our getting familiar with adding external
+                libraries, so-called
+                <i>npm packages</i>
+                , to React projects.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <h1>package.json</h1>
+                <ul>
+                  <li>
+                    Nowadays, practically all JavaScript projects are defined using the node package
+                    manager, aka
+                    <a href="https://docs.npmjs.com/about-npm" target="_blank">npm</a>
+                    .
+                  </li>
+                  <li>
+                    The projects created using Vite also follow the npm format. A clear indicator
+                    that a project uses npm is the
+                    <code>package.json</code>
+                    file located at the root of the project
+                  </li>
+                  <li>
+                    At this point, the
+                    <em>dependencies</em>
+                    part is of most interest to us as it defines what
+                    <em>dependencies</em>
+                    , or external libraries, the project has.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-json">
+                    <script type="text/template">
+                      {
+                        "name": "notes",
+                        "private": true,
+                        "version": "0.0.0",
+                        "type": "module",
+                        "scripts": {
+                          "dev": "vite",
+                          "build": "vite build",
+                          "lint": "eslint .",
+                          "preview": "vite preview"
+                        },
+                        "dependencies": {
+                          "react": "^19.1.0",
+                          "react-dom": "^19.1.0"
+                        },
+                        "devDependencies": {
+                          "@eslint/js": "^9.30.1",
+                          "@types/react": "^19.1.8",
+                          "@types/react-dom": "^19.1.6",
+                          "@vitejs/plugin-react": "^4.6.0",
+                          "eslint": "^9.30.1",
+                          "eslint-plugin-react-hooks": "^5.2.0",
+                          "eslint-plugin-react-refresh": "^0.4.20",
+                          "globals": "^16.3.0",
+                          "vite": "^7.0.3"
+                        }
+                      }
+
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Adding axios to the project</h1>
+            <ul>
+              <li>
+                Theoretically, we could define the library directly in the
+                <code>package.json</code>
+                file, but it is better to install it from the command line.
+              </li>
+              <li>
+                <strong>
+                  <em>npm</em>
+                  -commands should always be run in the project root directory
+                </strong>
+                , which is where the
+                <code>package.json</code>
+                file can be found.
+              </li>
+              <li>
+                The command
+                <code>npm install axios</code>
+                will add the library to the
+                <em>dependencies</em>
+                part of the
+                <code>package.json</code>
+                file.
+              </li>
+              <li>
+                In addition to adding axios to the dependencies, the
+                <code>npm install</code>
+                command also
+                <i>downloaded</i>
+                the library code.
+              </li>
+              <li>
+                As with other dependencies, the code can be found in the
+                <code>node_modules</code>
+                directory located in the root. As one might have noticed,
+                <code>node_modules</code>
+                contains a fair amount of interesting stuff.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Adding json-server to the project</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Let's also install
+                    <i>json-server</i>
+                    as a development dependency (only used during development) by executing the
+                    command
+                    <code>npm install json-server --save-dev</code>
+                  </li>
+                  <li>Also make a small addition to the scripts part of the package.json file</li>
+                  <li>
+                    We can now conveniently, without parameter definitions, start the json-server
+                    from the project root directory with the command
+                    <code>npm run server</code>
+                  </li>
+                  <li>We will get more familiar with the npm tool in the next module</li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-json">
+                    <script type="text/template">
+                      {
+                        // ...
+                        "scripts": {
+                          "dev": "vite",
+                          "build": "vite build",
+                          "lint": "eslint .",
+                          "preview": "vite preview",
+                          "server": "json-server -p 3001 db.json"
+                        },
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>npm install</h1>
+            <pre>
+              <code data-trim class="language-bash">
+                <script type="text/template">
+                  npm install axios
+                  npm install json-server --save-dev
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                We used the command
+                <code>npm install</code>
+                twice, but with slight differences in the parameters
+              </li>
+              <li>
+                <em>axios</em>
+                is installed as a runtime dependency of the application because the execution of the
+                program requires the existence of the library.
+              </li>
+              <li>
+                On the other hand,
+                <em>json-server</em>
+                was installed as a development dependency (
+                <code>--save-dev</code>
+                ), since the program itself doesn't require it. It is used for assistance during
+                software development.
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Axios and promises</h1>
           </section>
         </section>
         <section>
