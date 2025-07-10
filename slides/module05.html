@@ -4178,6 +4178,474 @@
           </section>
         </section>
         <section>
+          <section>
+            <h1>Forms</h1>
+            <ul>
+              <li>Let's build a simple HTML form that allows users to add a new note</li>
+              <li>
+                Create a new vite project (
+                <code>npm create vite@latest notes -- --template react</code>
+                ), clean up unnecessary files (e.g. index.css) and update the main component with
+                the following:
+              </li>
+            </ul>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 2em;
+              "
+            >
+              <div>
+                <img width="100%" src="bootstrap-notes-app.png" alt="Bootstrap Notes App" />
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // App.jsx
+
+                      import { useState } from 'react'
+                      import Note from './components/Note'
+
+                      const App = (props) => {
+                        const [notes, setNotes] = useState(props.notes)
+
+                        return (
+                          <div>
+                            <h1>Notes</h1>
+                            <ul>
+                              {notes.map(note =>
+                                <Note key={note.id} note={note} />
+                              )}
+                            </ul>
+                          </div>
+                        )
+                      }
+
+                      export default App
+                  </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // Note.jsx
+
+                      const Note = ({ note }) => {
+                        return (
+                          <li>
+                            {note.content} {note.important ? '(important)' : ''}
+                          </li>
+                        );
+                      };
+
+                      export default Note;
+
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Adding the HTML form</h1>
+            <p>
+              Next, let's add an HTML
+              <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms" target="_blank">
+                form
+              </a>
+              to the component that will be used for adding new notes.
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const App = (props) => {
+                    const [notes, setNotes] = useState(props.notes)
+
+                    const addNote = (event) => {
+                      event.preventDefault()
+                      console.log('button clicked', event.target)
+                    }
+
+                    return (
+                      <div>
+                        <h1>Notes</h1>
+                        <ul>
+                          {notes.map(note =>
+                            <Note key={note.id} note={note} />
+                          )}
+                        </ul>
+                        <form onSubmit={addNote}>
+                          <input />
+                          <button type="submit">save</button>
+                        </form>
+                      </div>
+                    )
+                  }
+                </script>
+              </code>
+            </pre>
+            <p>
+              We have added the
+              <em>addNote</em>
+              function as an event handler to the form element that will be called when the form is
+              submitted, by clicking the submit button.
+            </p>
+          </section>
+          <section>
+            <h1>Controlled Component</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 2em"
+            >
+              <div>
+                <ul>
+                  <li>How do we access the data contained in the form's input element?</li>
+                  <li>
+                    There are many ways to accomplish this; the first method we will take a look at
+                    is through the use of so-called
+                    <a
+                      href="https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
+                      target="_blank"
+                    >
+                      controlled components
+                    </a>
+                    .
+                  </li>
+                  <li>
+                    Let's add a new piece of state called
+                    <code>newNote</code>
+                    for storing the user-submitted input and let's set it as the
+                    <em>input</em>
+                    element's
+                    <em>value</em>
+                    attribute
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const App = (props) => {
+                        const [notes, setNotes] = useState(props.notes)
+                        const [newNote, setNewNote] = useState(
+                          'a new note...'
+                        )
+
+                        const addNote = (event) => {
+                          event.preventDefault()
+                          console.log('button clicked', event.target)
+                        }
+
+                        return (
+                          <div>
+                            <h1>Notes</h1>
+                            <ul>
+                              {notes.map(note =>
+                                <Note key={note.id} note={note} />
+                              )}
+                            </ul>
+                            <form onSubmit={addNote}>
+                              <input value={newNote} />
+                              <button type="submit">save</button>
+                            </form>
+                          </div>
+                        )
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>What's happening?</h1>
+            <p>
+              The placeholder text stored as the initial value of the
+              <code>newNote</code>
+              state appears in the
+              <em>input</em>
+              element, but the input text can't be edited. The console displays a warning that gives
+              us a clue as to what might be wrong
+            </p>
+            <p>
+              <em>
+                You provided a `value` prop to a form field without an `onChange` handler. This will
+                render a read-only field. If the field should be mutable use `defaultValue`.
+                Otherwise, set either `onChange` or `readOnly`.
+              </em>
+            </p>
+            <p>
+              Since we assigned a piece of the
+              <code>App</code>
+              component's state as the
+              <code>value</code>
+              attribute of the input element, the
+              <code>App</code>
+              component now
+              <a
+                href="https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
+                target="_blank"
+              >
+                controls
+              </a>
+              the behavior of the input element.
+            </p>
+          </section>
+          <section>
+            <h1>Event handler</h1>
+            <p>
+              To enable editing of the input element, we have to register an
+              <em>event handler</em>
+              that synchronizes the changes made to the input with the component's state:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const App = () => {
+                    const [notes, setNotes] = useState([]);
+                    const [newNote, setNewNote] = useState('a new note...');
+
+                    const addNote = (event) => {
+                      event.preventDefault();
+                      console.log('button clicked', event.target);
+                    };
+
+                    const handleNoteChange = (event) => {
+                      console.log(event.target.value);
+                      setNewNote(event.target.value);
+                    };
+
+                    return (
+                      <div>
+                        <h1>Notes</h1>
+                        <ul>
+                          {notes.map((note) => (
+                            <Note key={note.id} note={note} />
+                          ))}
+                        </ul>
+                        <form onSubmit={addNote}>
+                          <input value={newNote} onChange={handleNoteChange} />
+                          <button type="submit">save</button>
+                        </form>
+                      </div>
+                    );
+                  };
+                </script>
+              </code>
+            </pre>
+            <p>
+              Note that we did not need to call the
+              <code>event.preventDefault()</code>
+              method like we did in the
+              <code>onSubmit</code>
+              event handler. This is because no default action occurs on an input change, unlike a
+              form submission.
+            </p>
+          </section>
+          <section>
+            <h1>Adding a new note</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const addNote = (event) => {
+                    event.preventDefault()
+                    const noteObject = {
+                      content: newNote,
+                      important: Math.random() < 0.5,
+                      id: String(notes.length + 1),
+                    }
+
+                    setNotes(notes.concat(noteObject))
+                    setNewNote('')
+                  }
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                First, we create a new object for the note called
+                <code>noteObject</code>
+                that will receive its content from the component's
+                <code>newNote</code>
+                state.
+              </li>
+              <li>
+                The unique identifier
+                <em>id</em>
+                is generated based on the total number of notes. This method works for our
+                application since notes are never deleted.
+              </li>
+              <li>
+                With the help of the
+                <code>Math.random()</code>
+                function, our note has a 50% chance of being marked as important.
+              </li>
+              <li>
+                The new note is added to the list of notes using the
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"
+                  target="_blank"
+                >
+                  concat
+                </a>
+                array method
+              </li>
+              <li>
+                The method does not mutate the original
+                <code>notes</code>
+                array, but rather creates
+                <em>a new copy of the array with the new item added to the end</em>
+                . This is important since we must
+                <a
+                  href="https://react.dev/learn/updating-objects-in-state#why-is-mutating-state-not-recommended-in-react"
+                  target="_blank"
+                >
+                  never mutate state directly
+                </a>
+                in React!
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>We can add notes now!</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+                  import './App.css';
+                  import Note from './components/Note';
+
+                  const App = () => {
+                    const [notes, setNotes] = useState([]);
+                    const [newNote, setNewNote] = useState('a new note...');
+
+                    const addNote = (event) => {
+                      event.preventDefault();
+                      const noteObject = {
+                        content: newNote,
+                        important: Math.random() < 0.5,
+                        id: String(notes.length + 1),
+                      };
+
+                      setNotes(notes.concat(noteObject));
+                      setNewNote('');
+                    };
+
+                    const handleNoteChange = (event) => {
+                      console.log(event.target.value);
+                      setNewNote(event.target.value);
+                    };
+
+                    return (
+                      <div>
+                        <h1>Notes</h1>
+                        <ul>
+                          {notes.map((note) => (
+                            <Note key={note.id} note={note} />
+                          ))}
+                        </ul>
+                        <form onSubmit={addNote}>
+                          <input value={newNote} onChange={handleNoteChange} />
+                          <button type="submit">save</button>
+                        </form>
+                      </div>
+                    );
+                  };
+
+                  export default App;
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Filtering notes</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div style="max-width: 60%">
+                <ul>
+                  <li>
+                    Let's add some new functionality to our application that allows us to only view
+                    the important notes.
+                  </li>
+                  <li>
+                    Let's add a piece of state to the
+                    <code>App</code>
+                    component that keeps track of which notes should be displayed:
+                  </li>
+                  <li>
+                    Let's change the component so that it stores a list of all the notes to be
+                    displayed in the
+                    <code>notesToShow</code>
+                    variable. The items on the list depend on the state of the component:
+                  </li>
+                  <li>
+                    If the value of
+                    <code>showAll</code>
+                    is false, the
+                    <code>notesToShow</code>
+                    variable will be assigned to a list that only contains notes that have the
+                    <em>important</em>
+                    property set to true. Filtering is done with the help of the array
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
+                      target="_blank"
+                      style="border-color: rgb(235, 135, 85)"
+                    >
+                      filter
+                    </a>
+                    method
+                  </li>
+                </ul>
+              </div>
+              <div style="max-width: 40%">
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      import { useState } from 'react'
+                      import Note from './components/Note'
+
+                      const App = (props) => {
+                        const [notes, setNotes] = useState(props.notes)
+                        const [newNote, setNewNote] = useState('')
+                        const [showAll, setShowAll] = useState(true)
+
+                        // ...
+
+                        const notesToShow = showAll
+                          ? notes
+                          : notes.filter(note => note.important === true)
+
+                        return (
+                          <div>
+                            <h1>Notes</h1>
+                            <div>
+                              <button onClick={() => setShowAll(!showAll)}>
+                                show {showAll ? 'important' : 'all'}
+                              </button>
+                            </div>
+                            <ul>
+                              {notesToShow.map(note =>
+                                <Note key={note.id} note={note} />
+                              )}
+                            </ul>
+                            // ...
+                          </div>
+                        )
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section>
           <h1>My Todo App</h1>
           <img width="50%" src="my-to-do-list.png" alt="My Todo App" />
         </section>

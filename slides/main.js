@@ -11,7 +11,7 @@ import Highlight from 'reveal.js/plugin/highlight/highlight.esm.js';
 const deck = new Reveal();
 deck.initialize({
   center: true,
-  margin: 0.05,
+  margin: 0,
   controlsLayout: 'bottom-right',
   plugins: [Highlight, RevealMermaid],
   hash: true,
