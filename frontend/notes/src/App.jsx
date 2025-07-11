@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Note from './components/Note';
 
@@ -7,22 +8,28 @@ const App = () => {
   const [newNote, setNewNote] = useState('a new note...');
   const [showAll, setShowAll] = useState(true);
 
+  useEffect(() => {
+    axios.get('http://localhost:3001/notes').then((response) => {
+      setNotes(response.data);
+    });
+  }, []);
+
   const notesToShow = showAll ? notes : notes.filter((note) => note.important === true);
 
   const addNote = (event) => {
     event.preventDefault();
     const noteObject = {
       content: newNote,
-      important: Math.random() < 0.5,
-      id: String(notes.length + 1),
+      important: Math.random() > 0.5,
     };
 
-    setNotes(notes.concat(noteObject));
-    setNewNote('');
+    axios.post('http://localhost:3001/notes', noteObject).then((response) => {
+      setNotes(notes.concat(response.data));
+      setNewNote('');
+    });
   };
 
   const handleNoteChange = (event) => {
-    console.log(event.target.value);
     setNewNote(event.target.value);
   };
 

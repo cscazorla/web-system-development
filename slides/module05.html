@@ -1633,7 +1633,7 @@
             </pre>
           </section>
           <section>
-            <h1 style="color: red">Mutating state directly</h1>
+            <h1 style="color: red">Never Mutate State Directly</h1>
             <pre>
               <code data-trim class="language-jsx">
                 <script type="text/template">
@@ -1846,6 +1846,1599 @@
                 </script>
               </code>
             </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>App to take notes</h1>
+            <ul>
+              <li>Let's build a simple HTML form that allows users to add a new note</li>
+              <li>
+                Create a new vite project (
+                <code>npm create vite@latest notes -- --template react</code>
+                ), clean up unnecessary files (e.g. index.css) and update the main component with
+                the following:
+              </li>
+            </ul>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 2em;
+              "
+            >
+              <div>
+                <img width="100%" src="bootstrap-notes-app.png" alt="Bootstrap Notes App" />
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // App.jsx
+
+                      import { useState } from 'react'
+                      import Note from './components/Note'
+
+                      const App = (props) => {
+                        const [notes, setNotes] = useState(props.notes)
+
+                        return (
+                          <div>
+                            <h1>Notes</h1>
+                            <ul>
+                              {notes.map(note =>
+                                <Note key={note.id} note={note} />
+                              )}
+                            </ul>
+                          </div>
+                        )
+                      }
+
+                      export default App
+                  </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // Note.jsx
+
+                      const Note = ({ note }) => {
+                        return (
+                          <li>
+                            {note.content} {note.important ? '(important)' : ''}
+                          </li>
+                        );
+                      };
+
+                      export default Note;
+
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Adding the HTML form</h1>
+            <p>
+              Next, let's add an HTML
+              <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms" target="_blank">
+                form
+              </a>
+              to the component that will be used for adding new notes.
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const App = (props) => {
+                    const [notes, setNotes] = useState(props.notes)
+
+                    const addNote = (event) => {
+                      event.preventDefault()
+                      console.log('button clicked', event.target)
+                    }
+
+                    return (
+                      <div>
+                        <h1>Notes</h1>
+                        <ul>
+                          {notes.map(note =>
+                            <Note key={note.id} note={note} />
+                          )}
+                        </ul>
+                        <form onSubmit={addNote}>
+                          <input />
+                          <button type="submit">save</button>
+                        </form>
+                      </div>
+                    )
+                  }
+                </script>
+              </code>
+            </pre>
+            <p>
+              We have added the
+              <em>addNote</em>
+              function as an event handler to the form element that will be called when the form is
+              submitted, by clicking the submit button.
+            </p>
+          </section>
+          <section>
+            <h1>Controlled Component</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 2em"
+            >
+              <div>
+                <ul>
+                  <li>How do we access the data contained in the form's input element?</li>
+                  <li>
+                    There are many ways to accomplish this; the first method we will take a look at
+                    is through the use of so-called
+                    <a
+                      href="https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
+                      target="_blank"
+                    >
+                      controlled components
+                    </a>
+                    .
+                  </li>
+                  <li>
+                    Let's add a new piece of state called
+                    <code>newNote</code>
+                    for storing the user-submitted input and let's set it as the
+                    <em>input</em>
+                    element's
+                    <em>value</em>
+                    attribute
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const App = (props) => {
+                        const [notes, setNotes] = useState(props.notes)
+                        const [newNote, setNewNote] = useState(
+                          'a new note...'
+                        )
+
+                        const addNote = (event) => {
+                          event.preventDefault()
+                          console.log('button clicked', event.target)
+                        }
+
+                        return (
+                          <div>
+                            <h1>Notes</h1>
+                            <ul>
+                              {notes.map(note =>
+                                <Note key={note.id} note={note} />
+                              )}
+                            </ul>
+                            <form onSubmit={addNote}>
+                              <input value={newNote} />
+                              <button type="submit">save</button>
+                            </form>
+                          </div>
+                        )
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>What's happening?</h1>
+            <p>
+              The placeholder text stored as the initial value of the
+              <code>newNote</code>
+              state appears in the
+              <em>input</em>
+              element, but the input text can't be edited. The console displays a warning that gives
+              us a clue as to what might be wrong
+            </p>
+            <p>
+              <em>
+                You provided a `value` prop to a form field without an `onChange` handler. This will
+                render a read-only field. If the field should be mutable use `defaultValue`.
+                Otherwise, set either `onChange` or `readOnly`.
+              </em>
+            </p>
+            <p>
+              Since we assigned a piece of the
+              <code>App</code>
+              component's state as the
+              <code>value</code>
+              attribute of the input element, the
+              <code>App</code>
+              component now
+              <a
+                href="https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
+                target="_blank"
+              >
+                controls
+              </a>
+              the behavior of the input element.
+            </p>
+          </section>
+          <section>
+            <h1>Event handler</h1>
+            <p>
+              To enable editing of the input element, we have to register an
+              <em>event handler</em>
+              that synchronizes the changes made to the input with the component's state:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const App = () => {
+                    const [notes, setNotes] = useState([]);
+                    const [newNote, setNewNote] = useState('a new note...');
+
+                    const addNote = (event) => {
+                      event.preventDefault();
+                      console.log('button clicked', event.target);
+                    };
+
+                    const handleNoteChange = (event) => {
+                      console.log(event.target.value);
+                      setNewNote(event.target.value);
+                    };
+
+                    return (
+                      <div>
+                        <h1>Notes</h1>
+                        <ul>
+                          {notes.map((note) => (
+                            <Note key={note.id} note={note} />
+                          ))}
+                        </ul>
+                        <form onSubmit={addNote}>
+                          <input value={newNote} onChange={handleNoteChange} />
+                          <button type="submit">save</button>
+                        </form>
+                      </div>
+                    );
+                  };
+                </script>
+              </code>
+            </pre>
+            <p>
+              Note that we did not need to call the
+              <code>event.preventDefault()</code>
+              method like we did in the
+              <code>onSubmit</code>
+              event handler. This is because no default action occurs on an input change, unlike a
+              form submission.
+            </p>
+          </section>
+          <section>
+            <h1>Adding a new note</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const addNote = (event) => {
+                    event.preventDefault()
+                    const noteObject = {
+                      content: newNote,
+                      important: Math.random() < 0.5,
+                      id: String(notes.length + 1),
+                    }
+
+                    setNotes(notes.concat(noteObject))
+                    setNewNote('')
+                  }
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                First, we create a new object for the note called
+                <code>noteObject</code>
+                that will receive its content from the component's
+                <code>newNote</code>
+                state.
+              </li>
+              <li>
+                The unique identifier
+                <em>id</em>
+                is generated based on the total number of notes. This method works for our
+                application since notes are never deleted.
+              </li>
+              <li>
+                With the help of the
+                <code>Math.random()</code>
+                function, our note has a 50% chance of being marked as important.
+              </li>
+              <li>
+                The new note is added to the list of notes using the
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"
+                  target="_blank"
+                >
+                  concat
+                </a>
+                array method
+              </li>
+              <li>
+                The method does not mutate the original
+                <code>notes</code>
+                array, but rather creates
+                <em>a new copy of the array with the new item added to the end</em>
+                . This is important since we must
+                <a
+                  href="https://react.dev/learn/updating-objects-in-state#why-is-mutating-state-not-recommended-in-react"
+                  target="_blank"
+                >
+                  never mutate state directly
+                </a>
+                in React!
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>We can add notes now!</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  import { useState } from 'react';
+                  import './App.css';
+                  import Note from './components/Note';
+
+                  const App = () => {
+                    const [notes, setNotes] = useState([]);
+                    const [newNote, setNewNote] = useState('a new note...');
+
+                    const addNote = (event) => {
+                      event.preventDefault();
+                      const noteObject = {
+                        content: newNote,
+                        important: Math.random() < 0.5,
+                        id: String(notes.length + 1),
+                      };
+
+                      setNotes(notes.concat(noteObject));
+                      setNewNote('');
+                    };
+
+                    const handleNoteChange = (event) => {
+                      console.log(event.target.value);
+                      setNewNote(event.target.value);
+                    };
+
+                    return (
+                      <div>
+                        <h1>Notes</h1>
+                        <ul>
+                          {notes.map((note) => (
+                            <Note key={note.id} note={note} />
+                          ))}
+                        </ul>
+                        <form onSubmit={addNote}>
+                          <input value={newNote} onChange={handleNoteChange} />
+                          <button type="submit">save</button>
+                        </form>
+                      </div>
+                    );
+                  };
+
+                  export default App;
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Filtering notes</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div style="max-width: 60%">
+                <ul>
+                  <li>
+                    Let's add some new functionality to our application that allows us to only view
+                    the important notes.
+                  </li>
+                  <li>
+                    Let's add a piece of state to the
+                    <code>App</code>
+                    component that keeps track of which notes should be displayed:
+                  </li>
+                  <li>
+                    Let's change the component so that it stores a list of all the notes to be
+                    displayed in the
+                    <code>notesToShow</code>
+                    variable. The items on the list depend on the state of the component:
+                  </li>
+                  <li>
+                    If the value of
+                    <code>showAll</code>
+                    is false, the
+                    <code>notesToShow</code>
+                    variable will be assigned to a list that only contains notes that have the
+                    <em>important</em>
+                    property set to true. Filtering is done with the help of the array
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
+                      target="_blank"
+                      style="border-color: rgb(235, 135, 85)"
+                    >
+                      filter
+                    </a>
+                    method
+                  </li>
+                </ul>
+              </div>
+              <div style="max-width: 40%">
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      import { useState } from 'react'
+                      import Note from './components/Note'
+
+                      const App = (props) => {
+                        const [notes, setNotes] = useState(props.notes)
+                        const [newNote, setNewNote] = useState('')
+                        const [showAll, setShowAll] = useState(true)
+
+                        // ...
+
+                        const notesToShow = showAll
+                          ? notes
+                          : notes.filter(note => note.important === true)
+
+                        return (
+                          <div>
+                            <h1>Notes</h1>
+                            <div>
+                              <button onClick={() => setShowAll(!showAll)}>
+                                show {showAll ? 'important' : 'all'}
+                              </button>
+                            </div>
+                            <ul>
+                              {notesToShow.map(note =>
+                                <Note key={note.id} note={note} />
+                              )}
+                            </ul>
+                            // ...
+                          </div>
+                        )
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>My Todo App</h1>
+            <img width="50%" src="my-to-do-list.png" alt="My Todo App" />
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Communicating with a server</h1>
+            <ul>
+              <li>
+                For a while now we have only been working on
+                <strong>frontend</strong>
+                , i.e. client-side (browser) functionality.
+              </li>
+              <li>
+                We will begin working on
+                <strong>backend</strong>
+                in the next module of this course. Nonetheless, we will now take a step in that
+                direction by familiarizing ourselves with how the code executing in the browser
+                communicates with the backend.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>JSON Server</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div style="max-width: 60%">
+                <ul>
+                  <li>
+                    Let's use a tool meant to be used during software development called
+                    <a href="https://github.com/typicode/json-server" target="_blank">
+                      JSON Server
+                    </a>
+                    to act as our server.
+                  </li>
+                  <li>
+                    Create a file named
+                    <code>db.json</code>
+                    in the root of the project with the content on the right.
+                  </li>
+                  <li>
+                    Start the JSON Server by running the
+                    <code>npx</code>
+                    command in the root of the project.
+                    <ul>
+                      <li>
+                        <code>npx</code>
+                        : Runs a package from the npm registry without permanently installing it.
+                      </li>
+                      <li>
+                        <code>json-server</code>
+                        : Launches the JSON Server, a tool that lets you spin up a full fake REST
+                        API from a JSON file.
+                      </li>
+                      <li>
+                        <code>--port 3001</code>
+                        : Specifies that the server should run on port 3001.
+                      </li>
+                      <li>
+                        <code>db.json</code>
+                        : The JSON file that acts as your database.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div style="max-width: 40%">
+                <pre>
+                  <code data-trim class="language-json">
+                    <script type="text/template">
+                      {
+                        "notes": [
+                          {
+                            "id": "1",
+                            "content": "Learn React fundamentals and component lifecycle",
+                            "important": true
+                          },
+                          {
+                            "id": "2",
+                            "content": "Practice Flexbox layouts",
+                            "important": false
+                          },
+                          {
+                            "id": "3",
+                            "content": "Build a full-stack web application with Node.js",
+                            "important": true
+                          }
+                        ]
+                      }
+                    </script>
+                  </code>
+                </pre>
+                <pre>
+                  <code data-trim class="language-bash">
+                    <script type="text/template">
+                      npx json-server --port 3001 db.json
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>JSON Server</h1>
+            <ul>
+              <li>
+                Let's navigate to the address
+                <a href="http://localhost:3001/notes" target="_blank">
+                  http://localhost:3001/notes
+                </a>
+                in the browser.
+              </li>
+              <li>
+                We can see that JSON Server serves the notes we previously wrote to the file in JSON
+                format:
+              </li>
+              <li>
+                If your browser doesn't have a way to format the display of JSON-data, then install
+                an appropriate plugin, e.g.
+                <a href="https://chromewebstore.google.com/detail/gmegofmjomhknnokphhckolhcffdaihd">
+                  JSONView
+                </a>
+                to make your life easier.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Workflow</h1>
+            <div class="mermaid">
+              <pre>
+                  sequenceDiagram
+                  participant User
+                  participant React as React Frontend
+                  participant Server as json-server Backend
+                  participant DB as db.json
+
+                  User-&gt;&gt;React: 1. Enter note content & submit
+                  React-&gt;&gt;React: 2. Create note object
+                  React-&gt;&gt;Server: 3. POST /notes (new note data)
+                  Server-&gt;&gt;DB: 4. Save note to db.json
+                  DB--&gt;&gt;Server: 5. Confirm save
+                  Server--&gt;&gt;React: 6. Return saved note with ID
+                  React-&gt;&gt;React: 7. Update UI with new note
+                  React--&gt;&gt;User: 8. Display new note in list
+                </pre
+              >
+            </div>
+          </section>
+          <section>
+            <h1>Workflow</h1>
+            <ul>
+              <li>
+                Going forward, the idea will be to save the notes to the server, which in this case
+                means saving them to the json-server.
+              </li>
+              <li>
+                The React code fetches the notes from the server and renders them to the screen.
+              </li>
+              <li>
+                Whenever a new note is added to the application, the React code also sends it to the
+                server to make the new note persist in
+                <strong>memory</strong>
+                .
+              </li>
+              <li>
+                <em>json-server</em>
+                stores all the data in the
+                <code>db.json</code>
+                file, which resides on the server. In the real world, data would be stored in some
+                kind of
+                <strong>database</strong>
+                .
+              </li>
+              <li>
+                This is a handy tool that enables the use of server-side functionality in the
+                development phase without the need to program any of it.
+              </li>
+              <li>
+                We will get familiar with the principles of implementing server-side functionality
+                in more detail the next module.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Fetching existing notes asynchronously</h1>
+            <ul>
+              <li>
+                Our first task is fetching the already existing notes to our React application from
+                the address
+                <a href="http://localhost:3001/notes" target="_blank">
+                  http://localhost:3001/notes
+                </a>
+              </li>
+              <li>
+                We will be using the fetch method, which is based on so-called
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                  target="_blank"
+                >
+                  promises
+                </a>
+              </li>
+              <li>
+                JavaScript engines and runtime environments follow the
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop"
+                  target="_blank"
+                >
+                  asynchronous model
+                </a>
+              </li>
+              <li>
+                In principle, this requires all
+                <a href="https://en.wikipedia.org/wiki/Input/output" target="_blank">
+                  IO operations
+                </a>
+                (with some exceptions) to be executed as non-blocking.
+              </li>
+              <li>
+                This means that code execution continues immediately after calling an IO function,
+                without waiting for it to return.
+              </li>
+              <li>
+                When an asynchronous operation is completed, or, more specifically, at some point
+                after its completion, the JavaScript engine calls the
+                <em>event handlers</em>
+                registered to the operation.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Single-threaded Javascript Engines</h1>
+            <ul>
+              <li>
+                Currently, JavaScript engines are
+                <i>single-threaded</i>
+                , which means that they cannot execute code in parallel.
+              </li>
+              <li>
+                As a result, it is a requirement in practice to use a non-blocking model for
+                executing IO operations. Otherwise, the browser would "freeze" during, for instance,
+                the fetching of data from a server.
+              </li>
+              <li>
+                Another consequence of this single-threaded nature of JavaScript engines is that if
+                some code execution takes up a lot of time, the browser will get stuck for the
+                duration of the execution.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Example</h1>
+            <pre>
+              <code data-trim class="language-javascript">
+                <script type="text/template">
+                  setTimeout(() => {
+                    console.log('loop..')
+                    let i = 0
+                    while (i < 50000000000) {
+                      i++
+                    }
+                    console.log('end')
+                  }, 5000)
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>In this example everything would work normally for 5 seconds.</li>
+              <li>
+                However, when the function defined as the parameter for
+                <em>setTimeout</em>
+                is run, the browser will be stuck for the duration of the execution of the long
+                loop.
+              </li>
+              <li>
+                Even the browser tab cannot be closed during the execution of the loop, at least not
+                in Chrome.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Single-threaded Javascript Engines</h1>
+            <ul>
+              <li>
+                For the browser to remain
+                <em>responsive</em>
+                , i.e., to be able to continuously react to user operations with sufficient speed,
+                the code logic needs to be such that no single computation can take too long.
+              </li>
+              <li>
+                In today's browsers, it is possible to run parallelized code with the help of
+                so-called
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers"
+                  target="_blank"
+                >
+                  web workers
+                </a>
+              </li>
+              <li>
+                The event loop of an individual browser window is, however, still only handled by a
+                <a
+                  href="https://medium.com/techtrument/multithreading-javascript-46156179cf9a"
+                  target="_blank"
+                >
+                  single thread
+                </a>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Adding a npm-package to the project</h1>
+            <ul>
+              <li>Let's get back to the topic of fetching data from the server.</li>
+              <li>
+                We could use the previously mentioned promise-based function
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch"
+                  target="_blank"
+                >
+                  fetch
+                </a>
+                to pull the data from the server. Fetch is a great tool. It is standardized and
+                supported by all modern browsers (excluding IE).
+              </li>
+              <li>
+                That being said, we will be using the
+                <a href="https://github.com/axios/axios" target="_blank">axios</a>
+                library instead for communication between the browser and server. It functions like
+                fetch but is somewhat more pleasant to use.
+              </li>
+              <li>
+                Another good reason to use axios is our getting familiar with adding external
+                libraries, so-called
+                <i>npm packages</i>
+                , to React projects.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <h1>package.json</h1>
+                <ul>
+                  <li>
+                    Nowadays, practically all JavaScript projects are defined using the node package
+                    manager, aka
+                    <a href="https://docs.npmjs.com/about-npm" target="_blank">npm</a>
+                    .
+                  </li>
+                  <li>
+                    The projects created using Vite also follow the npm format. A clear indicator
+                    that a project uses npm is the
+                    <code>package.json</code>
+                    file located at the root of the project
+                  </li>
+                  <li>
+                    At this point, the
+                    <em>dependencies</em>
+                    part is of most interest to us as it defines what
+                    <em>dependencies</em>
+                    , or external libraries, the project has.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-json">
+                    <script type="text/template">
+                      {
+                        "name": "notes",
+                        "private": true,
+                        "version": "0.0.0",
+                        "type": "module",
+                        "scripts": {
+                          "dev": "vite",
+                          "build": "vite build",
+                          "lint": "eslint .",
+                          "preview": "vite preview"
+                        },
+                        "dependencies": {
+                          "react": "^19.1.0",
+                          "react-dom": "^19.1.0"
+                        },
+                        "devDependencies": {
+                          "@eslint/js": "^9.30.1",
+                          "@types/react": "^19.1.8",
+                          "@types/react-dom": "^19.1.6",
+                          "@vitejs/plugin-react": "^4.6.0",
+                          "eslint": "^9.30.1",
+                          "eslint-plugin-react-hooks": "^5.2.0",
+                          "eslint-plugin-react-refresh": "^0.4.20",
+                          "globals": "^16.3.0",
+                          "vite": "^7.0.3"
+                        }
+                      }
+
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Adding axios to the project</h1>
+            <ul>
+              <li>
+                Theoretically, we could define the library directly in the
+                <code>package.json</code>
+                file, but it is better to install it from the command line.
+              </li>
+              <li>
+                <strong>
+                  <em>npm</em>
+                  -commands should always be run in the project root directory
+                </strong>
+                , which is where the
+                <code>package.json</code>
+                file can be found.
+              </li>
+              <li>
+                The command
+                <code>npm install axios</code>
+                will add the library to the
+                <em>dependencies</em>
+                part of the
+                <code>package.json</code>
+                file.
+              </li>
+              <li>
+                In addition to adding axios to the dependencies, the
+                <code>npm install</code>
+                command also
+                <i>downloaded</i>
+                the library code.
+              </li>
+              <li>
+                As with other dependencies, the code can be found in the
+                <code>node_modules</code>
+                directory located in the root. As one might have noticed,
+                <code>node_modules</code>
+                contains a fair amount of interesting stuff.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Adding json-server to the project</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Let's also install
+                    <i>json-server</i>
+                    as a development dependency (only used during development) by executing the
+                    command
+                    <code>npm install json-server --save-dev</code>
+                  </li>
+                  <li>Also make a small addition to the scripts part of the package.json file</li>
+                  <li>
+                    We can now conveniently, without parameter definitions, start the json-server
+                    from the project root directory with the command
+                    <code>npm run server</code>
+                  </li>
+                  <li>We will get more familiar with the npm tool in the next module</li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-json">
+                    <script type="text/template">
+                      {
+                        // ...
+                        "scripts": {
+                          "dev": "vite",
+                          "build": "vite build",
+                          "lint": "eslint .",
+                          "preview": "vite preview",
+                          "server": "json-server -p 3001 db.json"
+                        },
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>npm install</h1>
+            <pre>
+              <code data-trim class="language-bash">
+                <script type="text/template">
+                  npm install axios
+                  npm install json-server --save-dev
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                We used the command
+                <code>npm install</code>
+                twice, but with slight differences in the parameters
+              </li>
+              <li>
+                <em>axios</em>
+                is installed as a runtime dependency of the application because the execution of the
+                program requires the existence of the library.
+              </li>
+              <li>
+                On the other hand,
+                <em>json-server</em>
+                was installed as a
+                <strong>development dependency</strong>
+                (
+                <code>--save-dev</code>
+                ), since the program itself doesn't require it. It is used for assistance during
+                software development.
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Axios and promises</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    The library can be brought into use the same way other libraries, i.e., by using
+                    an appropriate
+                    <em>import</em>
+                    statement.
+                  </li>
+                  <li>
+                    Add the following code to the
+                    <code>notes/src/App.jsx</code>
+                    file and open the browser
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    import axios from 'axios'
+
+                    const promise = axios.get('http://localhost:3001/notes')
+                    console.log(promise)
+
+                    const promise2 = axios.get('http://localhost:3001/foobar')
+                    console.log(promise2)
+                  </code>
+                </pre>
+                <img src="axios-console.png" alt="axios console" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Promises</h1>
+            <ul>
+              <li>
+                Axios' method
+                <em>get</em>
+                returns a
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises"
+                  target="_blank"
+                >
+                  promise
+                </a>
+                .
+              </li>
+              <li>
+                The documentation on Mozilla's site states the following about promises:
+                <em>
+                  A Promise is an object representing the eventual completion or failure of an
+                  asynchronous operation.
+                </em>
+              </li>
+              <li>
+                In other words, a promise is an object that represents an asynchronous operation. A
+                promise can have three distinct states:
+                <ul>
+                  <li>
+                    <strong>Pending</strong>
+                    : It means that the asynchronous operation corresponding to the promise has not
+                    yet
+                    <em>finished</em>
+                    and the final value is
+                    <em>not available yet</em>
+                    .
+                  </li>
+                  <li>
+                    <strong>Fulfilled</strong>
+                    : It means that the operation has been completed and the final value is
+                    available, which generally is a successful operation.
+                  </li>
+                  <li>
+                    <strong>Rejected</strong>
+                    : It means that an error prevented the final value from being determined, which
+                    generally represents a failed operation.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                You can read more about promises in
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                  target="_blank"
+                >
+                  Mozilla's documentation
+                </a>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <ul>
+              <li>
+                The first promise in our example is
+                <strong>fulfilled</strong>
+                , representing a successful
+                <code>axios.get('http://localhost:3001/notes')</code>
+                request.
+              </li>
+              <li>
+                The second one, however, is
+                <strong>rejected</strong>
+                , and the console tells us the reason. It looks like we were trying to make an HTTP
+                GET request to a non-existent address.
+              </li>
+              <li>
+                If, and when, we want to access the result of the operation represented by the
+                promise, we must register an event handler to the promise. This is achieved using
+                the method
+                <code>then</code>
+              </li>
+              <li>
+                The JavaScript runtime environment calls the callback function registered by the
+                <em>then</em>
+                method providing it with a
+                <em>response</em>
+                object as a parameter.
+              </li>
+            </ul>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const promise = axios.get('http://localhost:3001/notes')
+
+                      promise.then(response => {
+                        console.log(response)
+                      })
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <img src="axios-then.png" alt="axios then" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Chaining then</h1>
+            <ul>
+              <li>
+                Storing the promise object in a variable is generally unnecessary, and it's instead
+                common to chain the
+                <code>then</code>
+                method call to the axios method call.
+              </li>
+              <li>
+                The callback function now takes the data contained within the response, stores it in
+                a variable, and prints the notes to the console.
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  axios
+                    .get('http://localhost:3001/notes')
+                    .then(response => {
+                      const notes = response.data
+                      console.log(notes)
+                    })
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Using the data fetched from the server</h1>
+            <p>
+              Let's use
+              <a href="https://react.dev/reference/react/hooks#effect-hooks">effect hooks</a>
+              to fetch data from the server:
+              <em>
+                Effects let a component connect to and synchronize with external systems. This
+                includes dealing with network, browser DOM, animations, widgets written using a
+                different UI library, and other non-React code.
+              </em>
+            </p>
+            <div
+              style="
+                display: flex;
+                justify-content: space-around;
+                align-items: flex-start;
+                gap: 1em;
+              "
+            >
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      import { useState, useEffect } from 'react'
+                      import axios from 'axios'
+                      import Note from './components/Note'
+
+                      const App = () => {
+                        const [notes, setNotes] = useState([])
+                        const [newNote, setNewNote] = useState('')
+                        const [showAll, setShowAll] = useState(true)
+
+                        useEffect(() => {
+                          console.log('effect')
+                          axios
+                            .get('http://localhost:3001/notes')
+                            .then(response => {
+                              console.log('promise fulfilled')
+                              setNotes(response.data)
+                            })
+                        }, [])
+                        console.log('render', notes.length, 'notes')
+
+                        // ...
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim>
+                    // Browser console
+                    render 0 notes
+                    effect
+                    promise fulfilled
+                    render 3 notes
+                  </code>
+                </pre>
+                <p>
+                  Remember that a call to a
+                  <em>state-updating</em>
+                  function triggers the
+                  <strong>re-rendering</strong>
+                  of the component!
+                </p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>How does the useEffect hook work?</h1>
+            <p>Let's rewrite the code a bit differently:</p>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                    useEffect(() => {
+                      console.log('effect')
+                      axios
+                        .get('http://localhost:3001/notes').then(response => {
+                          console.log('promise fulfilled')
+                          setNotes(response.data)
+                        })
+                    }, [])
+                  </script>
+                  </code>
+                </pre>
+              </div>
+              <div>👉</div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const hook = () => {
+                        console.log('effect')
+                        axios
+                          .get('http://localhost:3001/notes')
+                          .then(response => {
+                            console.log('promise fulfilled')
+                            setNotes(response.data)
+                          })
+                      }
+
+                      useEffect(hook, [])
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+            <p>
+              Now we can see more clearly that the function
+              <a href="https://react.dev/reference/react/useEffect" target="_blank">useEffect</a>
+              takes
+              <em>two parameters</em>
+              .
+            </p>
+          </section>
+          <section>
+            <h1>Parameters of useEffect</h1>
+            <p>
+              The
+              <strong>first parameter</strong>
+              is a function, the effect itself. According to the documentation:
+            </p>
+            <p>
+              <em>
+                By default, effects run after every completed render, but you can choose to fire it
+                only when certain values have changed.
+              </em>
+            </p>
+            <p>
+              So by default, the effect is
+              <em>always</em>
+              run after the component has been rendered. In our case, however, we only want to
+              execute the effect along with the first render.
+            </p>
+            <p>
+              The
+              <strong>second parameter</strong>
+              is used to
+              <a href="https://react.dev/reference/react/useEffect#parameters" target="_blank">
+                specify how often the effect is run
+              </a>
+              . If the second parameter is an empty array
+              <code>[]</code>
+              , then the effect is only run along with the first render of the component.
+            </p>
+          </section>
+          <section>
+            <h1>The Makeup of the application</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div style="width: 50%">
+                <ul>
+                  <li>
+                    The JavaScript code making up our
+                    <code>react app</code>
+                    is run in the browser.
+                  </li>
+                  <li>
+                    The browser gets the JavaScript from the
+                    <code>react dev server</code>
+                    , which is the application that runs after running the command
+                    <code>npm run dev</code>
+                    .
+                  </li>
+                  <li>
+                    The
+                    <code>react dev-server</code>
+                    transforms the JavaScript into a format understood by the browser.
+                  </li>
+                  <li>
+                    The
+                    <code>react app</code>
+                    running in the browser fetches the JSON formatted data from
+                    <code>json-server</code>
+                    running on port 3001 on the machine. .
+                  </li>
+                  <li>
+                    The server we query the data from -
+                    <code>json-server</code>
+                    - gets its data from the file
+                    <code>db.json</code>
+                  </li>
+                </ul>
+              </div>
+              <div style="width: 50%">
+                <div class="mermaid">
+                  <pre>
+                    <script type="text/template">
+                      graph TD
+
+                      subgraph browser
+                        A[react app]
+                      end
+
+                      subgraph servers
+                        B[json-server]
+                        C[react dev server]
+                      end
+
+                      subgraph storage
+                        D[app.jsx]
+                        E[db.json]
+                      end
+
+                      A-.Javascript code.-C
+                      C---D
+
+                      A-.JSON.-B
+                      B---E
+                    </script>
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Altering data in the server</h1>
+            <ul>
+              <li>
+                When creating notes in our application, we would naturally want to store them in
+                some backend server. The
+                <a href="https://github.com/typicode/json-server" target="_blank">json-server</a>
+                package is a so-called REST API server.
+              </li>
+              <li>
+                In
+                <a href="https://en.wikipedia.org/wiki/REST">REST</a>
+                terminology, we refer to individual data objects, such as the notes in our
+                application, as
+                <strong>resources</strong>
+                .
+              </li>
+              <li>Every resource has a unique address associated with it (i.e. URL).</li>
+              <li>
+                According to a general convention used by
+                <em>json-server</em>
+                , we would be able to locate an individual note at the resource URL
+                <code>/notes/3</code>
+                , where 3 is the id of the resource.
+              </li>
+              <li>
+                The
+                <code>/notes</code>
+                URL, on the other hand, would point to a resource collection containing all the
+                notes.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>HTTP GET requests</h1>
+            <ul>
+              <li>
+                Resources are fetched from the server with
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods">
+                  HTTP GET requests
+                </a>
+                .
+              </li>
+              <li>
+                For instance, an HTTP GET request to the URL
+                <code>/notes/3</code>
+                will return the note that has the id number 3.
+              </li>
+              <li>
+                An HTTP GET request to the
+                <code>/notes</code>
+                URL would return a list of all notes.
+              </li>
+            </ul>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1em;
+              "
+            >
+              <div>
+                <img src="rest-notes.png" alt="REST notes" />
+              </div>
+              <div>
+                <img src="rest-notes-3.png" alt="REST notes" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>HTTP POST requests</h1>
+            <ul>
+              <li>
+                Creating a new resource for storing a note is done by making an
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST">
+                  HTTP POST request
+                </a>
+                to the
+                <code>/notes</code>
+                URL according to the REST convention that the json-server adheres to.
+              </li>
+              <li>
+                The data for the new note resource is sent in the
+                <em>body</em>
+                of the request.
+              </li>
+              <li>
+                json-server requires all data to be sent in JSON format. What this means in practice
+                is that the data must be a correctly formatted string and that the request must
+                contain the
+                <em>Content-Type</em>
+                request header with the value
+                <em>application/json</em>
+                .
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Sending data to the server</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  addNote = event => {
+                    event.preventDefault()
+                    const noteObject = {
+                      content: newNote,
+                      important: Math.random() < 0.5,
+                    }
+
+                    axios
+                      .post('http://localhost:3001/notes', noteObject)
+                      .then(response => {
+                        console.log(response)
+                      })
+                  }
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                We create a new object for the note but omit the
+                <em>id</em>
+                property since it's better to let the server generate ids for our resources.
+              </li>
+              <li>
+                The object is sent to the server using the axios
+                <em>post</em>
+                method. The registered
+                <em>event handler</em>
+                logs the response that is sent back from the server to the console.
+              </li>
+              <li>When we try to create a new note, the following output pops up in the console</li>
+            </ul>
+            <img src="json-server-post.png" alt="JSON server post" />
+          </section>
+          <section>
+            <h1>Inspecting the request</h1>
+
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Quite often it is useful to inspect HTTP requests in the
+                    <i>Network</i>
+                    tab of Chrome developer tools
+                  </li>
+                  <li>
+                    Since the data we sent in the POST request was a JavaScript object, axios
+                    automatically knew to set the appropriate
+                    <em>application/json</em>
+                    value for the
+                    <em>Content-Type</em>
+                    header.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <img src="http-post-request.png" alt="HTTP post request" />
+                <img src="http-post-payload.png" alt="HTTP post payload" />
+                <img src="http-post-response.png" alt="HTTP post response" />
+              </div>
+            </div>
+          </section>
+          <section>
+            <p>
+              The new note is not rendered to the screen yet. This is because we did not update the
+              state of the
+              <em>App</em>
+              component when we created it:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  addNote = event => {
+                    event.preventDefault()
+                    const noteObject = {
+                      content: newNote,
+                      important: Math.random() > 0.5,
+                    }
+
+                    axios
+                      .post('http://localhost:3001/notes', noteObject)
+                      .then(response => {
+                        setNotes(notes.concat(response.data))
+                        setNewNote('')
+                      })
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Changing the Importance of Notes</h1>
           </section>
         </section>
         <section>
@@ -4168,1004 +5761,6 @@
                 list.
               </li>
             </ol>
-          </section>
-        </section>
-        <section>
-          <section>
-            <h1>Forms</h1>
-            <ul>
-              <li>Let's build a simple HTML form that allows users to add a new note</li>
-              <li>
-                Create a new vite project (
-                <code>npm create vite@latest notes -- --template react</code>
-                ), clean up unnecessary files (e.g. index.css) and update the main component with
-                the following:
-              </li>
-            </ul>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                gap: 2em;
-              "
-            >
-              <div>
-                <img width="100%" src="bootstrap-notes-app.png" alt="Bootstrap Notes App" />
-              </div>
-              <div>
-                <pre>
-                  <code data-trim class="language-jsx">
-                    <script type="text/template">
-                      // App.jsx
-
-                      import { useState } from 'react'
-                      import Note from './components/Note'
-
-                      const App = (props) => {
-                        const [notes, setNotes] = useState(props.notes)
-
-                        return (
-                          <div>
-                            <h1>Notes</h1>
-                            <ul>
-                              {notes.map(note =>
-                                <Note key={note.id} note={note} />
-                              )}
-                            </ul>
-                          </div>
-                        )
-                      }
-
-                      export default App
-                  </script>
-                  </code>
-                </pre>
-              </div>
-              <div>
-                <pre>
-                  <code data-trim class="language-jsx">
-                    <script type="text/template">
-                      // Note.jsx
-
-                      const Note = ({ note }) => {
-                        return (
-                          <li>
-                            {note.content} {note.important ? '(important)' : ''}
-                          </li>
-                        );
-                      };
-
-                      export default Note;
-
-                    </script>
-                  </code>
-                </pre>
-              </div>
-            </div>
-          </section>
-          <section>
-            <h1>Adding the HTML form</h1>
-            <p>
-              Next, let's add an HTML
-              <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms" target="_blank">
-                form
-              </a>
-              to the component that will be used for adding new notes.
-            </p>
-            <pre>
-              <code data-trim class="language-jsx">
-                <script type="text/template">
-                  const App = (props) => {
-                    const [notes, setNotes] = useState(props.notes)
-
-                    const addNote = (event) => {
-                      event.preventDefault()
-                      console.log('button clicked', event.target)
-                    }
-
-                    return (
-                      <div>
-                        <h1>Notes</h1>
-                        <ul>
-                          {notes.map(note =>
-                            <Note key={note.id} note={note} />
-                          )}
-                        </ul>
-                        <form onSubmit={addNote}>
-                          <input />
-                          <button type="submit">save</button>
-                        </form>
-                      </div>
-                    )
-                  }
-                </script>
-              </code>
-            </pre>
-            <p>
-              We have added the
-              <em>addNote</em>
-              function as an event handler to the form element that will be called when the form is
-              submitted, by clicking the submit button.
-            </p>
-          </section>
-          <section>
-            <h1>Controlled Component</h1>
-            <div
-              style="display: flex; justify-content: space-between; align-items: center; gap: 2em"
-            >
-              <div>
-                <ul>
-                  <li>How do we access the data contained in the form's input element?</li>
-                  <li>
-                    There are many ways to accomplish this; the first method we will take a look at
-                    is through the use of so-called
-                    <a
-                      href="https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
-                      target="_blank"
-                    >
-                      controlled components
-                    </a>
-                    .
-                  </li>
-                  <li>
-                    Let's add a new piece of state called
-                    <code>newNote</code>
-                    for storing the user-submitted input and let's set it as the
-                    <em>input</em>
-                    element's
-                    <em>value</em>
-                    attribute
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <pre>
-                  <code data-trim class="language-jsx">
-                    <script type="text/template">
-                      const App = (props) => {
-                        const [notes, setNotes] = useState(props.notes)
-                        const [newNote, setNewNote] = useState(
-                          'a new note...'
-                        )
-
-                        const addNote = (event) => {
-                          event.preventDefault()
-                          console.log('button clicked', event.target)
-                        }
-
-                        return (
-                          <div>
-                            <h1>Notes</h1>
-                            <ul>
-                              {notes.map(note =>
-                                <Note key={note.id} note={note} />
-                              )}
-                            </ul>
-                            <form onSubmit={addNote}>
-                              <input value={newNote} />
-                              <button type="submit">save</button>
-                            </form>
-                          </div>
-                        )
-                      }
-                    </script>
-                  </code>
-                </pre>
-              </div>
-            </div>
-          </section>
-          <section>
-            <h1>What's happening?</h1>
-            <p>
-              The placeholder text stored as the initial value of the
-              <code>newNote</code>
-              state appears in the
-              <em>input</em>
-              element, but the input text can't be edited. The console displays a warning that gives
-              us a clue as to what might be wrong
-            </p>
-            <p>
-              <em>
-                You provided a `value` prop to a form field without an `onChange` handler. This will
-                render a read-only field. If the field should be mutable use `defaultValue`.
-                Otherwise, set either `onChange` or `readOnly`.
-              </em>
-            </p>
-            <p>
-              Since we assigned a piece of the
-              <code>App</code>
-              component's state as the
-              <code>value</code>
-              attribute of the input element, the
-              <code>App</code>
-              component now
-              <a
-                href="https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable"
-                target="_blank"
-              >
-                controls
-              </a>
-              the behavior of the input element.
-            </p>
-          </section>
-          <section>
-            <h1>Event handler</h1>
-            <p>
-              To enable editing of the input element, we have to register an
-              <em>event handler</em>
-              that synchronizes the changes made to the input with the component's state:
-            </p>
-            <pre>
-              <code data-trim class="language-jsx">
-                <script type="text/template">
-                  const App = () => {
-                    const [notes, setNotes] = useState([]);
-                    const [newNote, setNewNote] = useState('a new note...');
-
-                    const addNote = (event) => {
-                      event.preventDefault();
-                      console.log('button clicked', event.target);
-                    };
-
-                    const handleNoteChange = (event) => {
-                      console.log(event.target.value);
-                      setNewNote(event.target.value);
-                    };
-
-                    return (
-                      <div>
-                        <h1>Notes</h1>
-                        <ul>
-                          {notes.map((note) => (
-                            <Note key={note.id} note={note} />
-                          ))}
-                        </ul>
-                        <form onSubmit={addNote}>
-                          <input value={newNote} onChange={handleNoteChange} />
-                          <button type="submit">save</button>
-                        </form>
-                      </div>
-                    );
-                  };
-                </script>
-              </code>
-            </pre>
-            <p>
-              Note that we did not need to call the
-              <code>event.preventDefault()</code>
-              method like we did in the
-              <code>onSubmit</code>
-              event handler. This is because no default action occurs on an input change, unlike a
-              form submission.
-            </p>
-          </section>
-          <section>
-            <h1>Adding a new note</h1>
-            <pre>
-              <code data-trim class="language-jsx">
-                <script type="text/template">
-                  const addNote = (event) => {
-                    event.preventDefault()
-                    const noteObject = {
-                      content: newNote,
-                      important: Math.random() < 0.5,
-                      id: String(notes.length + 1),
-                    }
-
-                    setNotes(notes.concat(noteObject))
-                    setNewNote('')
-                  }
-                </script>
-              </code>
-            </pre>
-            <ul>
-              <li>
-                First, we create a new object for the note called
-                <code>noteObject</code>
-                that will receive its content from the component's
-                <code>newNote</code>
-                state.
-              </li>
-              <li>
-                The unique identifier
-                <em>id</em>
-                is generated based on the total number of notes. This method works for our
-                application since notes are never deleted.
-              </li>
-              <li>
-                With the help of the
-                <code>Math.random()</code>
-                function, our note has a 50% chance of being marked as important.
-              </li>
-              <li>
-                The new note is added to the list of notes using the
-                <a
-                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"
-                  target="_blank"
-                >
-                  concat
-                </a>
-                array method
-              </li>
-              <li>
-                The method does not mutate the original
-                <code>notes</code>
-                array, but rather creates
-                <em>a new copy of the array with the new item added to the end</em>
-                . This is important since we must
-                <a
-                  href="https://react.dev/learn/updating-objects-in-state#why-is-mutating-state-not-recommended-in-react"
-                  target="_blank"
-                >
-                  never mutate state directly
-                </a>
-                in React!
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>We can add notes now!</h1>
-            <pre>
-              <code data-trim class="language-jsx">
-                <script type="text/template">
-                  import { useState } from 'react';
-                  import './App.css';
-                  import Note from './components/Note';
-
-                  const App = () => {
-                    const [notes, setNotes] = useState([]);
-                    const [newNote, setNewNote] = useState('a new note...');
-
-                    const addNote = (event) => {
-                      event.preventDefault();
-                      const noteObject = {
-                        content: newNote,
-                        important: Math.random() < 0.5,
-                        id: String(notes.length + 1),
-                      };
-
-                      setNotes(notes.concat(noteObject));
-                      setNewNote('');
-                    };
-
-                    const handleNoteChange = (event) => {
-                      console.log(event.target.value);
-                      setNewNote(event.target.value);
-                    };
-
-                    return (
-                      <div>
-                        <h1>Notes</h1>
-                        <ul>
-                          {notes.map((note) => (
-                            <Note key={note.id} note={note} />
-                          ))}
-                        </ul>
-                        <form onSubmit={addNote}>
-                          <input value={newNote} onChange={handleNoteChange} />
-                          <button type="submit">save</button>
-                        </form>
-                      </div>
-                    );
-                  };
-
-                  export default App;
-                </script>
-              </code>
-            </pre>
-          </section>
-          <section>
-            <h1>Filtering notes</h1>
-            <div
-              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
-            >
-              <div style="max-width: 60%">
-                <ul>
-                  <li>
-                    Let's add some new functionality to our application that allows us to only view
-                    the important notes.
-                  </li>
-                  <li>
-                    Let's add a piece of state to the
-                    <code>App</code>
-                    component that keeps track of which notes should be displayed:
-                  </li>
-                  <li>
-                    Let's change the component so that it stores a list of all the notes to be
-                    displayed in the
-                    <code>notesToShow</code>
-                    variable. The items on the list depend on the state of the component:
-                  </li>
-                  <li>
-                    If the value of
-                    <code>showAll</code>
-                    is false, the
-                    <code>notesToShow</code>
-                    variable will be assigned to a list that only contains notes that have the
-                    <em>important</em>
-                    property set to true. Filtering is done with the help of the array
-                    <a
-                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
-                      target="_blank"
-                      style="border-color: rgb(235, 135, 85)"
-                    >
-                      filter
-                    </a>
-                    method
-                  </li>
-                </ul>
-              </div>
-              <div style="max-width: 40%">
-                <pre>
-                  <code data-trim class="language-jsx">
-                    <script type="text/template">
-                      import { useState } from 'react'
-                      import Note from './components/Note'
-
-                      const App = (props) => {
-                        const [notes, setNotes] = useState(props.notes)
-                        const [newNote, setNewNote] = useState('')
-                        const [showAll, setShowAll] = useState(true)
-
-                        // ...
-
-                        const notesToShow = showAll
-                          ? notes
-                          : notes.filter(note => note.important === true)
-
-                        return (
-                          <div>
-                            <h1>Notes</h1>
-                            <div>
-                              <button onClick={() => setShowAll(!showAll)}>
-                                show {showAll ? 'important' : 'all'}
-                              </button>
-                            </div>
-                            <ul>
-                              {notesToShow.map(note =>
-                                <Note key={note.id} note={note} />
-                              )}
-                            </ul>
-                            // ...
-                          </div>
-                        )
-                      }
-                    </script>
-                  </code>
-                </pre>
-              </div>
-            </div>
-          </section>
-          <section>
-            <h1>My Todo App</h1>
-            <img width="50%" src="my-to-do-list.png" alt="My Todo App" />
-          </section>
-        </section>
-        <section>
-          <section>
-            <h1>Communicating with a server</h1>
-            <ul>
-              <li>
-                For a while now we have only been working on
-                <strong>frontend</strong>
-                , i.e. client-side (browser) functionality.
-              </li>
-              <li>
-                We will begin working on
-                <strong>backend</strong>
-                in the next module of this course. Nonetheless, we will now take a step in that
-                direction by familiarizing ourselves with how the code executing in the browser
-                communicates with the backend.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>JSON Server</h1>
-            <div
-              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
-            >
-              <div style="max-width: 60%">
-                <ul>
-                  <li>
-                    Let's use a tool meant to be used during software development called
-                    <a href="https://github.com/typicode/json-server" target="_blank">
-                      JSON Server
-                    </a>
-                    to act as our server.
-                  </li>
-                  <li>
-                    Create a file named
-                    <code>db.json</code>
-                    in the root of the project with the content on the right.
-                  </li>
-                  <li>
-                    Start the JSON Server by running the
-                    <code>npx</code>
-                    command in the root of the project.
-                    <ul>
-                      <li>
-                        <code>npx</code>
-                        : Runs a package from the npm registry without permanently installing it.
-                      </li>
-                      <li>
-                        <code>json-server</code>
-                        : Launches the JSON Server, a tool that lets you spin up a full fake REST
-                        API from a JSON file.
-                      </li>
-                      <li>
-                        <code>--port 3001</code>
-                        : Specifies that the server should run on port 3001.
-                      </li>
-                      <li>
-                        <code>db.json</code>
-                        : The JSON file that acts as your database.
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div style="max-width: 40%">
-                <pre>
-                  <code data-trim class="language-json">
-                    <script type="text/template">
-                      {
-                        "notes": [
-                          {
-                            "id": "1",
-                            "content": "Learn React fundamentals and component lifecycle",
-                            "important": true
-                          },
-                          {
-                            "id": "2",
-                            "content": "Practice Flexbox layouts",
-                            "important": false
-                          },
-                          {
-                            "id": "3",
-                            "content": "Build a full-stack web application with Node.js",
-                            "important": true
-                          }
-                        ]
-                      }
-                    </script>
-                  </code>
-                </pre>
-                <pre>
-                  <code data-trim class="language-bash">
-                    <script type="text/template">
-                      npx json-server --port 3001 db.json
-                    </script>
-                  </code>
-                </pre>
-              </div>
-            </div>
-          </section>
-          <section>
-            <h1>JSON Server</h1>
-            <ul>
-              <li>
-                Let's navigate to the address
-                <a href="http://localhost:3001/notes" target="_blank">
-                  http://localhost:3001/notes
-                </a>
-                in the browser.
-              </li>
-              <li>
-                We can see that JSON Server serves the notes we previously wrote to the file in JSON
-                format:
-              </li>
-              <li>
-                If your browser doesn't have a way to format the display of JSON-data, then install
-                an appropriate plugin, e.g.
-                <a href="https://chromewebstore.google.com/detail/gmegofmjomhknnokphhckolhcffdaihd">
-                  JSONView
-                </a>
-                to make your life easier.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>Workflow</h1>
-            <div class="mermaid">
-              <pre>
-                  sequenceDiagram
-                  participant User
-                  participant React as React Frontend
-                  participant Server as json-server Backend
-                  participant DB as db.json
-
-                  User-&gt;&gt;React: 1. Enter note content & submit
-                  React-&gt;&gt;React: 2. Create note object
-                  React-&gt;&gt;Server: 3. POST /notes (new note data)
-                  Server-&gt;&gt;DB: 4. Save note to db.json
-                  DB--&gt;&gt;Server: 5. Confirm save
-                  Server--&gt;&gt;React: 6. Return saved note with ID
-                  React-&gt;&gt;React: 7. Update UI with new note
-                  React--&gt;&gt;User: 8. Display new note in list
-                </pre
-              >
-            </div>
-          </section>
-          <section>
-            <h1>Workflow</h1>
-            <ul>
-              <li>
-                Going forward, the idea will be to save the notes to the server, which in this case
-                means saving them to the json-server.
-              </li>
-              <li>
-                The React code fetches the notes from the server and renders them to the screen.
-              </li>
-              <li>
-                Whenever a new note is added to the application, the React code also sends it to the
-                server to make the new note persist in
-                <strong>memory</strong>
-                .
-              </li>
-              <li>
-                <em>json-server</em>
-                stores all the data in the
-                <code>db.json</code>
-                file, which resides on the server. In the real world, data would be stored in some
-                kind of
-                <strong>database</strong>
-                .
-              </li>
-              <li>
-                This is a handy tool that enables the use of server-side functionality in the
-                development phase without the need to program any of it.
-              </li>
-              <li>
-                We will get familiar with the principles of implementing server-side functionality
-                in more detail the next module.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>Fetching existing notes asynchronously</h1>
-            <ul>
-              <li>
-                Our first task is fetching the already existing notes to our React application from
-                the address
-                <a href="http://localhost:3001/notes" target="_blank">
-                  http://localhost:3001/notes
-                </a>
-              </li>
-              <li>
-                We will be using the fetch method, which is based on so-called
-                <a
-                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"
-                  target="_blank"
-                >
-                  promises
-                </a>
-              </li>
-              <li>
-                JavaScript engines and runtime environments follow the
-                <a
-                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop"
-                  target="_blank"
-                >
-                  asynchronous model
-                </a>
-              </li>
-              <li>
-                In principle, this requires all
-                <a href="https://en.wikipedia.org/wiki/Input/output" target="_blank">
-                  IO operations
-                </a>
-                (with some exceptions) to be executed as non-blocking.
-              </li>
-              <li>
-                This means that code execution continues immediately after calling an IO function,
-                without waiting for it to return.
-              </li>
-              <li>
-                When an asynchronous operation is completed, or, more specifically, at some point
-                after its completion, the JavaScript engine calls the
-                <em>event handlers</em>
-                registered to the operation.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>Single-threaded Javascript Engines</h1>
-            <ul>
-              <li>
-                Currently, JavaScript engines are
-                <i>single-threaded</i>
-                , which means that they cannot execute code in parallel.
-              </li>
-              <li>
-                As a result, it is a requirement in practice to use a non-blocking model for
-                executing IO operations. Otherwise, the browser would "freeze" during, for instance,
-                the fetching of data from a server.
-              </li>
-              <li>
-                Another consequence of this single-threaded nature of JavaScript engines is that if
-                some code execution takes up a lot of time, the browser will get stuck for the
-                duration of the execution.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>Example</h1>
-            <pre>
-              <code data-trim class="language-javascript">
-                <script type="text/template">
-                  setTimeout(() => {
-                    console.log('loop..')
-                    let i = 0
-                    while (i < 50000000000) {
-                      i++
-                    }
-                    console.log('end')
-                  }, 5000)
-                </script>
-              </code>
-            </pre>
-            <ul>
-              <li>In this example everything would work normally for 5 seconds.</li>
-              <li>
-                However, when the function defined as the parameter for
-                <em>setTimeout</em>
-                is run, the browser will be stuck for the duration of the execution of the long
-                loop.
-              </li>
-              <li>
-                Even the browser tab cannot be closed during the execution of the loop, at least not
-                in Chrome.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>Single-threaded Javascript Engines</h1>
-            <ul>
-              <li>
-                For the browser to remain
-                <em>responsive</em>
-                , i.e., to be able to continuously react to user operations with sufficient speed,
-                the code logic needs to be such that no single computation can take too long.
-              </li>
-              <li>
-                In today's browsers, it is possible to run parallelized code with the help of
-                so-called
-                <a
-                  href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers"
-                  target="_blank"
-                >
-                  web workers
-                </a>
-              </li>
-              <li>
-                The event loop of an individual browser window is, however, still only handled by a
-                <a
-                  href="https://medium.com/techtrument/multithreading-javascript-46156179cf9a"
-                  target="_blank"
-                >
-                  single thread
-                </a>
-              </li>
-            </ul>
-          </section>
-        </section>
-        <section>
-          <section>
-            <h1>Adding a npm-package to the project</h1>
-            <ul>
-              <li>Let's get back to the topic of fetching data from the server.</li>
-              <li>
-                We could use the previously mentioned promise-based function
-                <a
-                  href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch"
-                  target="_blank"
-                >
-                  fetch
-                </a>
-                to pull the data from the server. Fetch is a great tool. It is standardized and
-                supported by all modern browsers (excluding IE).
-              </li>
-              <li>
-                That being said, we will be using the
-                <a href="https://github.com/axios/axios" target="_blank">axios</a>
-                library instead for communication between the browser and server. It functions like
-                fetch but is somewhat more pleasant to use.
-              </li>
-              <li>
-                Another good reason to use axios is our getting familiar with adding external
-                libraries, so-called
-                <i>npm packages</i>
-                , to React projects.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <div
-              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
-            >
-              <div>
-                <h1>package.json</h1>
-                <ul>
-                  <li>
-                    Nowadays, practically all JavaScript projects are defined using the node package
-                    manager, aka
-                    <a href="https://docs.npmjs.com/about-npm" target="_blank">npm</a>
-                    .
-                  </li>
-                  <li>
-                    The projects created using Vite also follow the npm format. A clear indicator
-                    that a project uses npm is the
-                    <code>package.json</code>
-                    file located at the root of the project
-                  </li>
-                  <li>
-                    At this point, the
-                    <em>dependencies</em>
-                    part is of most interest to us as it defines what
-                    <em>dependencies</em>
-                    , or external libraries, the project has.
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <pre>
-                  <code data-trim class="language-json">
-                    <script type="text/template">
-                      {
-                        "name": "notes",
-                        "private": true,
-                        "version": "0.0.0",
-                        "type": "module",
-                        "scripts": {
-                          "dev": "vite",
-                          "build": "vite build",
-                          "lint": "eslint .",
-                          "preview": "vite preview"
-                        },
-                        "dependencies": {
-                          "react": "^19.1.0",
-                          "react-dom": "^19.1.0"
-                        },
-                        "devDependencies": {
-                          "@eslint/js": "^9.30.1",
-                          "@types/react": "^19.1.8",
-                          "@types/react-dom": "^19.1.6",
-                          "@vitejs/plugin-react": "^4.6.0",
-                          "eslint": "^9.30.1",
-                          "eslint-plugin-react-hooks": "^5.2.0",
-                          "eslint-plugin-react-refresh": "^0.4.20",
-                          "globals": "^16.3.0",
-                          "vite": "^7.0.3"
-                        }
-                      }
-
-                    </script>
-                  </code>
-                </pre>
-              </div>
-            </div>
-          </section>
-          <section>
-            <h1>Adding axios to the project</h1>
-            <ul>
-              <li>
-                Theoretically, we could define the library directly in the
-                <code>package.json</code>
-                file, but it is better to install it from the command line.
-              </li>
-              <li>
-                <strong>
-                  <em>npm</em>
-                  -commands should always be run in the project root directory
-                </strong>
-                , which is where the
-                <code>package.json</code>
-                file can be found.
-              </li>
-              <li>
-                The command
-                <code>npm install axios</code>
-                will add the library to the
-                <em>dependencies</em>
-                part of the
-                <code>package.json</code>
-                file.
-              </li>
-              <li>
-                In addition to adding axios to the dependencies, the
-                <code>npm install</code>
-                command also
-                <i>downloaded</i>
-                the library code.
-              </li>
-              <li>
-                As with other dependencies, the code can be found in the
-                <code>node_modules</code>
-                directory located in the root. As one might have noticed,
-                <code>node_modules</code>
-                contains a fair amount of interesting stuff.
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h1>Adding json-server to the project</h1>
-            <div
-              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
-            >
-              <div>
-                <ul>
-                  <li>
-                    Let's also install
-                    <i>json-server</i>
-                    as a development dependency (only used during development) by executing the
-                    command
-                    <code>npm install json-server --save-dev</code>
-                  </li>
-                  <li>Also make a small addition to the scripts part of the package.json file</li>
-                  <li>
-                    We can now conveniently, without parameter definitions, start the json-server
-                    from the project root directory with the command
-                    <code>npm run server</code>
-                  </li>
-                  <li>We will get more familiar with the npm tool in the next module</li>
-                </ul>
-              </div>
-              <div>
-                <pre>
-                  <code data-trim class="language-json">
-                    <script type="text/template">
-                      {
-                        // ...
-                        "scripts": {
-                          "dev": "vite",
-                          "build": "vite build",
-                          "lint": "eslint .",
-                          "preview": "vite preview",
-                          "server": "json-server -p 3001 db.json"
-                        },
-                      }
-                    </script>
-                  </code>
-                </pre>
-              </div>
-            </div>
-          </section>
-          <section>
-            <h1>npm install</h1>
-            <pre>
-              <code data-trim class="language-bash">
-                <script type="text/template">
-                  npm install axios
-                  npm install json-server --save-dev
-                </script>
-              </code>
-            </pre>
-            <ul>
-              <li>
-                We used the command
-                <code>npm install</code>
-                twice, but with slight differences in the parameters
-              </li>
-              <li>
-                <em>axios</em>
-                is installed as a runtime dependency of the application because the execution of the
-                program requires the existence of the library.
-              </li>
-              <li>
-                On the other hand,
-                <em>json-server</em>
-                was installed as a development dependency (
-                <code>--save-dev</code>
-                ), since the program itself doesn't require it. It is used for assistance during
-                software development.
-              </li>
-            </ul>
-          </section>
-        </section>
-        <section>
-          <section>
-            <h1>Axios and promises</h1>
           </section>
         </section>
         <section>
