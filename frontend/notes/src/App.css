@@ -1,0 +1,72 @@
+h1 {
+  color: #219ebc;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li.note {
+  margin-bottom: 10px;
+  list-style-type: square;
+}
+
+li.note::marker {
+  color: #ffb703;
+}
+
+input {
+  border: 1px solid #219ebc;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+button[type='submit'] {
+  background-color: #fff;
+  color: #219ebc;
+  border: 1px solid #219ebc;
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+button[type='submit']:hover {
+  background-color: #219ebc;
+  color: #fff;
+  cursor: pointer;
+}
+
+button.toggle-btn {
+  background-color: #fff;
+  color: #fb8500;
+  border: 1px solid #ffb703;
+  padding: 2px 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.show-btn {
+  background-color: #fff;
+  color: #023047;
+  border: 1px solid #023047;
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+button.show-btn:hover {
+  background-color: #023047;
+  color: #fff;
+  cursor: pointer;
+}
+
+.notification {
+  color: #023047;
+  background: #eee;
+  font-size: 20px;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}

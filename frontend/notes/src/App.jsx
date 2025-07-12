@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import Footer from './components/Footer';
 import Note from './components/Note';
+import Notification from './components/Notification';
 import noteService from './services/notes';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('a new note...');
   const [showAll, setShowAll] = useState(true);
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
@@ -26,6 +29,10 @@ const App = () => {
     noteService.create(noteObject).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
       setNewNote('');
+      setNotification(`${noteObject.content} has been added`);
+      setTimeout(() => {
+        setNotification(null);
+      }, 3000);
     });
   };
 
@@ -52,8 +59,11 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={notification} />
       <div>
-        <button onClick={() => setShowAll(!showAll)}>show {showAll ? 'important' : 'all'}</button>
+        <button className="show-btn" onClick={() => setShowAll(!showAll)}>
+          show {showAll ? 'important' : 'all'}
+        </button>
       </div>
       <ul>
         {notesToShow.map((note) => (
@@ -64,6 +74,7 @@ const App = () => {
         <input value={newNote} onChange={handleNoteChange} />
         <button type="submit">save</button>
       </form>
+      <Footer />
     </div>
   );
 };
