@@ -3439,8 +3439,801 @@
         <section>
           <section>
             <h1>Changing the Importance of Notes</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    Let's add a button to every note that can be used for toggling its importance.
+                  </li>
+                  <li>
+                    We add a button to the component and assign its event handler as the
+                    <em>toggleImportance</em>
+                    function passed in the component's props.
+                  </li>
+                  <li>
+                    The
+                    <code>App</code>
+                    component defines an initial version of the
+                    <em>toggleImportanceOf</em>
+                    event handler function and passes it to every
+                    <code>Note</code>
+                    component.
+                  </li>
+                  <li>
+                    Notice how every note receives its own
+                    <em>unique</em>
+                    event handler function since the
+                    <em>id</em>
+                    of every note is unique.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      // src/components/Note.jsx
+                      const Note = ({ note, toggleImportance }) => {
+                        const label = note.important
+                          ? 'make not important' : 'make important'
+
+                        return (
+                          <li>
+                            {note.content}
+                            <button onClick={toggleImportance}>{label}</button>
+                          </li>
+                        )
+                      }
+
+
+                      // src/App.jsx
+                      const App = () => {
+                        // ...
+
+                        const toggleImportanceOf = (id) => {
+                          console.log('importance of ' + id + ' needs to be toggled')
+                        }
+
+                        // ...
+
+                        return (
+                          <div>
+                            // ...
+                            <ul>
+                              {notesToShow.map(note =>
+                                <Note
+                                  key={note.id}
+                                  note={note}
+                                  toggleImportance={() => toggleImportanceOf(note.id)}
+                                />
+                              )}
+                            </ul>
+                            // ...
+                          </div>
+                        )
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Template String</h1>
+            <p>
+              The string printed by the event handler is defined in a Java-like manner by adding the
+              strings:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  console.log('importance of ' + id + ' needs to be toggled')
+                </script>
+              </code>
+            </pre>
+            <p>
+              The
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals"
+                target="_blank"
+              >
+                template string
+              </a>
+              syntax added in ES6 can be used to write similar strings in a much nicer way:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  console.log(`importance of ${id} needs to be toggled`)
+                </script>
+              </code>
+            </pre>
+            <p>
+              We can now use the
+              <em>dollar-bracket-syntax</em>
+              to add parts to the string that will evaluate JavaScript expressions, e.g. the value
+              of a variable. Note that we use
+              <strong>backticks</strong>
+              in template strings instead of
+              <strong>quotation</strong>
+              marks used in regular JavaScript strings.
+            </p>
+          </section>
+          <section>
+            <h1>HTTP PUT / PATCH requests</h1>
+            <ul>
+              <li>
+                Individual notes stored in the json-server backend can be modified in two different
+                ways by making HTTP requests to the note's unique URL.
+              </li>
+              <li>
+                We can either
+                <em>replace</em>
+                the entire note with an
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT">
+                  HTTP PUT request
+                </a>
+                or only change some of the note's properties with an
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH">
+                  HTTP PATCH request
+                </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const toggleImportanceOf = id => {
+                    const url = `http://localhost:3001/notes/${id}`
+                    const note = notes.find(n => n.id === id)
+                    const changedNote = { ...note, important: !note.important }
+                    axios.put(url, changedNote).then(response => {
+                      setNotes(notes.map(note => note.id === id ? response.data : note))
+                    })
+                  }
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>
+                The array
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find"
+                  target="_blank"
+                >
+                  find method
+                </a>
+                is used to find the note we want to modify
+              </li>
+              <li>
+                After this, we create a
+                <em>new object</em>
+                that is an exact copy of the old note, apart from the important property that has
+                the value
+                <strong>flipped</strong>
+                (from true to false or from false to true).
+              </li>
+              <li>
+                The code for creating the new object uses the
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax"
+                  target="_blank"
+                >
+                  object spread
+                </a>
+              </li>
+              <li>
+                The new note is then sent with a
+                <em>PUT request</em>
+                to the backend where it will replace the old object.
+              </li>
+              <li>
+                The callback function sets the component's
+                <em>notes</em>
+                state to a new array that contains all the items from the previous
+                <em>notes</em>
+                array, except for the old note which is replaced by the updated version of it
+                returned by the server
+              </li>
+              <li>
+                The map method creates a new array by mapping every item from the old array into an
+                item in the new array. In our example, the new array is created conditionally so
+                that if
+                <code>note.id === id</code>
+                is true; the note object returned by the server is added to the array. If the
+                condition is false, then we simply copy the item from the old array into the new
+                array instead.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Why make a copy?</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const note = notes.find(n => n.id === id)
+                  note.important = !note.important
+
+                  axios.put(url, note).then(response => {
+                    // ...
+                </script>
+              </code>
+            </pre>
+            <ul>
+              <li>Why did we make a copy of the note object we wanted to modify?</li>
+              <li>
+                This is not recommended because the variable
+                <em>note</em>
+                is a reference to an item in the
+                <em>notes</em>
+                array in the component's state, and as we recall we must
+                <a
+                  href="https://react.dev/learn/updating-objects-in-state#why-is-mutating-state-not-recommended-in-react"
+                  target="_blank"
+                >
+                  never mutate state directly
+                </a>
+                in React.
+              </li>
+              <li>
+                It's also worth noting that the new object
+                <em>changedNote</em>
+                is only a so-called
+                <a href="https://en.wikipedia.org/wiki/Object_copying#Shallow_copy" target="_blank">
+                  shallow copy
+                </a>
+                , meaning that the values of the new object are the same as the values of the old
+                object. If the values of the old object were objects themselves, then the copied
+                values in the new object would reference the same objects that were in the old
+                object.
+              </li>
+            </ul>
           </section>
         </section>
+        <section>
+          <section>
+            <h1>Extracting Communication into a Separate Module</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    The
+                    <code>App</code>
+                    component has become somewhat bloated after adding the code for communicating
+                    with the backend server.
+                  </li>
+                  <li>
+                    In the spirit of the
+                    <a
+                      href="https://en.wikipedia.org/wiki/Single_responsibility_principle"
+                      target="_blank"
+                    >
+                      single responsibility principle
+                    </a>
+                    , we deem it wise to extract this communication into its own module.
+                  </li>
+                  <li>
+                    Let's create a
+                    <code>src/services</code>
+                    directory and add a file there called
+                    <code>notes.js</code>
+                  </li>
+                  <li>
+                    The module returns an object that has three functions (
+                    <em>getAll</em>
+                    ,
+                    <em>create</em>
+                    , and
+                    <em>update</em>
+                    ) as its properties that deal with notes. The functions directly return the
+                    promises returned by the axios methods.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      import axios from 'axios'
+
+                      const baseUrl = 'http://localhost:3001/notes'
+
+                      const getAll = () => {
+                        return axios.get(baseUrl)
+                      }
+
+                      const create = newObject => {
+                        return axios.post(baseUrl, newObject)
+                      }
+
+                      const update = (id, newObject) => {
+                        return axios.put(`${baseUrl}/${id}`, newObject)
+                      }
+
+                      export default {
+                        getAll: getAll,
+                        create: create,
+                        update: update
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    The
+                    <em>App</em>
+                    component uses
+                    <code>import</code>
+                    to get access to the module
+                  </li>
+                  <li>
+                    The functions of the module can be used directly with the imported variable
+                    <code>noteService</code>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      import noteService from './services/notes'
+
+                      const App = () => {
+                        // ...
+
+                        useEffect(() => {
+                          noteService
+                            .getAll()
+                            .then(response => {
+                              setNotes(response.data)
+                            })
+                        }, [])
+
+                        const toggleImportanceOf = id => {
+                          const note = notes.find(n => n.id === id)
+                          const changedNote = { ...note, important: !note.important }
+
+                          noteService
+                            .update(id, changedNote)
+                            .then(response => {
+                              setNotes(notes.map(note => note.id === id ? response.data : note))
+                            })
+                        }
+
+                        const addNote = (event) => {
+                          event.preventDefault()
+                          const noteObject = {
+                            content: newNote,
+                            important: Math.random() > 0.5
+                          }
+
+                          noteService
+                            .create(noteObject)
+                            .then(response => {
+                              setNotes(notes.concat(response.data))
+                              setNewNote('')
+                            })
+                        }
+
+                        // ...
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Enhancing the implementation</h1>
+            <p>
+              When the
+              <em>App</em>
+              component uses the functions, it receives an object that contains the entire response
+              for the HTTP request:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  noteService
+                    .getAll()
+                    .then(response => {
+                      setNotes(response.data)
+                    })copy
+                </script>
+              </code>
+            </pre>
+            <p>
+              However, the
+              <em>App</em>
+              component only uses the
+              <code>response.data</code>
+              property of the response object. The module would be much nicer to use if, instead of
+              the entire HTTP response, we would only get the response data. Using the module would
+              then look like this:
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  noteService
+                    .getAll()
+                    .then(initialNotes => {
+                      setNotes(initialNotes)
+                    })
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Enhancing the module</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    We no longer return the promise returned by axios directly. Instead, we assign
+                    the promise to the
+                    <code>request</code>
+                    variable and call its
+                    <code>then</code>
+                    method
+                  </li>
+                  <li>
+                    The modified
+                    <code>getAll</code>
+                    function still returns a promise, as the
+                    <code>then</code>
+                    method of a promise also
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"
+                      target="_blank"
+                    >
+                      returns a promise
+                    </a>
+                    .
+                  </li>
+                  <li>
+                    After defining the parameter of the
+                    <code>then</code>
+                    method to directly return
+                    <code>response.data</code>
+                    , we have gotten the
+                    <em>getAll</em>
+                    function to work like we wanted it to.
+                  </li>
+                  <li>
+                    When the HTTP request is successful, the promise returns the data sent back in
+                    the response from the backend.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      import axios from 'axios'
+
+                      const baseUrl = 'http://localhost:3001/notes'
+
+                      const getAll = () => {
+                        const request = axios.get(baseUrl)
+                        return request.then(response => response.data)
+                      }
+
+                      const create = newObject => {
+                        const request = axios.post(baseUrl, newObject)
+                        return request.then(response => response.data)
+                      }
+
+                      const update = (id, newObject) => {
+                        const request = axios.put(`${baseUrl}/${id}`, newObject)
+                        return request.then(response => response.data)
+                      }
+
+                      export default {
+                        getAll: getAll,
+                        create: create,
+                        update: update
+                      }
+
+                      /**
+                        The labels to the left of the colon in the object
+                        definition are the keys of the object, whereas the
+                        ones to the right of it are variables that are defined
+                        inside the module.
+
+                        Since the names of the keys and the assigned variables
+                        are the same, we can write the object definition with
+                        a more compact syntax:
+
+                        export default
+                        {
+                          getAll,
+                          create,
+                          update
+                        }
+                      **/
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Updating the App component</h1>
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; gap: 1em"
+            >
+              <div>
+                <ul>
+                  <li>
+                    We have to update the
+                    <code>App</code>
+                    component to work with the changes made to our module.
+                  </li>
+                  <li>
+                    We have to fix the callback functions given as parameters to the
+                    <em>noteService</em>
+                    object's methods so that they use the directly returned response data
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <pre>
+                  <code data-trim class="language-jsx">
+                    <script type="text/template">
+                      const App = () => {
+                        // ...
+
+                        useEffect(() => {
+                          noteService
+                            .getAll()
+                            .then(initialNotes => {
+                              setNotes(initialNotes)
+                            })
+                        }, [])
+
+                        const toggleImportanceOf = id => {
+                          const note = notes.find(n => n.id === id)
+                          const changedNote = { ...note, important: !note.important }
+
+                          noteService
+                            .update(id, changedNote)
+                            .then(returnedNote => {
+                              setNotes(notes.map(note => note.id === id ? returnedNote : note))
+                            })
+                        }
+
+                        const addNote = (event) => {
+                          event.preventDefault()
+                          const noteObject = {
+                            content: newNote,
+                            important: Math.random() > 0.5
+                          }
+
+                          noteService
+                            .create(noteObject)
+                            .then(returnedNote => {
+                              setNotes(notes.concat(returnedNote))
+                              setNewNote('')
+                            })
+                        }
+
+                        // ...
+                      }
+                    </script>
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Promises</h1>
+            <ul>
+              <li>
+                Promieses is all quite complicated and attempting to explain it may just make it
+                harder to understand.
+              </li>
+              <li>
+                Imagine we have a sequence of asynchronous tasks to be performed one after another —
+                for instance, loading scripts. How can we code it well? Promises provide a couple of
+                recipes to do that.
+              </li>
+              <li>
+                The internet is full of material discussing the topic, such as
+                <a href="https://javascript.info/promise-chaining" target="_blank">this</a>
+                one.
+              </li>
+              <li>
+                The "Async and performance" book from the
+                <a href="https://github.com/getify/You-Dont-Know-JS/tree/1st-ed" target="_blank">
+                  You do not know JS
+                </a>
+                book series
+                <a
+                  href="https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/async%20%26%20performance/ch3.md"
+                  target="_blank"
+                >
+                  explains the topic
+                </a>
+                well, but the explanation is many pages long.
+              </li>
+              <li>
+                <strong>Promises</strong>
+                are central to modern JavaScript development and it is highly recommended to invest
+                a reasonable amount of time into understanding them.
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Handling errors</h1>
+            <ul>
+              <li>
+                If our application allowed users to delete notes, we could end up in a situation
+                where a user tries to change the importance of a note that has already been deleted
+                from the system.
+              </li>
+              <li>
+                Let's
+                <strong>simulate</strong>
+                this situation by making the
+                <code>getAll</code>
+                function of the note service return a
+                <em>hardcoded</em>
+                note that does not actually exist on the backend server
+              </li>
+            </ul>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const getAll = () => {
+                    const request = axios.get(baseUrl)
+                    const nonExisting = {
+                      id: 10000,
+                      content: 'This note is not saved to server',
+                      important: true,
+                    }
+                    return request.then(response => response.data.concat(nonExisting))
+                  }
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Error handling</h1>
+            <p>
+              When we try to change the importance of the hardcoded note, we see the following error
+              message in the console. The error says that the backend server responded to our HTTP
+              PUT request with a status code
+              <em>404 not found</em>
+              .
+            </p>
+            <img src="error-promise-not-found.png" alt="Error promise not found" />
+            <p>
+              The application should be able to handle these types of error situations
+              <strong>gracefully</strong>
+              . Users won't be able to tell that an error has occurred unless they happen to have
+              their console open. The
+              <strong>only way</strong>
+              the error can be seen in the application is that
+              <strong>clicking the button does not affect</strong>
+              the note's importance.
+            </p>
+          </section>
+          <section>
+            <h1>Rejected promises</h1>
+            <p>
+              We had previously mentioned that a promise can be in one of three different states (
+              <em>pending</em>
+              ,
+              <em>fulfilled</em>
+              , and
+              <em>rejected</em>
+              ). When an HTTP request fails, the associated promise is
+              <em>rejected</em>
+              . Our current code does not handle this rejection in any way.
+            </p>
+            <p>
+              The rejection of a promise is
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises"
+                target="_blank"
+              >
+                handled
+              </a>
+              by providing the
+              <em>then</em>
+              method with a second callback function, which is called in the situation where the
+              promise is rejected.
+            </p>
+            <p>
+              The more common way of adding a handler for rejected promises is to use the
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"
+                target="_blank"
+              >
+                catch
+              </a>
+              method.
+            </p>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  axios
+                    .get('http://example.com/probably_will_fail')
+                    .then(response => {
+                      console.log('success!')
+                    })
+                    .catch(error => {
+                      console.log('fail')
+                    })
+                </script>
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h1>Handling errors in the App component</h1>
+            <pre>
+              <code data-trim class="language-jsx">
+                <script type="text/template">
+                  const toggleImportanceOf = id => {
+                    const note = notes.find(n => n.id === id)
+                    const changedNote = { ...note, important: !note.important }
+
+                    noteService
+                      .update(id, changedNote).then(returnedNote => {
+                        setNotes(notes.map(note => note.id === id ? returnedNote : note))
+                      })
+                      .catch(error => {
+                        alert(
+                          `the note '${note.content}' was already deleted from server`
+                        )
+                        setNotes(notes.filter(n => n.id !== id))
+                      })
+                  }
+                </script>
+              </code>
+            </pre>
+            <p>
+              The error message is displayed to the user with the trusty old
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/API/Window/alert"
+                target="_blank"
+              >
+                alert
+              </a>
+              dialog popup, and the deleted note gets filtered out from the state.
+            </p>
+            <p>
+              Removing an already deleted note from the application's state is done with the array
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
+                target="_blank"
+              >
+                filter
+              </a>
+              method, which returns a new array comprising only the items from the list for which
+              the function that was passed as a parameter returns true for.
+            </p>
+          </section>
+        </section>
+
         <section>
           <section>
             <h1>Tutorial: Tic-Tac-Toe</h1>
